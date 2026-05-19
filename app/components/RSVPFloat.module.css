@@ -6,36 +6,40 @@
 
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  /* Pill shape */
-  padding: 0.7rem 1.4rem;
-  background: #182e20;
-  border: 1px solid rgba(184, 150, 62, 0.5);
+  gap: 0.55rem;
+  padding: 0.85rem 1.6rem;
   text-decoration: none;
 
-  /* Type */
-  font-family: "Jost", sans-serif;
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: #d4b870;
+  /* Warm gold fill — unmissable but still on-theme */
+  background: linear-gradient(135deg, #c9a84c 0%, #b8963e 60%, #a07830 100%);
+  color: #182e20;
+
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.06em;
 
   /* Hidden by default */
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(14px);
   pointer-events: none;
   transition:
-    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.25s ease,
-    border-color 0.25s ease;
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+
+  /* Depth */
+  box-shadow:
+    0 4px 20px rgba(184, 150, 62, 0.35),
+    0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .btn:hover {
-  background: #243d2e;
-  border-color: rgba(212, 184, 112, 0.8);
+  box-shadow:
+    0 6px 28px rgba(184, 150, 62, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 
 .visible {
@@ -44,30 +48,36 @@
   pointer-events: all;
 }
 
-/* Subtle pulse ring */
+/* Small leaf icon */
+.icon {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+/* Pulse glow ring */
 .pulse {
   position: absolute;
-  inset: -1px;
-  border: 1px solid rgba(184, 150, 62, 0.3);
-  animation: ringPulse 2.8s ease-out infinite;
+  inset: -3px;
+  border: 1px solid rgba(212, 184, 112, 0.45);
+  pointer-events: none;
+  animation: ringPulse 2.6s ease-out infinite;
 }
 
 @keyframes ringPulse {
   0% {
-    opacity: 0.6;
+    opacity: 0.7;
     transform: scale(1);
   }
-  70% {
+  65% {
     opacity: 0;
-    transform: scale(1.12);
+    transform: scale(1.14);
   }
   100% {
     opacity: 0;
-    transform: scale(1.12);
+    transform: scale(1.14);
   }
 }
 
-/* Label text */
 .label {
   position: relative;
   z-index: 1;
