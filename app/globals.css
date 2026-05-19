@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+:root {
+  --green-deep:  #182e20;
+  --green-dark:  #243d2e;
+  --green-mid:   #355c44;
+  --green-soft:  #527a60;
+  --green-muted: #7a9e86;
+  --green-light: #aecfb8;
+  --green-pale:  #d6eadb;
+  --green-mist:  #eef5ef;
+  --cream:       #f7f2e9;
+  --cream-warm:  #ede5d4;
+  --cream-dark:  #d8cdb8;
+  --gold:        #b8963e;
+  --gold-light:  #d4b870;
+  --gold-pale:   #ecdfa8;
+  --ivory:       #fdfaf4;
+  --text-dark:   #1a2b1e;
+  --text-mid:    #3a5242;
+  --text-soft:   #607d6b;
+  --text-faint:  #8faa97;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'Jost', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ── Section eyebrow ── */
+.section-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--green-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.section-eyebrow::before,
+.section-eyebrow::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--green-light);
+  opacity: 0.7;
+}
+
+/* ── Section heading — Cormorant Garamond, italic, elegant ── */
+.section-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2.8rem, 9vw, 4.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--green-dark);
+  text-align: center;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.section-heading-light { color: var(--gold-light); }
+
+/* ── Gold ornament rule ── */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.9rem auto 0;
+  color: var(--gold);
+  font-size: 0.5rem;
+}
+
+.ornament::before,
+.ornament::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold-light));
+}
+.ornament::after {
+  background: linear-gradient(to left, transparent, var(--gold-light));
+}
+
+/* ── Scroll reveal animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.delay-1 { transition-delay: 0.12s; }
+.delay-2 { transition-delay: 0.22s; }
+.delay-3 { transition-delay: 0.34s; }
+.delay-4 { transition-delay: 0.46s; }
+
+/* ── Buttons ── */
+.btn-elegant {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.2rem;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  transition: background 0.28s ease, color 0.28s ease, border-color 0.28s ease;
+  text-decoration: none;
+}
+
+.btn-dark {
+  background: var(--green-dark);
+  color: var(--cream);
+  border-color: var(--green-dark);
+}
+.btn-dark:hover { background: var(--green-mid); border-color: var(--green-mid); }
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--ivory);
+  border-color: var(--gold);
+}
+.btn-gold:hover { background: var(--gold-light); border-color: var(--gold-light); color: var(--text-dark); }
+
+.btn-outline-light {
+  background: transparent;
+  color: var(--green-pale);
+  border-color: rgba(214,234,219,0.3);
+}
+.btn-outline-light:hover { background: rgba(255,255,255,0.06); }

@@ -1,0 +1,91 @@
+.section {
+  background: #182e20;
+  padding: 6rem 1.5rem 7rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle radial vignette */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(12, 24, 16, 0.55) 100%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prose {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.05rem, 4vw, 1.2rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.9;
+  color: #aecfb8;
+  margin-top: 2.2rem;
+}
+
+.deadline {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #527a60;
+  margin-top: 1.3rem;
+}
+
+.deadlineDate { color: #d4b870; }
+
+.qrWrap { margin: 2.8rem 0 0; }
+
+.qrBox {
+  background: #fdfaf4;
+  padding: 2rem 2.2rem;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.qrLabel {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #243d2e;
+  letter-spacing: 0.04em;
+}
+
+.qrSub {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #8faa97;
+}
+
+.or {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #355c44;
+  margin: 1.6rem 0;
+  letter-spacing: 0.2em;
+}
+
+.footNote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #355c44;
+  margin-top: 1.2rem;
+}

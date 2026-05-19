@@ -1,0 +1,74 @@
+.btn {
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.5rem;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Pill shape */
+  padding: 0.7rem 1.4rem;
+  background: #182e20;
+  border: 1px solid rgba(184, 150, 62, 0.5);
+  text-decoration: none;
+
+  /* Type */
+  font-family: "Jost", sans-serif;
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b870;
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn:hover {
+  background: #243d2e;
+  border-color: rgba(212, 184, 112, 0.8);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+/* Subtle pulse ring */
+.pulse {
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(184, 150, 62, 0.3);
+  animation: ringPulse 2.8s ease-out infinite;
+}
+
+@keyframes ringPulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+/* Label text */
+.label {
+  position: relative;
+  z-index: 1;
+}

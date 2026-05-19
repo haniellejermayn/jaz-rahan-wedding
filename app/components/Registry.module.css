@@ -1,0 +1,88 @@
+.section {
+  background: #f7f2e9;
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.inner {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prose {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.05rem, 4vw, 1.2rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.9;
+  color: #3a5242;
+  margin-top: 2.2rem;
+}
+
+.registryLink {
+  margin-top: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1.5rem 1.8rem;
+  border: 1px solid #d6eadb;
+  background: #fdfaf4;
+  text-decoration: none;
+  color: #1a2b1e;
+  gap: 1rem;
+  transition: border-color 0.28s ease, background 0.28s ease, transform 0.28s ease;
+}
+
+.registryLink:hover {
+  border-color: #aecfb8;
+  background: #eef5ef;
+  transform: translateY(-2px);
+}
+
+.linkLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #355c44;
+}
+
+.linkTitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #1a2b1e;
+  display: block;
+}
+
+.linkSub {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8faa97;
+  margin-top: 0.2rem;
+  display: block;
+}
+
+.arrow {
+  color: #b8963e;
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+}
+
+.registryLink:hover .arrow {
+  transform: translate(3px, -3px);
+}
+
+.note {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #8faa97;
+  margin-top: 2rem;
+  line-height: 1.75;
+}

@@ -1,0 +1,84 @@
+.section {
+  background: #182e20;
+  padding: 5.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+
+.player {
+  margin: 2.8rem auto 0;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.trackName {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  font-weight: 300;
+  color: #f7f2e9;
+}
+
+.trackArtist {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #7a9e86;
+}
+
+.progressBar {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: #b8963e;
+  transition: width 0.5s linear;
+}
+
+.playBtn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(174,207,184,0.22);
+  background: rgba(255,255,255,0.04);
+  color: #d6eadb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+}
+
+.playBtn:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(174,207,184,0.5);
+  transform: scale(1.05);
+}
+
+.playing {
+  border-color: #b8963e;
+  color: #d4b870;
+}
+
+.hint {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #355c44;
+  margin-top: 0.3rem;
+}

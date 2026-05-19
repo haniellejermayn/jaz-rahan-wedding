@@ -1,0 +1,58 @@
+.footer {
+  background: #182e20;
+  border-top: 1px solid rgba(174,207,184,0.08);
+  padding: 4rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.monogram {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.6rem;
+  font-style: italic;
+  font-weight: 300;
+  color: #d4b870;
+  opacity: 0.75;
+  display: block;
+  line-height: 1;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+}
+
+.divider span:not(.dot) {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: #355c44;
+}
+
+.dot {
+  font-size: 0.45rem;
+  color: #b8963e;
+  opacity: 0.5;
+}
+
+.date {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #527a60;
+}
+
+.made {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #355c44;
+  margin-top: 0.6rem;
+}

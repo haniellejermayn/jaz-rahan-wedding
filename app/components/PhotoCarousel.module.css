@@ -1,0 +1,59 @@
+.section {
+  background: #ede5d4;
+  padding: 6rem 0 5rem;
+  overflow: hidden;
+}
+
+.header {
+  text-align: center;
+  padding: 0 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.note {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #8faa97;
+  margin-top: 1.3rem;
+}
+
+.trackWrap { overflow: hidden; width: 100%; }
+
+.track {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: max-content;
+  animation: scroll 32s linear infinite;
+}
+
+.track:hover { animation-play-state: paused; }
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.card {
+  width: 200px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #c4ddc9;
+  border: 1px solid #b0cfb8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.card:hover { opacity: 0.8; transform: translateY(-3px); }
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.4;
+}

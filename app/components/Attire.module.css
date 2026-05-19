@@ -1,0 +1,131 @@
+.section {
+  background: #182e20;
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.inner { max-width: 500px; margin: 0 auto; }
+
+.theme {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: #aecfb8;
+  margin-top: 0.8rem;
+  opacity: 0.65;
+  letter-spacing: 0.05em;
+}
+
+.columns {
+  margin-top: 3.2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0 1.2rem;
+}
+
+.colRule {
+  display: block;
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(to bottom, transparent, #355c44);
+}
+
+.colHeading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #d4b870;
+  letter-spacing: 0.04em;
+}
+
+.colBody {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #aecfb8;
+}
+
+.colDivider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 2.5rem;
+  flex-shrink: 0;
+}
+
+.colDivider span {
+  display: block;
+  width: 1px;
+  height: 32px;
+  background: #355c44;
+}
+
+.paletteWrap {
+  margin-top: 3.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.3rem;
+}
+
+.paletteLabel {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.54rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #527a60;
+}
+
+.swatches {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.swatchItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.swatch:hover { transform: scale(1.15); }
+
+.swatchName {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #527a60;
+}
+
+.footnote {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #527a60;
+  margin-top: 2.2rem;
+  line-height: 1.75;
+}

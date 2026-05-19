@@ -1,0 +1,64 @@
+.strip {
+  background: #ede5d4;
+  border-top: 1px solid #d6eadb;
+  border-bottom: 1px solid #d6eadb;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.label {
+  font-family: "Jost", sans-serif;
+  font-size: 0.56rem;
+  font-weight: 300;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: #8faa97;
+  margin-bottom: 1.8rem;
+}
+
+.grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.colon {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #b8963e;
+  line-height: 1;
+  padding: 0 0.4rem;
+  padding-top: 0.15rem;
+  opacity: 0.7;
+}
+
+.numWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+}
+
+.num {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.4rem, 9vw, 3.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #243d2e;
+  line-height: 1;
+}
+
+.unit {
+  font-family: "Jost", sans-serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #8faa97;
+  margin-top: 0.45rem;
+}

@@ -1,0 +1,123 @@
+.section {
+  background: #f7f2e9;
+  padding: 6rem 1.5rem;
+}
+
+.inner {
+  max-width: 440px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dateBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2.8rem 0 3.8rem;
+  border-top: 1px solid #d6eadb;
+  border-bottom: 1px solid #d6eadb;
+  padding: 1.6rem 0;
+  gap: 0;
+}
+
+.dateSub {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: #8faa97;
+  margin-bottom: 0.3rem;
+}
+
+.dateMain {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(3.2rem, 15vw, 5.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #243d2e;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.dateYear {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 300;
+  letter-spacing: 0.42em;
+  color: #b8963e;
+  margin-top: 0.3rem;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 74px 26px 1fr;
+  align-items: flex-start;
+}
+
+.timeCol {
+  padding-top: 0.1rem;
+  text-align: right;
+}
+
+.time {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  color: #8faa97;
+}
+
+.stemCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.32rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #b8963e;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px #f7f2e9, 0 0 0 4px rgba(184,150,62,0.4);
+}
+
+.stem {
+  flex: 1;
+  width: 1px;
+  min-height: 38px;
+  background: linear-gradient(to bottom, #d6eadb, transparent);
+  margin-top: 5px;
+}
+
+.labelCol {
+  padding-bottom: 2.2rem;
+  padding-left: 0.9rem;
+}
+
+.eventLabel {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #1a2b1e;
+  display: block;
+  line-height: 1.2;
+}
+
+.eventNote {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: #8faa97;
+  display: block;
+  margin-top: 0.3rem;
+}
