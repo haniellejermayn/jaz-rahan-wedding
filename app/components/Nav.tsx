@@ -1,27 +1,38 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import styles from "./Nav.module.css";
 
 const links = [
-  { href: "#welcome",   label: "Welcome" },
+  { href: "#welcome", label: "Welcome" },
   { href: "#entourage", label: "Entourage" },
-  { href: "#attire",    label: "Attire" },
-  { href: "#venue",     label: "Venue" },
-  { href: "#registry",  label: "Registry" },
-  { href: "#rsvp",      label: "RSVP" },
+  { href: "#attire", label: "Attire" },
+  { href: "#venue", label: "Venue" },
+  { href: "#registry", label: "Registry" },
+  { href: "#rsvp", label: "RSVP" },
 ];
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
 
+  const scrollTop = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <nav className={styles.nav}>
-      <a href="#hero" className={styles.monogram}>J&amp;R</a>
+      {/* Logo scrolls to absolute top, not #hero anchor */}
+      <Link href="/" onClick={scrollTop} className={styles.monogram}>
+        J&amp;R
+      </Link>
 
       <ul className={styles.links}>
         {links.map((l) => (
           <li key={l.href}>
-            <a href={l.href} className={styles.link}>{l.label}</a>
+            <a href={l.href} className={styles.link}>
+              {l.label}
+            </a>
           </li>
         ))}
       </ul>
@@ -31,7 +42,9 @@ export default function Nav() {
         onClick={() => setOpen(!open)}
         aria-label={open ? "Close menu" : "Open menu"}
       >
-        <span /><span /><span />
+        <span />
+        <span />
+        <span />
       </button>
 
       <div className={`${styles.drawer} ${open ? styles.drawerOpen : ""}`}>

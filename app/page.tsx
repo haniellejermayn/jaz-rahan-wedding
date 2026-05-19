@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useScrollReveal } from "./lib/useScrollReveal";
+import { useSmoothAnchors } from "./lib/useSmoothAnchors";
 import EnvelopeOverlay from "./components/EnvelopeOverlay";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
@@ -20,11 +21,27 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   const [opened, setOpened] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   useScrollReveal();
+  useSmoothAnchors();
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      audioRef.current?.play().catch(() => {});
+    }, 300);
+    return () => clearTimeout(id);
+  }, []);
+
+  const handleOpen = () => {
+    setOpened(true);
+    setTimeout(() => {
+      audioRef.current?.play().catch(() => {});
+    }, 400);
+  };
 
   return (
     <>
-      <EnvelopeOverlay onOpen={() => setOpened(true)} />
+      <EnvelopeOverlay onOpen={handleOpen} />
 
       <div style={{ visibility: opened ? "visible" : "hidden" }}>
         <Nav />
@@ -32,7 +49,7 @@ export default function Home() {
           <Hero />
           <Countdown />
           <Welcome />
-          <MusicPlayer />
+          <MusicPlayer audioRef={audioRef} />
           <PhotoCarousel />
           <FloralDivider />
           <Entourage />
