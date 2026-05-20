@@ -38,9 +38,9 @@ export default function RSVPFloat() {
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <path d="M6,11 Q5,7 6,2 Q7,7 6,11Z" fill="#182e20" opacity="0.7" />
-        <path d="M6,7 Q3,5 1,3 Q4,4 6,7Z" fill="#182e20" opacity="0.6" />
-        <path d="M6,7 Q9,5 11,3 Q8,4 6,7Z" fill="#182e20" opacity="0.6" />
+        <path d="M6,11 Q5,7 6,2 Q7,7 6,11Z" fill="#ffffff" opacity="0.7" />
+        <path d="M6,7 Q3,5 1,3 Q4,4 6,7Z" fill="#ffffff" opacity="0.6" />
+        <path d="M6,7 Q9,5 11,3 Q8,4 6,7Z" fill="#ffffff" opacity="0.6" />
       </svg>
 
       <span className={styles.label}>RSVP</span>

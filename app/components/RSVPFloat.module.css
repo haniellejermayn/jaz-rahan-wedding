@@ -1,84 +1,29 @@
 .btn {
-  position: fixed;
-  bottom: 1.8rem;
-  right: 1.5rem;
-  z-index: 50;
-
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.85rem 1.6rem;
-  text-decoration: none;
-
-  /* Warm gold fill — unmissable but still on-theme */
-  background: linear-gradient(135deg, #c9a84c 0%, #b8963e 60%, #a07830 100%);
-  color: #182e20;
-
+  position: fixed; bottom: 1.8rem; right: 1.5rem; z-index: 50;
+  display: flex; align-items: center; gap: 0.55rem;
+  padding: 0.85rem 1.6rem; text-decoration: none;
+  background: linear-gradient(135deg, #FE569B 0%, #D2447F 60%, #b03369 100%);
+  color: #ffffff;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.95rem;
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-
-  /* Hidden by default */
-  opacity: 0;
-  transform: translateY(14px);
-  pointer-events: none;
-  transition:
-    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.25s ease;
-
-  /* Depth */
-  box-shadow:
-    0 4px 20px rgba(184, 150, 62, 0.35),
-    0 1px 4px rgba(0, 0, 0, 0.3);
+  font-size: 0.95rem; font-style: italic; font-weight: 500; letter-spacing: 0.06em;
+  opacity: 0; transform: translateY(14px); pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(0.22,1,0.36,1), transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s;
+  box-shadow: 0 4px 20px rgba(254,86,155,0.4), 0 1px 4px rgba(0,0,0,0.08);
 }
-
 .btn:hover {
-  box-shadow:
-    0 6px 28px rgba(184, 150, 62, 0.55),
-    0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 28px rgba(254,86,155,0.6), 0 2px 6px rgba(0,0,0,0.1);
   transform: translateY(-2px);
 }
-
-.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: all;
-}
-
-/* Small leaf icon */
-.icon {
-  flex-shrink: 0;
-  opacity: 0.75;
-}
-
-/* Pulse glow ring */
+.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.icon { flex-shrink: 0; opacity: 0.85; }
 .pulse {
-  position: absolute;
-  inset: -3px;
-  border: 1px solid rgba(212, 184, 112, 0.45);
-  pointer-events: none;
+  position: absolute; inset: -3px;
+  border: 1px solid rgba(254,86,155,0.5); pointer-events: none;
   animation: ringPulse 2.6s ease-out infinite;
 }
-
 @keyframes ringPulse {
-  0% {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  65% {
-    opacity: 0;
-    transform: scale(1.14);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.14);
-  }
+  0%   { opacity: 0.7; transform: scale(1); }
+  65%  { opacity: 0; transform: scale(1.14); }
+  100% { opacity: 0; transform: scale(1.14); }
 }
-
-.label {
-  position: relative;
-  z-index: 1;
-}
+.label { position: relative; z-index: 1; }

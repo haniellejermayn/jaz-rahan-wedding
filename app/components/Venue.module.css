@@ -1,70 +1,40 @@
 .section {
-  background: #eef5ef;
-  padding: 6rem 1.5rem;
-  text-align: center;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(92,169,224,0.12) 0%, transparent 40%),
+    radial-gradient(ellipse at 0% 100%, rgba(125,194,61,0.1) 0%, transparent 40%),
+    #faf5f0;
+  padding: 6rem 1.5rem; text-align: center;
 }
-
-.inner {
-  max-width: 420px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+.inner { max-width: 420px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
 
 .nameBlock {
-  margin-top: 2.8rem;
-  padding: 2rem 0;
-  border-top: 1px solid #d6eadb;
-  border-bottom: 1px solid #d6eadb;
+  margin-top: 2.8rem; padding: 2rem 0;
+  border-top: 1px solid rgba(92,169,224,0.25);
+  border-bottom: 1px solid rgba(92,169,224,0.25);
   width: 100%;
 }
 
 .venueName {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.5rem, 6.5vw, 2.1rem);
-  font-weight: 400;
-  font-style: italic;
-  color: #243d2e;
-  letter-spacing: 0.01em;
+  font-weight: 400; font-style: italic; color: #2d1a2e; letter-spacing: 0.01em;
 }
 
 .venueAddress {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: #7a9e86;
-  line-height: 1.85;
-  margin-top: 0.65rem;
+  font-size: 1rem; font-weight: 300; font-style: italic;
+  color: #7a5c7a; line-height: 1.85; margin-top: 0.65rem;
 }
 
 .mapFrame {
-  width: 100%;
-  margin-top: 2.2rem;
-  border-radius: 2px;
-  overflow: hidden;
-  border: 1px solid #c4ddc9;
-  position: relative;
+  width: 100%; margin-top: 2.2rem; border-radius: 2px; overflow: hidden;
+  border: 1px solid rgba(92,169,224,0.2); position: relative;
 }
-
 .mapSvg { width: 100%; display: block; }
-
 .mapLabel {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.52rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: #7a9e86;
-  background: rgba(238,245,239,0.88);
-  padding: 0.3rem 1rem;
-  white-space: nowrap;
+  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+  font-family: 'Jost', sans-serif; font-size: 0.52rem; letter-spacing: 0.28em;
+  text-transform: uppercase; color: #7a5c7a;
+  background: rgba(250,245,240,0.9); padding: 0.3rem 1rem; white-space: nowrap;
 }
-
-.mapBtn {
-  margin-top: 2rem;
-}
+.mapBtn { margin-top: 2rem; }

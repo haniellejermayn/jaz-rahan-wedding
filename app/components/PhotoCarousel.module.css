@@ -1,59 +1,36 @@
 .section {
-  background: #ede5d4;
-  padding: 6rem 0 5rem;
-  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(254,86,155,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(153,145,231,0.08) 0%, transparent 50%),
+    #ffffff;
+  padding: 6rem 0 5rem; overflow: hidden;
 }
-
-.header {
-  text-align: center;
-  padding: 0 1.5rem;
-  margin-bottom: 3rem;
-}
-
+.header { text-align: center; padding: 0 1.5rem; margin-bottom: 3rem; }
 .note {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.95rem;
-  font-style: italic;
-  color: #8faa97;
-  margin-top: 1.3rem;
+  font-size: 0.95rem; font-style: italic; color: #b89ab8; margin-top: 1.3rem;
 }
-
 .trackWrap { overflow: hidden; width: 100%; }
-
 .track {
-  display: flex;
-  align-items: flex-end;
-  gap: 10px;
-  width: max-content;
-  animation: scroll 32s linear infinite;
+  display: flex; align-items: flex-end; gap: 10px;
+  width: max-content; animation: scroll 32s linear infinite;
 }
-
 .track:hover { animation-play-state: paused; }
-
 @keyframes scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 .card {
-  width: 200px;
-  flex-shrink: 0;
-  border-radius: 2px;
-  overflow: hidden;
-  background: #c4ddc9;
-  border: 1px solid #b0cfb8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 200px; flex-shrink: 0; border-radius: 4px; overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  display: flex; align-items: center; justify-content: center;
   transition: opacity 0.3s, transform 0.3s;
 }
-
-.card:hover { opacity: 0.8; transform: translateY(-3px); }
-
-.placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  opacity: 0.4;
-}
+.card:hover { opacity: 0.85; transform: translateY(-4px); }
+.card:nth-child(6n+1) { background: #fff0f5; }
+.card:nth-child(6n+2) { background: #f5f3ff; }
+.card:nth-child(6n+3) { background: #fff6f0; }
+.card:nth-child(6n+4) { background: #fffdf0; }
+.card:nth-child(6n+5) { background: #f2fbf4; }
+.card:nth-child(6n+0) { background: #f0f8ff; }
+.placeholder { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; opacity: 0.4; }

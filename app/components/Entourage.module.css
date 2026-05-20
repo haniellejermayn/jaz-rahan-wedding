@@ -1,83 +1,38 @@
 .section {
-  background: #fdfaf4;
-  padding: 6rem 1.5rem;
-  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(254,86,155,0.07) 0%, transparent 50%),
+    #ffffff;
+  padding: 6rem 1.5rem; text-align: center;
 }
-
 .inner { max-width: 520px; margin: 0 auto; }
-
-.groups {
-  margin-top: 3.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.3rem;
-}
-
-.groupLabel {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  width: 100%;
-  max-width: 360px;
-}
-
+.groups { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 3rem; }
+.group { display: flex; flex-direction: column; align-items: center; gap: 1.3rem; }
+.groupLabel { display: flex; align-items: center; gap: 0.9rem; width: 100%; max-width: 360px; }
 .labelRule {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #d6eadb);
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(254,86,155,0.3));
 }
 .labelRule:last-child {
-  background: linear-gradient(to left, transparent, #d6eadb);
+  background: linear-gradient(to left, transparent, rgba(254,86,155,0.3));
 }
-
 .labelText {
   font-family: 'Jost', sans-serif;
-  font-size: 0.54rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #7a9e86;
-  white-space: nowrap;
+  font-size: 0.54rem; font-weight: 400; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #D2447F; white-space: nowrap;
 }
-
 .nameList { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
-
-.nameItem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-}
-
+.nameItem { display: flex; align-items: center; justify-content: center; gap: 0.9rem; }
 .personName {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(1.15rem, 4.5vw, 1.4rem);
-  font-weight: 400;
-  color: #1a2b1e;
-  letter-spacing: 0.01em;
+  font-weight: 400; color: #2d1a2e; letter-spacing: 0.01em;
 }
-
 .personDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #b8963e;
-  opacity: 0.55;
-  flex-shrink: 0;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: #FE569B; opacity: 0.6; flex-shrink: 0;
 }
-
 .personRole {
   font-family: 'Jost', sans-serif;
-  font-size: 0.58rem;
-  font-weight: 300;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #8faa97;
+  font-size: 0.58rem; font-weight: 300; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #b89ab8;
 }

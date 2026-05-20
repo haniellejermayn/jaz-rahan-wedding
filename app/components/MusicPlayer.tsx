@@ -123,13 +123,13 @@ export default function MusicPlayer({ audioRef }: Props) {
     <section id="music" className={styles.section}>
       <audio ref={audioRef} src="/audio/song.mp3" preload="auto" loop />
 
-      <p className="section-eyebrow reveal" style={{ color: "#7a9e86" }}>
+      <p className="section-eyebrow reveal" >
         Setting the Mood
       </p>
-      <h2 className="section-heading section-heading-light reveal delay-1">
+      <h2 className="section-heading reveal delay-1">
         Our Song
       </h2>
-      <div className="ornament reveal delay-2" style={{ color: "#d4b870" }}>
+      <div className="ornament reveal delay-2" >
         ✦
       </div>
 
@@ -143,46 +143,46 @@ export default function MusicPlayer({ audioRef }: Props) {
               xmlns="http://www.w3.org/2000/svg"
               className={styles.artSvg}
             >
-              <circle cx="30" cy="30" r="28" fill="#243d2e" />
+              <circle cx="30" cy="30" r="28" fill="#fff0f5" />
               <path
                 d="M30,48 Q28,36 30,24 Q32,36 30,48Z"
-                stroke="#7a9e86"
+                stroke="#FE569B"
                 strokeWidth="1"
                 fill="none"
                 opacity="0.7"
               />
               <path
                 d="M30,36 Q22,30 18,24"
-                stroke="#7a9e86"
+                stroke="#FE569B"
                 strokeWidth="1"
                 fill="none"
                 opacity="0.6"
               />
               <path
                 d="M18,24 Q20,18 26,22 Q22,28 18,24Z"
-                fill="#527a60"
+                fill="#D2447F"
                 opacity="0.7"
               />
               <path
                 d="M30,36 Q38,30 42,24"
-                stroke="#7a9e86"
+                stroke="#FE569B"
                 strokeWidth="1"
                 fill="none"
                 opacity="0.6"
               />
               <path
                 d="M42,24 Q40,18 34,22 Q38,28 42,24Z"
-                fill="#527a60"
+                fill="#D2447F"
                 opacity="0.7"
               />
-              <circle cx="30" cy="24" r="2.5" fill="#b8963e" opacity="0.8" />
+              <circle cx="30" cy="24" r="2.5" fill="#FFDF46" opacity="0.8" />
               <text
                 x="30"
                 y="55"
                 textAnchor="middle"
                 fontFamily="Georgia,serif"
                 fontSize="6"
-                fill="#7a9e86"
+                fill="#9991E7"
                 fontStyle="italic"
                 opacity="0.6"
               >

@@ -1,14 +1,6 @@
 .wrap {
-  width: 100%;
-  padding: 1rem 0;
-  overflow: hidden;
+  width: 100%; padding: 0.5rem 0; overflow: hidden;
 }
-
-.light { background: #f7f2e9; }
-.dark  { background: #182e20; }
-
-.svg {
-  width: 100%;
-  height: 80px;
-  display: block;
-}
+.light { background: transparent; }
+.dark  { background: transparent; }
+.svg { width: 100%; height: 80px; display: block; }

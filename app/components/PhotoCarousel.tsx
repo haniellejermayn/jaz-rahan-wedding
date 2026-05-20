@@ -31,9 +31,9 @@ export default function PhotoCarousel() {
               {/* Replace this div with <Image> once photos are ready */}
               <div className={styles.placeholder}>
                 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <rect x="2" y="5" width="28" height="22" rx="2" stroke="#7a9e86" strokeWidth="1.2"/>
-                  <circle cx="11" cy="13" r="3" stroke="#7a9e86" strokeWidth="1.2"/>
-                  <path d="M2,21 L10,15 L17,21 L23,16 L30,21" stroke="#7a9e86" strokeWidth="1.2" fill="none"/>
+                  <rect x="2" y="5" width="28" height="22" rx="2" stroke="#9991E7" strokeWidth="1.2"/>
+                  <circle cx="11" cy="13" r="3" stroke="#9991E7" strokeWidth="1.2"/>
+                  <path d="M2,21 L10,15 L17,21 L23,16 L30,21" stroke="#9991E7" strokeWidth="1.2" fill="none"/>
                 </svg>
               </div>
             </div>

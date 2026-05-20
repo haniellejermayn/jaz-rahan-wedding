@@ -1,123 +1,65 @@
 .section {
-  background: #f7f2e9;
+  background:
+    radial-gradient(ellipse at 95% 10%, rgba(255,223,70,0.14) 0%, transparent 40%),
+    radial-gradient(ellipse at 5% 90%, rgba(254,86,155,0.1) 0%, transparent 40%),
+    #ffffff;
   padding: 6rem 1.5rem;
 }
-
-.inner {
-  max-width: 440px;
-  margin: 0 auto;
-  text-align: center;
-}
+.inner { max-width: 440px; margin: 0 auto; text-align: center; }
 
 .dateBlock {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: flex; flex-direction: column; align-items: center;
   margin: 2.8rem 0 3.8rem;
-  border-top: 1px solid #d6eadb;
-  border-bottom: 1px solid #d6eadb;
-  padding: 1.6rem 0;
-  gap: 0;
+  border-top: 1px solid rgba(254,86,155,0.2);
+  border-bottom: 1px solid rgba(153,145,231,0.2);
+  padding: 1.6rem 0; gap: 0;
 }
 
 .dateSub {
   font-family: 'Jost', sans-serif;
-  font-size: 0.58rem;
-  font-weight: 300;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: #8faa97;
-  margin-bottom: 0.3rem;
+  font-size: 0.58rem; font-weight: 300; letter-spacing: 0.42em;
+  text-transform: uppercase; color: #b89ab8; margin-bottom: 0.3rem;
 }
 
 .dateMain {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(3.2rem, 15vw, 5.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: #243d2e;
-  line-height: 1;
-  letter-spacing: -0.01em;
+  font-weight: 300; font-style: italic; color: #2d1a2e;
+  line-height: 1; letter-spacing: -0.01em;
 }
 
 .dateYear {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 300;
-  letter-spacing: 0.42em;
-  color: #b8963e;
-  margin-top: 0.3rem;
+  font-size: 1.05rem; font-weight: 300; letter-spacing: 0.42em;
+  color: #D2447F; margin-top: 0.3rem;
 }
 
-/* Timeline */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.row {
-  display: grid;
-  grid-template-columns: 74px 26px 1fr;
-  align-items: flex-start;
-}
-
-.timeCol {
-  padding-top: 0.1rem;
-  text-align: right;
-}
-
+.timeline { display: flex; flex-direction: column; text-align: left; }
+.row { display: grid; grid-template-columns: 74px 26px 1fr; align-items: flex-start; }
+.timeCol { padding-top: 0.1rem; text-align: right; }
 .time {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.88rem;
-  font-weight: 400;
-  color: #8faa97;
+  font-size: 0.88rem; font-weight: 400; color: #b89ab8;
 }
-
-.stemCol {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 0.32rem;
-}
-
+.stemCol { display: flex; flex-direction: column; align-items: center; padding-top: 0.32rem; }
 .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #b8963e;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 3px #f7f2e9, 0 0 0 4px rgba(184,150,62,0.4);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #FE569B; flex-shrink: 0;
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 4px rgba(254,86,155,0.25);
 }
-
 .stem {
-  flex: 1;
-  width: 1px;
-  min-height: 38px;
-  background: linear-gradient(to bottom, #d6eadb, transparent);
+  flex: 1; width: 1px; min-height: 38px;
+  background: linear-gradient(to bottom, rgba(254,86,155,0.3), transparent);
   margin-top: 5px;
 }
-
-.labelCol {
-  padding-bottom: 2.2rem;
-  padding-left: 0.9rem;
-}
-
+.labelCol { padding-bottom: 2.2rem; padding-left: 0.9rem; }
 .eventLabel {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.15rem;
-  font-weight: 500;
-  color: #1a2b1e;
-  display: block;
-  line-height: 1.2;
+  font-size: 1.15rem; font-weight: 500; color: #2d1a2e;
+  display: block; line-height: 1.2;
 }
-
 .eventNote {
   font-family: 'Jost', sans-serif;
-  font-size: 0.58rem;
-  font-weight: 300;
-  letter-spacing: 0.12em;
-  color: #8faa97;
-  display: block;
-  margin-top: 0.3rem;
+  font-size: 0.58rem; font-weight: 300; letter-spacing: 0.12em;
+  color: #b89ab8; display: block; margin-top: 0.3rem;
 }

@@ -1,35 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --green-deep:  #182e20;
-  --green-dark:  #243d2e;
-  --green-mid:   #355c44;
-  --green-soft:  #527a60;
-  --green-muted: #7a9e86;
-  --green-light: #aecfb8;
-  --green-pale:  #d6eadb;
-  --green-mist:  #eef5ef;
-  --cream:       #f7f2e9;
-  --cream-warm:  #ede5d4;
-  --cream-dark:  #d8cdb8;
-  --gold:        #b8963e;
-  --gold-light:  #d4b870;
-  --gold-pale:   #ecdfa8;
-  --ivory:       #fdfaf4;
-  --text-dark:   #1a2b1e;
-  --text-mid:    #3a5242;
-  --text-soft:   #607d6b;
-  --text-faint:  #8faa97;
+  /* ── Guest attire ── */
+  --rose:       #FE569B;
+  --violet:     #9991E7;
+  --tangerine:  #FE803D;
+  --yellow:     #FFDF46;
+  --leaf:       #7DC23D;
+  --sky:        #5CA9E0;
+
+  /* ── Bridal party (deeper) ── */
+  --rose-deep:    #D2447F;
+  --plum:         #A765CC;
+  --ember:        #F67E00;
+  --amber:        #FEC135;
+  --teal:         #18C5B4;
+  --cobalt:       #0580E3;
+
+  /* ── Neutrals: all pale / white ── */
+  --white:        #ffffff;
+  --petal:        #fdf9f6;       /* warmest near-white, body bg */
+  --paper:        #faf5f0;       /* section alternates */
+  --blush-wash:   #fff0f5;       /* rose-tinted white */
+  --lavender-wash:#f5f3ff;       /* violet-tinted white */
+  --mint-wash:    #f2fbf4;       /* leaf-tinted white */
+  --sky-wash:     #f0f8ff;       /* sky-tinted white */
+  --sun-wash:     #fffdf0;       /* yellow-tinted white */
+  --peach-wash:   #fff6f0;       /* tangerine-tinted white */
+
+  /* ── Text — warm near-black, never cold ── */
+  --ink:          #2d1a2e;       /* deepest — headings */
+  --ink-mid:      #4a2f4a;       /* body text */
+  --ink-soft:     #7a5c7a;       /* secondary */
+  --ink-faint:    #b89ab8;       /* captions, labels */
+
+  /* ── Legacy aliases so existing CSS references don't break ── */
+  --green-deep:   #2d1a2e;
+  --green-dark:   #4a2f4a;
+  --green-mid:    #7a5c7a;
+  --green-soft:   #7a5c7a;
+  --green-muted:  #b89ab8;
+  --green-light:  #f0d8f0;
+  --green-pale:   #f5f3ff;
+  --green-mist:   #fdf9f6;
+  --cream:        #fdf9f6;
+  --cream-warm:   #faf5f0;
+  --cream-dark:   #f0e8e8;
+  --gold:         #D2447F;
+  --gold-light:   #FE569B;
+  --gold-pale:    #fce4ee;
+  --ivory:        #fdf9f6;
+  --text-dark:    #2d1a2e;
+  --text-mid:     #4a2f4a;
+  --text-soft:    #7a5c7a;
+  --text-faint:   #b89ab8;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
 body {
   font-family: 'Jost', system-ui, sans-serif;
-  background: var(--cream);
-  color: var(--text-dark);
+  background: var(--petal);
+  color: var(--ink);
   overflow-x: hidden;
 }
 
@@ -40,89 +73,74 @@ body {
   font-weight: 400;
   letter-spacing: 0.38em;
   text-transform: uppercase;
-  color: var(--green-muted);
+  color: var(--rose-deep);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
   margin-bottom: 0.6rem;
 }
-
 .section-eyebrow::before,
 .section-eyebrow::after {
   content: '';
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--green-light);
-  opacity: 0.7;
+  background: var(--rose);
+  opacity: 0.55;
 }
 
-/* ── Section heading — Cormorant Garamond, italic, elegant ── */
+/* ── Section heading ── */
 .section-heading {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: clamp(2.8rem, 9vw, 4.2rem);
   font-weight: 300;
   font-style: italic;
-  color: var(--green-dark);
+  color: var(--ink);
   text-align: center;
   line-height: 1.05;
   letter-spacing: -0.01em;
 }
+/* "light" variant is still dark ink — there are no dark-bg sections now */
+.section-heading-light { color: var(--ink); }
 
-.section-heading-light { color: var(--gold-light); }
-
-/* ── Gold ornament rule ── */
+/* ── Ornament rule ── */
 .ornament {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
   margin: 0.9rem auto 0;
-  color: var(--gold);
+  color: var(--rose);
   font-size: 0.5rem;
 }
-
-.ornament::before,
-.ornament::after {
+.ornament::before, .ornament::after {
   content: '';
   display: block;
   width: 48px;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold-light));
+  background: linear-gradient(to right, transparent, var(--rose));
 }
 .ornament::after {
-  background: linear-gradient(to left, transparent, var(--gold-light));
+  background: linear-gradient(to left, transparent, var(--rose));
 }
 
-/* ── Scroll reveal animations ── */
+/* ── Reveal animations ── */
 .reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-
 .reveal-left {
-  opacity: 0;
-  transform: translateX(-24px);
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0; transform: translateX(-24px);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal-left.visible { opacity: 1; transform: translateX(0); }
-
 .reveal-right {
-  opacity: 0;
-  transform: translateX(24px);
-  transition:
-    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0; transform: translateX(24px);
+  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal-right.visible { opacity: 1; transform: translateX(0); }
-
 .delay-1 { transition-delay: 0.12s; }
 .delay-2 { transition-delay: 0.22s; }
 .delay-3 { transition-delay: 0.34s; }
@@ -130,38 +148,22 @@ body {
 
 /* ── Buttons ── */
 .btn-elegant {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  padding: 0.9rem 2.2rem;
-  border: 1px solid currentColor;
-  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 400;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  padding: 0.9rem 2.2rem; border: 1px solid currentColor; cursor: pointer;
   transition: background 0.28s ease, color 0.28s ease, border-color 0.28s ease;
   text-decoration: none;
 }
-
 .btn-dark {
-  background: var(--green-dark);
-  color: var(--cream);
-  border-color: var(--green-dark);
+  background: var(--ink); color: var(--white); border-color: var(--ink);
 }
-.btn-dark:hover { background: var(--green-mid); border-color: var(--green-mid); }
-
+.btn-dark:hover { background: var(--ink-mid); border-color: var(--ink-mid); }
 .btn-gold {
-  background: var(--gold);
-  color: var(--ivory);
-  border-color: var(--gold);
+  background: var(--rose-deep); color: var(--white); border-color: var(--rose-deep);
 }
-.btn-gold:hover { background: var(--gold-light); border-color: var(--gold-light); color: var(--text-dark); }
-
+.btn-gold:hover { background: var(--rose); border-color: var(--rose); }
 .btn-outline-light {
-  background: transparent;
-  color: var(--green-pale);
-  border-color: rgba(214,234,219,0.3);
+  background: transparent; color: var(--rose-deep); border-color: rgba(210,68,127,0.4);
 }
-.btn-outline-light:hover { background: rgba(255,255,255,0.06); }
+.btn-outline-light:hover { background: var(--blush-wash); }

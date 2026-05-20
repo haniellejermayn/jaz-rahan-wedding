@@ -1,221 +1,102 @@
 .section {
-  background: #182e20;
-  padding: 5.5rem 1.5rem;
-  text-align: center;
-  position: relative;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(153,145,231,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(254,86,155,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(255,223,70,0.1) 0%, transparent 40%),
+    #faf5f0;
+  padding: 5.5rem 1.5rem; text-align: center; position: relative;
 }
 
-/* ── Player card — gold gradient border via pseudo-element ── */
 .player {
-  margin: 3rem auto 0;
-  max-width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
-  position: relative;
-  padding: 1.8rem 1.6rem 1.5rem;
-  /* Transparent bg so the pseudo border shows through */
-  background: rgba(18, 40, 26, 0.6);
+  margin: 3rem auto 0; max-width: 280px;
+  display: flex; flex-direction: column; align-items: center; gap: 1.4rem;
+  position: relative; padding: 2rem 1.8rem 1.6rem;
+  background: rgba(255,255,255,0.8);
+  border-radius: 2px;
+  box-shadow: 0 2px 32px rgba(254,86,155,0.12), 0 1px 4px rgba(0,0,0,0.04);
 }
 
-/* Gold gradient border via layered box-shadow — no hard line */
+/* Gradient border — rainbow petal */
 .player::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: 1px;
-  /* 1px inset border that fades from gold at top-left to transparent */
-  background: linear-gradient(
-    135deg,
-    rgba(184, 150, 62, 0.55) 0%,
-    rgba(184, 150, 62, 0.18) 40%,
-    rgba(174, 207, 184, 0.08) 70%,
-    rgba(184, 150, 62, 0.22) 100%
+  position: absolute; inset: 0; pointer-events: none; border-radius: 2px;
+  background: linear-gradient(135deg,
+    rgba(254,86,155,0.5) 0%,
+    rgba(153,145,231,0.4) 25%,
+    rgba(92,169,224,0.35) 50%,
+    rgba(125,194,61,0.35) 75%,
+    rgba(254,86,155,0.45) 100%
   );
-  /* Mask to only show the 1px edge */
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 1px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; padding: 1.5px;
 }
 
-/* ── Track row: circular art + info ── */
-.trackRow {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  width: 100%;
-}
+.trackRow { display: flex; align-items: center; gap: 1.1rem; width: 100%; }
 
 .albumArt {
-  flex-shrink: 0;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  overflow: hidden;
-  /* Soft watercolour glow instead of hard border */
-  box-shadow:
-    0 0 0 1px rgba(174, 207, 184, 0.12),
-    0 4px 20px rgba(0, 0, 0, 0.35),
-    0 0 24px rgba(184, 150, 62, 0.08);
+  flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%; overflow: hidden;
+  box-shadow: 0 0 0 2px rgba(254,86,155,0.2), 0 4px 16px rgba(0,0,0,0.1);
 }
+.artSvg { width: 100%; height: 100%; display: block; }
 
-.artSvg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.trackInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  text-align: left;
-  min-width: 0;
-}
-
+.trackInfo { display: flex; flex-direction: column; gap: 0.2rem; text-align: left; min-width: 0; }
 .trackName {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.18rem;
-  font-style: italic;
-  font-weight: 300;
-  color: #f7f2e9;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.2;
+  font-size: 1.18rem; font-style: italic; font-weight: 300; color: #2d1a2e;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;
 }
-
 .trackArtist {
-  font-family: "Jost", sans-serif;
-  font-size: 0.52rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #527a60;
+  font-family: "Jost", sans-serif; font-size: 0.52rem;
+  letter-spacing: 0.3em; text-transform: uppercase; color: #b89ab8;
 }
 
-/* ── Scrubber ── */
 .progressBar {
-  position: relative;
-  width: 100%;
-  height: 20px; /* generous touch target */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+  position: relative; width: 100%; height: 20px; cursor: pointer;
+  display: flex; align-items: center;
 }
-
 .track {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px; /* thinner — more editorial */
-  background: rgba(255, 255, 255, 0.08);
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: rgba(210,68,127,0.15);
 }
-
 .fill {
-  position: absolute;
-  left: 0;
-  height: 1px;
-  background: linear-gradient(to right, #7a9e86, #b8963e); /* green → gold */
-  pointer-events: none;
-  transition: width 0.15s linear;
+  position: absolute; left: 0; height: 1px;
+  background: linear-gradient(to right, #FE569B, #9991E7);
+  pointer-events: none; transition: width 0.15s linear;
 }
-
-.dragging .fill {
-  transition: none;
-}
-
+.dragging .fill { transition: none; }
 .thumb {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #d4b870;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s;
-  box-shadow: 0 0 8px rgba(212, 184, 112, 0.6);
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 10px; height: 10px; border-radius: 50%; background: #FE569B;
+  pointer-events: none; opacity: 0; transition: opacity 0.2s;
+  box-shadow: 0 0 8px rgba(254,86,155,0.5);
 }
+.progressBar:hover .thumb, .progressBar.dragging .thumb { opacity: 1; }
 
-.progressBar:hover .thumb,
-.progressBar.dragging .thumb {
-  opacity: 1;
-}
-
-/* ── Timestamps ── */
 .times {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: -0.7rem; /* pull up closer to the bar */
+  display: flex; justify-content: space-between; width: 100%; margin-top: -0.7rem;
 }
-
 .times span {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.72rem;
-  font-weight: 300;
-  font-style: italic;
-  color: #3d6650;
-  letter-spacing: 0.04em;
-  font-variant-numeric: tabular-nums;
+  font-size: 0.72rem; font-weight: 300; font-style: italic; color: #b89ab8;
+  letter-spacing: 0.04em; font-variant-numeric: tabular-nums;
 }
 
-/* ── Play button — no border circle, just the icon ── */
 .playBtn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  color: #aecfb8;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    color 0.22s,
-    transform 0.18s;
-  position: relative;
+  width: 44px; height: 44px; border-radius: 50%; border: none;
+  background: transparent; color: #D2447F; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: color 0.22s, transform 0.18s; position: relative;
 }
-
-/* Hairline ring that only appears on hover/playing */
 .playBtn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(174, 207, 184, 0.2);
-  opacity: 0;
-  transition: opacity 0.22s;
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  border: 1px solid rgba(254,86,155,0.25); opacity: 0; transition: opacity 0.22s;
 }
+.playBtn:hover { color: #FE569B; transform: scale(1.08); }
+.playBtn:hover::after { opacity: 1; }
+.playing { color: #FE569B; }
+.playing::after { opacity: 1; border-color: rgba(254,86,155,0.4); }
 
-.playBtn:hover {
-  color: #d4b870;
-  transform: scale(1.08);
-}
-.playBtn:hover::after {
-  opacity: 1;
-}
-
-.playing {
-  color: #d4b870;
-}
-.playing::after {
-  opacity: 1;
-  border-color: rgba(184, 150, 62, 0.35);
-}
-
-/* ── Hint ── */
 .hint {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.72rem;
-  font-style: italic;
-  color: #2a4535;
-  margin-top: -0.3rem;
+  font-size: 0.72rem; font-style: italic; color: #b89ab8; margin-top: -0.3rem;
 }

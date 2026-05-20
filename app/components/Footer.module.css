@@ -1,58 +1,48 @@
 .footer {
-  background: #182e20;
-  border-top: 1px solid rgba(174,207,184,0.08);
-  padding: 4rem 1.5rem;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(254,86,155,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 50%, rgba(153,145,231,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(255,223,70,0.1) 0%, transparent 45%),
+    #fdf9f6;
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(to right,
+    #FE569B 0%, #9991E7 17%, #FE803D 34%,
+    #FFDF46 50%, #7DC23D 67%, #5CA9E0 84%, #FE569B 100%) 1;
+  padding: 4.5rem 1.5rem 5rem;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
 }
 
 .monogram {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 2.6rem;
-  font-style: italic;
-  font-weight: 300;
-  color: #d4b870;
-  opacity: 0.75;
-  display: block;
-  line-height: 1;
+  font-size: 2.8rem; font-style: italic; font-weight: 300;
+  color: #D2447F; display: block; line-height: 1;
 }
 
 .divider {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 0.6rem 0;
+  display: flex; align-items: center; gap: 0.8rem; margin: 0.8rem 0;
 }
-
 .divider span:not(.dot) {
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: #355c44;
+  display: block; width: 32px; height: 1px;
+  background: rgba(254,86,155,0.3);
 }
-
-.dot {
-  font-size: 0.45rem;
-  color: #b8963e;
-  opacity: 0.5;
-}
+.dot { font-size: 0.45rem; color: #FE569B; opacity: 0.6; }
 
 .date {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: #527a60;
+  font-size: 0.85rem; font-weight: 300; letter-spacing: 0.35em;
+  text-transform: uppercase; color: #A765CC;
 }
 
 .made {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.82rem;
-  font-style: italic;
-  color: #355c44;
-  margin-top: 0.6rem;
+  font-size: 0.85rem; font-style: italic; color: #b89ab8; margin-top: 0.6rem;
+}
+
+/* Scattered petal dots in footer */
+.petals {
+  display: flex; gap: 0.7rem; margin-top: 1.2rem; align-items: center;
+}
+.petal {
+  border-radius: 50%; opacity: 0.35;
 }
