@@ -295,3 +295,11 @@
     width: 180px;
   }
 }
+
+/* Hide video/poster on desktop — gradient background is enough */
+@media (min-width: 768px) {
+  .bgVideo,
+  .bgPoster {
+    display: none;
+  }
+}
