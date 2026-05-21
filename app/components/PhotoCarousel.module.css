@@ -1,9 +1,25 @@
 .section {
   background:
-    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(254, 86, 155, 0.1) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 40% at 50% 100%, rgba(153, 145, 231, 0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 35% at 10% 50%, rgba(125, 194, 61, 0.08) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 35% at 90% 50%, rgba(254, 128, 61, 0.08) 0%, transparent 55%),
+    radial-gradient(
+      ellipse 70% 40% at 50% 0%,
+      rgba(254, 86, 155, 0.1) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 50% 100%,
+      rgba(153, 145, 231, 0.09) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 35% at 10% 50%,
+      rgba(125, 194, 61, 0.08) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 35% at 90% 50%,
+      rgba(254, 128, 61, 0.08) 0%,
+      transparent 55%
+    ),
     var(--petal, #fdf9f3);
   padding: clamp(4.5rem, 9vw, 6.5rem) 0 clamp(4rem, 8vw, 5.5rem);
   overflow: hidden;
@@ -68,30 +84,29 @@
 }
 
 /* ── The scrollable track (ambient auto-drift + manual swipe/drag) ── */
+.viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* clips the moving track */
+  cursor: grab;
+  /* Prevents vertical scroll hijack on touch */
+  touch-action: pan-x;
+}
+
+.viewport:focus-visible {
+  outline: 1px dashed rgba(254, 86, 155, 0.45);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
 .track {
   display: flex;
   align-items: flex-end;
   gap: 14px;
   padding: 1rem clamp(1rem, 6vw, 4rem);
-  width: 100%;
-
-  /* Native horizontal scrolling for touch + scrollbar */
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  /* No scroll-snap — would constantly fight the per-frame
-     scrollLeft writes from the ambient auto-scroll loop. */
-
-  /* Cursor hint for desktop drag */
-  cursor: grab;
-
-  /* Prevents vertical scroll hijack on touch */
-  touch-action: pan-x;
-  overscroll-behavior-x: contain;
-
-  /* Hide scrollbars (still scrollable) */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  /* No overflow, no scrollLeft — just a wide flex row */
+  width: max-content;
+  will-change: transform; /* compositor hint for smooth GPU animation */
 }
 .track::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
@@ -111,7 +126,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s;
   box-shadow:
     0 2px 12px rgba(42, 18, 38, 0.06),
     0 1px 3px rgba(42, 18, 38, 0.04),
@@ -141,14 +158,38 @@
 }
 
 /* Tone-mapped paper backgrounds */
-.rose      { background: linear-gradient(155deg, #fff0f6 0%, #ffe1ec 100%); color: #D2447F; }
-.violet    { background: linear-gradient(155deg, #f4f1ff 0%, #e8e2ff 100%); color: #A765CC; }
-.tangerine { background: linear-gradient(155deg, #fff4ec 0%, #ffe2cd 100%); color: #F67E00; }
-.sunray    { background: linear-gradient(155deg, #fffce6 0%, #fff5b8 100%); color: #FEC135; }
-.leaf      { background: linear-gradient(155deg, #f2faea 0%, #dff3c8 100%); color: #5fa028; }
-.sky       { background: linear-gradient(155deg, #ecf6ff 0%, #d6ebff 100%); color: #0580E3; }
-.berry     { background: linear-gradient(155deg, #fdeaf3 0%, #f7d0e2 100%); color: #b03369; }
-.teal      { background: linear-gradient(155deg, #e8faf7 0%, #cdf0eb 100%); color: #0d9d8e; }
+.rose {
+  background: linear-gradient(155deg, #fff0f6 0%, #ffe1ec 100%);
+  color: #d2447f;
+}
+.violet {
+  background: linear-gradient(155deg, #f4f1ff 0%, #e8e2ff 100%);
+  color: #a765cc;
+}
+.tangerine {
+  background: linear-gradient(155deg, #fff4ec 0%, #ffe2cd 100%);
+  color: #f67e00;
+}
+.sunray {
+  background: linear-gradient(155deg, #fffce6 0%, #fff5b8 100%);
+  color: #fec135;
+}
+.leaf {
+  background: linear-gradient(155deg, #f2faea 0%, #dff3c8 100%);
+  color: #5fa028;
+}
+.sky {
+  background: linear-gradient(155deg, #ecf6ff 0%, #d6ebff 100%);
+  color: #0580e3;
+}
+.berry {
+  background: linear-gradient(155deg, #fdeaf3 0%, #f7d0e2 100%);
+  color: #b03369;
+}
+.teal {
+  background: linear-gradient(155deg, #e8faf7 0%, #cdf0eb 100%);
+  color: #0d9d8e;
+}
 
 .placeholder {
   display: flex;
@@ -201,7 +242,7 @@
   height: 42px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.92);
-  color: var(--rose-deep, #D2447F);
+  color: var(--rose-deep, #d2447f);
   border: 1px solid rgba(254, 86, 155, 0.3);
   cursor: pointer;
   display: flex;
@@ -220,8 +261,12 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
-.arrowPrev { left: clamp(0.5rem, 2vw, 1.4rem); }
-.arrowNext { right: clamp(0.5rem, 2vw, 1.4rem); }
+.arrowPrev {
+  left: clamp(0.5rem, 2vw, 1.4rem);
+}
+.arrowNext {
+  right: clamp(0.5rem, 2vw, 1.4rem);
+}
 
 .arrow::before {
   content: "";
@@ -233,9 +278,9 @@
 }
 
 .arrow:hover {
-  background: var(--rose-deep, #D2447F);
+  background: var(--rose-deep, #d2447f);
   color: #fff;
-  border-color: var(--rose-deep, #D2447F);
+  border-color: var(--rose-deep, #d2447f);
   transform: translateY(-50%) scale(1.08);
   box-shadow:
     0 6px 20px rgba(254, 86, 155, 0.32),
@@ -254,7 +299,9 @@
 
 /* Hide arrows on touch-first devices; native swipe is the affordance */
 @media (max-width: 720px), (hover: none) {
-  .arrow { display: none; }
+  .arrow {
+    display: none;
+  }
 }
 
 .hint {
