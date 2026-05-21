@@ -63,6 +63,33 @@
   opacity: 0.22; /* always visible */
   mix-blend-mode: multiply;
   pointer-events: none;
+
+  /* Hide native play button on mobile browsers */
+  -webkit-media-controls: none;
+  -webkit-media-controls-start-playback-button: none;
+}
+
+/* Target WebKit's shadow DOM controls */
+.bgVideo::-webkit-media-controls {
+  display: none !important;
+}
+
+.bgVideo::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.bgVideo::-webkit-media-controls-panel {
+  display: none !important;
+}
+
+.videoShield {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* above video (z-index 0), below content (z-index 2) */
+  background: transparent;
+  pointer-events: none; /* clicks still fall through to the overlay's onClick */
 }
 
 .tint {

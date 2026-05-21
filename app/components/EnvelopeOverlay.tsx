@@ -58,9 +58,15 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
         preload="auto"
         poster="/videos/floral-frame-poster.jpg"
         disablePictureInPicture
+        controls={false}
+        controlsList="nodownload nofullscreen"
+        x-webkit-airplay="deny"
       >
         <source src="/videos/floral-frame.mp4" type="video/mp4" />
       </video>
+      {/* Blocks touch from reaching video element, prevents native play UI */}
+      <div className={styles.videoShield} />
+
       <div className={styles.tint} />
 
       <div className={styles.content}>
