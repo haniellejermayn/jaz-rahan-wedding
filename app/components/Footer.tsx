@@ -15,7 +15,9 @@ export default function Footer() {
     <footer className={styles.footer}>
       <span className={styles.monogram}>Rahan &amp; Jaz</span>
       <div className={styles.divider} aria-hidden="true">
-        <span /><span className={styles.dot}>✦</span><span />
+        <span />
+        <span className={styles.dot}>✦</span>
+        <span />
       </div>
       <p className={styles.date}>July 21 · 2026</p>
       <div className={styles.petals} aria-hidden="true">
@@ -27,7 +29,9 @@ export default function Footer() {
           />
         ))}
       </div>
-      <p className={styles.made}>made with <em>♡</em> for our garden party</p>
+      <p className={styles.made}>
+        made with <em>♡</em>
+      </p>
     </footer>
   );
 }
