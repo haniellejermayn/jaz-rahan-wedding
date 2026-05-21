@@ -10,13 +10,41 @@
   overflow: hidden;
   /* Blooming garden — full rainbow palette */
   background:
-    radial-gradient(ellipse 50% 35% at 10% 12%, rgba(255, 223, 70, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 45% 30% at 88% 10%, rgba(254, 86, 155, 0.3) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 30% at 5% 65%, rgba(92, 169, 224, 0.26) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 30% at 92% 65%, rgba(125, 194, 61, 0.26) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 35% at 50% 95%, rgba(153, 145, 231, 0.3) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 30% at 75% 40%, rgba(254, 128, 61, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(253, 249, 243, 0.5) 0%, transparent 75%),
+    radial-gradient(
+      ellipse 50% 35% at 10% 12%,
+      rgba(255, 223, 70, 0.35) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 45% 30% at 88% 10%,
+      rgba(254, 86, 155, 0.3) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 5% 65%,
+      rgba(92, 169, 224, 0.26) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 92% 65%,
+      rgba(125, 194, 61, 0.26) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 35% at 50% 95%,
+      rgba(153, 145, 231, 0.3) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 75% 40%,
+      rgba(254, 128, 61, 0.18) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 100% 80% at 50% 50%,
+      rgba(253, 249, 243, 0.5) 0%,
+      transparent 75%
+    ),
     #fdf9f3;
   transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -86,8 +114,13 @@
 }
 
 @keyframes gentleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 .envelopeSvg {
@@ -131,6 +164,7 @@
   line-height: 0.95;
   letter-spacing: 0;
   margin: 0;
+  min-height: 120%;
   /* slight color shift for poetic feel */
   background: linear-gradient(135deg, #2a1226 0%, #5c1f4a 50%, #2a1226 100%);
   -webkit-background-clip: text;
@@ -145,8 +179,8 @@
   font-weight: 300;
   font-size: 0.7em;
   vertical-align: 0.05em;
-  color: #D2447F;
-  -webkit-text-fill-color: #D2447F;
+  color: #d2447f;
+  -webkit-text-fill-color: #d2447f;
   margin: 0 0.05em;
 }
 
@@ -157,7 +191,7 @@
   font-size: clamp(0.95rem, 2.5vw, 1.15rem);
   font-weight: 400;
   letter-spacing: 0.16em;
-  color: #A765CC;
+  color: #a765cc;
   margin-top: 1rem;
   opacity: 0;
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.2s both;
@@ -198,8 +232,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.45; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -211,6 +250,10 @@
 }
 
 @media (max-width: 480px) {
-  .content { padding: 1.5rem 1rem; }
-  .envelopeSvg { width: 180px; }
+  .content {
+    padding: 1.5rem 1rem;
+  }
+  .envelopeSvg {
+    width: 180px;
+  }
 }

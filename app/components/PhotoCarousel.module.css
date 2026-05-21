@@ -10,7 +10,6 @@
   position: relative;
 }
 
-/* Faint watercolor stain accents */
 .section::before {
   content: "";
   position: absolute;
@@ -45,45 +44,62 @@
   letter-spacing: 0.01em;
 }
 
-.trackWrap {
-  overflow: hidden;
+/* ── Carousel layout ── */
+.carouselWrap {
+  position: relative;
   width: 100%;
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 6%,
-    black 94%,
-    transparent 100%
-  );
+  display: flex;
+  align-items: center;
+  /* Edge-fade so cards taper into the gradients */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 6%,
-    black 94%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
     transparent 100%
   );
 }
 
+/* ── The scrollable track (ambient auto-drift + manual swipe/drag) ── */
 .track {
   display: flex;
   align-items: flex-end;
   gap: 14px;
-  width: max-content;
-  animation: scroll 38s linear infinite;
-  padding: 1rem 1rem;
-}
+  padding: 1rem clamp(1rem, 6vw, 4rem);
+  width: 100%;
 
-.track:hover {
-  animation-play-state: paused;
-}
+  /* Native horizontal scrolling for touch + scrollbar */
+  overflow-x: auto;
+  overflow-y: hidden;
 
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+  /* No scroll-snap — would constantly fight the per-frame
+     scrollLeft writes from the ambient auto-scroll loop. */
 
-@media (prefers-reduced-motion: reduce) {
-  .track { animation: none; }
+  /* Cursor hint for desktop drag */
+  cursor: grab;
+
+  /* Prevents vertical scroll hijack on touch */
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+
+  /* Hide scrollbars (still scrollable) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+.track:focus-visible {
+  outline: 1px dashed rgba(254, 86, 155, 0.45);
+  outline-offset: -2px;
+  border-radius: 4px;
 }
 
 .card {
@@ -100,6 +116,9 @@
     0 2px 12px rgba(42, 18, 38, 0.06),
     0 1px 3px rgba(42, 18, 38, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 
 .card::before {
@@ -111,47 +130,25 @@
   border-radius: 1px;
 }
 
-.card:hover {
-  transform: translateY(-6px) rotate(-0.5deg);
-  box-shadow:
-    0 8px 28px rgba(42, 18, 38, 0.12),
-    0 2px 6px rgba(42, 18, 38, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-6px) rotate(-0.5deg);
+    box-shadow:
+      0 8px 28px rgba(42, 18, 38, 0.12),
+      0 2px 6px rgba(42, 18, 38, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
 }
 
 /* Tone-mapped paper backgrounds */
-.rose {
-  background: linear-gradient(155deg, #fff0f6 0%, #ffe1ec 100%);
-  color: #D2447F;
-}
-.violet {
-  background: linear-gradient(155deg, #f4f1ff 0%, #e8e2ff 100%);
-  color: #A765CC;
-}
-.tangerine {
-  background: linear-gradient(155deg, #fff4ec 0%, #ffe2cd 100%);
-  color: #F67E00;
-}
-.sunray {
-  background: linear-gradient(155deg, #fffce6 0%, #fff5b8 100%);
-  color: #FEC135;
-}
-.leaf {
-  background: linear-gradient(155deg, #f2faea 0%, #dff3c8 100%);
-  color: #5fa028;
-}
-.sky {
-  background: linear-gradient(155deg, #ecf6ff 0%, #d6ebff 100%);
-  color: #0580E3;
-}
-.berry {
-  background: linear-gradient(155deg, #fdeaf3 0%, #f7d0e2 100%);
-  color: #b03369;
-}
-.teal {
-  background: linear-gradient(155deg, #e8faf7 0%, #cdf0eb 100%);
-  color: #0d9d8e;
-}
+.rose      { background: linear-gradient(155deg, #fff0f6 0%, #ffe1ec 100%); color: #D2447F; }
+.violet    { background: linear-gradient(155deg, #f4f1ff 0%, #e8e2ff 100%); color: #A765CC; }
+.tangerine { background: linear-gradient(155deg, #fff4ec 0%, #ffe2cd 100%); color: #F67E00; }
+.sunray    { background: linear-gradient(155deg, #fffce6 0%, #fff5b8 100%); color: #FEC135; }
+.leaf      { background: linear-gradient(155deg, #f2faea 0%, #dff3c8 100%); color: #5fa028; }
+.sky       { background: linear-gradient(155deg, #ecf6ff 0%, #d6ebff 100%); color: #0580E3; }
+.berry     { background: linear-gradient(155deg, #fdeaf3 0%, #f7d0e2 100%); color: #b03369; }
+.teal      { background: linear-gradient(155deg, #e8faf7 0%, #cdf0eb 100%); color: #0d9d8e; }
 
 .placeholder {
   display: flex;
@@ -161,14 +158,17 @@
   opacity: 0.6;
   position: relative;
   z-index: 1;
+  pointer-events: none;
 }
 
 .bloomIcon {
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.card:hover .bloomIcon {
-  transform: scale(1.1) rotate(-3deg);
+@media (hover: hover) {
+  .card:hover .bloomIcon {
+    transform: scale(1.1) rotate(-3deg);
+  }
 }
 
 /* Decorative corner tabs (suggest pressed-flower scrapbook) */
@@ -189,4 +189,92 @@
   bottom: 0;
   right: 0;
   clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+/* ── Arrow buttons (desktop) ── */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--rose-deep, #D2447F);
+  border: 1px solid rgba(254, 86, 155, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    border-color 0.25s,
+    transform 0.25s,
+    opacity 0.25s,
+    box-shadow 0.25s;
+  box-shadow:
+    0 4px 14px rgba(254, 86, 155, 0.18),
+    0 1px 3px rgba(42, 18, 38, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.arrowPrev { left: clamp(0.5rem, 2vw, 1.4rem); }
+.arrowNext { right: clamp(0.5rem, 2vw, 1.4rem); }
+
+.arrow::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 1px solid rgba(254, 86, 155, 0.18);
+  pointer-events: none;
+}
+
+.arrow:hover {
+  background: var(--rose-deep, #D2447F);
+  color: #fff;
+  border-color: var(--rose-deep, #D2447F);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow:
+    0 6px 20px rgba(254, 86, 155, 0.32),
+    0 2px 5px rgba(42, 18, 38, 0.08);
+}
+
+.arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.arrowDisabled {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) scale(0.85);
+}
+
+/* Hide arrows on touch-first devices; native swipe is the affordance */
+@media (max-width: 720px), (hover: none) {
+  .arrow { display: none; }
+}
+
+.hint {
+  text-align: center;
+  margin-top: 1.6rem;
+  font-family: var(--font-display), "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-variation-settings: "opsz" 14;
+  font-size: 0.78rem;
+  color: #b89ab8;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    scroll-behavior: auto;
+  }
+  .card,
+  .arrow,
+  .bloomIcon {
+    transition: none;
+  }
 }
