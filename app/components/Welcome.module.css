@@ -8,29 +8,56 @@
 
 /* Top rainbow petal border */
 .section::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(to right,
-    #FE569B 0%, #9991E7 17%, #FE803D 34%,
-    #FFDF46 50%, #7DC23D 67%, #5CA9E0 84%, #FE569B 100%);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    #fe569b 0%,
+    #9991e7 17%,
+    #fe803d 34%,
+    #ffdf46 50%,
+    #7dc23d 67%,
+    #5ca9e0 84%,
+    #fe569b 100%
+  );
   background-size: 200% 100%;
   animation: gradientFlow 12s linear infinite;
 }
 @keyframes gradientFlow {
-  0%   { background-position: 0% 0%; }
-  100% { background-position: 200% 0%; }
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
 }
 
 /* Watercolor blob in background */
 .section::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 380px 280px at 8% 12%, rgba(255,223,70,0.14), transparent 70%),
-    radial-gradient(ellipse 360px 320px at 92% 88%, rgba(153,145,231,0.14), transparent 70%),
-    radial-gradient(ellipse 280px 240px at 50% 45%, rgba(254,86,155,0.06), transparent 70%);
+    radial-gradient(
+      ellipse 380px 280px at 8% 12%,
+      rgba(255, 223, 70, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 360px 320px at 92% 88%,
+      rgba(153, 145, 231, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 280px 240px at 50% 45%,
+      rgba(254, 86, 155, 0.06),
+      transparent 70%
+    );
 }
 
 /* Corner botanical sprigs */
@@ -41,13 +68,28 @@
   pointer-events: none;
   z-index: 1;
 }
-.cornerTL { top: 2rem; left: 1rem; }
-.cornerBR { bottom: 2rem; right: 1rem; transform: scale(-1, -1); }
+.cornerTL {
+  top: 2rem;
+  left: 1rem;
+}
+.cornerBR {
+  bottom: 2rem;
+  right: 1rem;
+  transform: scale(-1, -1);
+}
 
 @media (max-width: 640px) {
-  .cornerSprig { opacity: 0.7; }
-  .cornerTL { left: -0.5rem; top: 1rem; }
-  .cornerBR { right: -0.5rem; bottom: 1rem; }
+  .cornerSprig {
+    opacity: 0.7;
+  }
+  .cornerTL {
+    left: -0.5rem;
+    top: 1rem;
+  }
+  .cornerBR {
+    right: -0.5rem;
+    bottom: 1rem;
+  }
 }
 
 .inner {
@@ -65,19 +107,6 @@
   font-weight: 400;
   letter-spacing: 0.02em;
   vertical-align: 0.04em;
-}
-
-.openQuote {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 6.5rem;
-  font-weight: 400;
-  line-height: 0.5;
-  color: var(--rose);
-  opacity: 0.35;
-  display: block;
-  margin: 2rem 0 -1.5rem;
-  height: 2.5rem;
 }
 
 .text {
