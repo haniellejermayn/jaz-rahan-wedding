@@ -1,7 +1,15 @@
 .section {
   background:
-    radial-gradient(ellipse at 30% 0%, rgba(254,86,155,0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 100%, rgba(153,145,231,0.1) 0%, transparent 50%),
+    radial-gradient(
+      ellipse at 30% 0%,
+      rgba(254, 86, 155, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 70% 100%,
+      rgba(153, 145, 231, 0.1) 0%,
+      transparent 50%
+    ),
     var(--white);
   padding: 7rem 1.5rem;
   text-align: center;
@@ -11,13 +19,21 @@
 
 /* Subtle watercolor stains */
 .section::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(circle 240px at 10% 22%, rgba(255,223,70,0.08), transparent 70%),
-    radial-gradient(circle 260px at 90% 78%, rgba(125,194,61,0.08), transparent 70%);
+    radial-gradient(
+      circle 240px at 10% 22%,
+      rgba(255, 223, 70, 0.08),
+      transparent 70%
+    ),
+    radial-gradient(
+      circle 260px at 90% 78%,
+      rgba(125, 194, 61, 0.08),
+      transparent 70%
+    );
 }
 
 .inner {
@@ -54,11 +70,11 @@
 .labelRule {
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(254,86,155,0.4));
+  background: linear-gradient(to right, transparent, rgba(254, 86, 155, 0.4));
   position: relative;
 }
 .labelRule::after {
-  content: '';
+  content: "";
   position: absolute;
   right: 0;
   top: 50%;
@@ -70,7 +86,7 @@
   opacity: 0.55;
 }
 .labelRule:last-child {
-  background: linear-gradient(to left, transparent, rgba(254,86,155,0.4));
+  background: linear-gradient(to left, transparent, rgba(254, 86, 155, 0.4));
 }
 .labelRule:last-child::after {
   right: auto;
@@ -113,18 +129,25 @@
 .nameItem {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.9rem;
   padding: 0.65rem 1rem;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(254,86,155,0.12);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(254, 86, 155, 0.12);
   border-radius: 2px;
-  transition: border-color 0.28s, background 0.28s, transform 0.28s;
+  transition:
+    border-color 0.28s,
+    background 0.28s,
+    transform 0.28s;
   position: relative;
   overflow: hidden;
 }
+
+.nameItemWithRole {
+  padding-right: 4.5rem;
+}
 .nameItem::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -135,11 +158,13 @@
   transition: opacity 0.3s;
 }
 .nameItem:hover {
-  border-color: rgba(254,86,155,0.3);
-  background: rgba(255,255,255,0.95);
+  border-color: rgba(254, 86, 155, 0.3);
+  background: rgba(255, 255, 255, 0.95);
   transform: translateX(2px);
 }
-.nameItem:hover::before { opacity: 0.7; }
+.nameItem:hover::before {
+  opacity: 0.7;
+}
 
 .personName {
   font-family: var(--font-serif);
@@ -149,7 +174,7 @@
   color: var(--ink);
   letter-spacing: 0.01em;
   flex: 1;
-  text-align: left;
+  text-align: center;
   min-width: 0;
   line-height: 1.35;
 }
@@ -161,9 +186,13 @@
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--rose-deep);
-  background: rgba(254,86,155,0.08);
+  background: rgba(254, 86, 155, 0.08);
   padding: 0.3rem 0.55rem;
   border-radius: 1px;
   white-space: nowrap;
   flex-shrink: 0;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
 }

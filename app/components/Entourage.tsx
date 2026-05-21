@@ -41,9 +41,9 @@ const groups: Group[] = [
   {
     label: "Bearers",
     people: [
-      { name: "Carmelo Zion A. Veloria",     role: "Ring" },
-      { name: "Andreo Miguel Villanueva",     role: "Bible" },
-      { name: "Leonne Sebastien P. Ocampo",   role: "Coin" },
+      { name: "Carmelo Zion A. Veloria", role: "Ring" },
+      { name: "Andreo Miguel Villanueva", role: "Bible" },
+      { name: "Leonne Sebastien P. Ocampo", role: "Coin" },
     ],
   },
   {
@@ -57,7 +57,13 @@ const groups: Group[] = [
 
 function LabelOrnament() {
   return (
-    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="14" height="14">
+    <svg
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      width="14"
+      height="14"
+    >
       <circle cx="8" cy="8" r="6" fill="#FE569B" opacity="0.2" />
       <circle cx="8" cy="8" r="3.5" fill="#D2447F" opacity="0.65" />
       <circle cx="8" cy="8" r="1.5" fill="#FFDF46" />
@@ -92,7 +98,10 @@ export default function Entourage() {
 
               <ul className={styles.nameList}>
                 {g.people.map((p, i) => (
-                  <li key={i} className={styles.nameItem}>
+                  <li
+                    key={i}
+                    className={`${styles.nameItem} ${p.role ? styles.nameItemWithRole : ""}`}
+                  >
                     <span className={styles.personName}>{p.name}</span>
                     {p.role && (
                       <span className={styles.personRole}>{p.role}</span>
