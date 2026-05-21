@@ -7,18 +7,42 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 3.5rem 1.5rem 6rem;
+  padding: 6rem 1.5rem 6rem;
 
   background:
     /* sunlight from above */
-    radial-gradient(ellipse at 50% 0%, rgba(255,223,70,0.22) 0%, transparent 55%),
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(255, 223, 70, 0.22) 0%,
+      transparent 55%
+    ),
     /* corner blooms */
-    radial-gradient(ellipse at 8% 22%, rgba(254,86,155,0.16) 0%, transparent 38%),
-    radial-gradient(ellipse at 92% 22%, rgba(153,145,231,0.16) 0%, transparent 38%),
-    radial-gradient(ellipse at 12% 78%, rgba(125,194,61,0.16) 0%, transparent 40%),
-    radial-gradient(ellipse at 88% 78%, rgba(92,169,224,0.14) 0%, transparent 40%),
+    radial-gradient(
+        ellipse at 8% 22%,
+        rgba(254, 86, 155, 0.16) 0%,
+        transparent 38%
+      ),
+    radial-gradient(
+      ellipse at 92% 22%,
+      rgba(153, 145, 231, 0.16) 0%,
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 12% 78%,
+      rgba(125, 194, 61, 0.16) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 88% 78%,
+      rgba(92, 169, 224, 0.14) 0%,
+      transparent 40%
+    ),
     /* warm grass at the bottom */
-    radial-gradient(ellipse at 50% 105%, rgba(254,128,61,0.16) 0%, transparent 50%),
+    radial-gradient(
+        ellipse at 50% 105%,
+        rgba(254, 128, 61, 0.16) 0%,
+        transparent 50%
+      ),
     var(--petal);
 }
 
@@ -28,10 +52,26 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(ellipse 200px 280px at 12% 28%, rgba(254,86,155,0.16), transparent 70%),
-    radial-gradient(ellipse 180px 240px at 88% 32%, rgba(153,145,231,0.14), transparent 70%),
-    radial-gradient(ellipse 220px 200px at 16% 78%, rgba(125,194,61,0.14), transparent 70%),
-    radial-gradient(ellipse 200px 260px at 84% 76%, rgba(255,223,70,0.18), transparent 70%);
+    radial-gradient(
+      ellipse 200px 280px at 12% 28%,
+      rgba(254, 86, 155, 0.16),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 180px 240px at 88% 32%,
+      rgba(153, 145, 231, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 220px 200px at 16% 78%,
+      rgba(125, 194, 61, 0.14),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 200px 260px at 84% 76%,
+      rgba(255, 223, 70, 0.18),
+      transparent 70%
+    );
   filter: blur(20px);
   opacity: 0.85;
 }
@@ -40,7 +80,8 @@
 .archTop {
   position: absolute;
   top: 1.5rem;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: clamp(140px, 24vw, 280px);
   pointer-events: none;
@@ -52,7 +93,8 @@
 .archBottom {
   position: absolute;
   bottom: 0;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: clamp(80px, 14vw, 160px);
   pointer-events: none;
@@ -71,12 +113,25 @@
   z-index: 1;
   opacity: 0.95;
 }
-.sprigLeft  { top: 28%; left: -1.5rem; }
-.sprigRight { top: 28%; right: -1.5rem; transform: scaleX(-1); }
+.sprigLeft {
+  top: 28%;
+  left: -1.5rem;
+}
+.sprigRight {
+  top: 28%;
+  right: -1.5rem;
+  transform: scaleX(-1);
+}
 
 @media (max-width: 640px) {
-  .sprigLeft  { left: -3rem; opacity: 0.75; }
-  .sprigRight { right: -3rem; opacity: 0.75; }
+  .sprigLeft {
+    left: -3rem;
+    opacity: 0.75;
+  }
+  .sprigRight {
+    right: -3rem;
+    opacity: 0.75;
+  }
 }
 
 /* ── CONTENT BLOCK ─────────────────────────── */
@@ -89,44 +144,22 @@
   max-width: 720px;
 }
 
-.prelude {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.62rem;
-  font-weight: 400;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
-  color: var(--rose-deep);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
-}
-.preludeLine {
-  display: block;
-  width: 36px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--rose));
-}
-.preludeLine:last-child {
-  background: linear-gradient(to left, transparent, var(--rose));
-}
-
 /* ── NAMES — the centerpiece ─────────────────── */
 .names {
   font-family: var(--font-display);
   font-size: clamp(5rem, 22vw, 11rem);
   font-weight: 300;
   font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 100;
   color: var(--ink);
   line-height: 0.86;
   display: flex;
   flex-direction: column;
   align-items: center;
   letter-spacing: -0.04em;
-  text-shadow: 0 4px 60px rgba(254,86,155,0.16);
+  text-shadow: 0 4px 60px rgba(254, 86, 155, 0.16);
   opacity: 0;
   animation: fadeUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
 }
@@ -155,7 +188,8 @@
   animation: fadeIn 1s ease 0.75s both;
 }
 .ampersand svg {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .ampGlyph {
   font-family: var(--font-script);
@@ -184,7 +218,7 @@
   display: block;
   width: 32px;
   height: 1px;
-  background: rgba(254,86,155,0.5);
+  background: rgba(254, 86, 155, 0.5);
 }
 
 /* ── DATE LINE — three pieces, like a stamp ── */
@@ -194,12 +228,13 @@
   gap: 1.2rem;
   margin-top: 1.3rem;
   padding: 0.6rem 0;
-  border-top: 1px solid rgba(254,86,155,0.25);
-  border-bottom: 1px solid rgba(254,86,155,0.25);
+  border-top: 1px solid rgba(254, 86, 155, 0.25);
+  border-bottom: 1px solid rgba(254, 86, 155, 0.25);
   opacity: 0;
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.3s both;
 }
-.dateMonth, .dateYear {
+.dateMonth,
+.dateYear {
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 400;
@@ -241,10 +276,14 @@
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
-  color: rgba(210,68,127,0.6);
-  transition: color 0.25s, transform 0.25s;
+  color: rgba(210, 68, 127, 0.6);
+  transition:
+    color 0.25s,
+    transform 0.25s;
   opacity: 0;
-  animation: fadeIn 1s ease 1.9s both, bobDown 3s ease 2.5s infinite;
+  animation:
+    fadeIn 1s ease 1.9s both,
+    bobDown 3s ease 2.5s infinite;
   z-index: 4;
 }
 .scrollCta:hover {
@@ -261,16 +300,35 @@
   width: 12px;
   height: 22px;
 }
-.scrollArrow svg { width: 100%; height: 100%; }
+.scrollArrow svg {
+  width: 100%;
+  height: 100%;
+}
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes fadeIn {
-  from { opacity: 0; } to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes bobDown {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(8px); }
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
 }
