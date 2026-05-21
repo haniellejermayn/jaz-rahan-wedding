@@ -15,7 +15,12 @@ const links = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const mounted = typeof document !== "undefined";
+  const [mounted, setMounted] = useState(false);
+
+  // ── Portal is client-only; mark mounted to avoid SSR mismatch ──
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // ── Lock body scroll while drawer is open ──
   useEffect(() => {
