@@ -107,7 +107,9 @@ export default function MusicPlayer({ audioRef }: Props) {
     const target = e.currentTarget;
     try {
       target.setPointerCapture(e.pointerId);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     draggingRef.current = true;
     setDragging(true);
     const pct = pctFromClientX(e.clientX);
@@ -125,7 +127,9 @@ export default function MusicPlayer({ audioRef }: Props) {
     const target = e.currentTarget;
     try {
       target.releasePointerCapture(e.pointerId);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     const pct = pctFromClientX(e.clientX);
     setProgress(pct * 100);
     commitSeek(pct);
@@ -138,7 +142,9 @@ export default function MusicPlayer({ audioRef }: Props) {
     const target = e.currentTarget;
     try {
       target.releasePointerCapture(e.pointerId);
-    } catch { /* ignore */ }
+    } catch {
+      /* ignore */
+    }
     // commit whatever the last visual progress is so audio matches the UI
     commitSeek(progress / 100);
     draggingRef.current = false;
@@ -232,8 +238,10 @@ export default function MusicPlayer({ audioRef }: Props) {
           </div>
 
           <div className={styles.trackInfo}>
-            <span className={styles.trackName}>A Thousand Years</span>
-            <span className={styles.trackArtist}>Christina Perri</span>
+            <span className={styles.trackName}>Ikaw at Ako</span>
+            <span className={styles.trackArtist}>
+              Moira Dela Torre & Jason Marvin
+            </span>
           </div>
         </div>
 
@@ -285,8 +293,6 @@ export default function MusicPlayer({ audioRef }: Props) {
             </svg>
           )}
         </button>
-
-        <p className={styles.hint}>Drop your track at /public/audio/song.mp3</p>
       </div>
     </section>
   );
