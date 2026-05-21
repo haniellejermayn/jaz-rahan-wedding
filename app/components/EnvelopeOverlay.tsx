@@ -2,7 +2,9 @@
 import { useState, useEffect } from "react";
 import styles from "./EnvelopeOverlay.module.css";
 
-interface Props { onOpen: () => void; }
+interface Props {
+  onOpen: () => void;
+}
 
 export default function EnvelopeOverlay({ onOpen }: Props) {
   const [visible, setVisible] = useState(true);
@@ -39,6 +41,14 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
         loop
         muted
         playsInline
+        controls={false} // explicitly suppress native controls
+        disablePictureInPicture // prevents PiP button on some browsers
+        preload="auto"
+        onCanPlay={(e) => {
+          // nudge autoplay once the browser is ready
+          const v = e.currentTarget;
+          if (v.paused) v.play().catch(() => {});
+        }}
       />
       <div className={styles.tint} />
 
@@ -53,7 +63,13 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
             aria-hidden="true"
           >
             <defs>
-              <filter id="paperShadow" x="-10%" y="-10%" width="120%" height="130%">
+              <filter
+                id="paperShadow"
+                x="-10%"
+                y="-10%"
+                width="120%"
+                height="130%"
+              >
                 <feDropShadow
                   dx="0"
                   dy="8"
