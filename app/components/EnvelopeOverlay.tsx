@@ -9,6 +9,7 @@ interface Props {
 export default function EnvelopeOverlay({ onOpen }: Props) {
   const [visible, setVisible] = useState(true);
   const [closing, setClosing] = useState(false);
+  const [videoReady, setVideoReady] = useState(false); // ← start hidden
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleOpen = () => {
@@ -27,9 +28,15 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     if (!v) return;
 
     v.muted = true;
-    v.play().catch(() => {
-      // Mobile browsers can still block autoplay; the poster remains visible.
-    });
+
+    v.play()
+      .then(() => {
+        // Autoplay succeeded — now safe to show the video
+        setVideoReady(true);
+      })
+      .catch(() => {
+        // Autoplay blocked — leave videoReady false, poster img shows instead
+      });
   }, []);
 
   useEffect(() => {
@@ -48,24 +55,32 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
       role="button"
       aria-label="Open invitation"
     >
+      {/* Fallback poster — always mounted, hidden once video is ready */}
+      {!videoReady && (
+        <img
+          src="/videos/floral-frame-poster.jpg"
+          alt=""
+          className={styles.bgPoster}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Video — always mounted so autoplay can be attempted, but invisible until ready */}
       <video
         ref={videoRef}
         className={styles.bgVideo}
+        style={{ opacity: videoReady ? 0.22 : 0 }} // ← invisible until playing
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
-        poster="/videos/floral-frame-poster.jpg"
+        poster="" // ← empty: suppress the poster on the <video> element itself
         disablePictureInPicture
         controls={false}
-        controlsList="nodownload nofullscreen"
-        x-webkit-airplay="deny"
       >
         <source src="/videos/floral-frame.mp4" type="video/mp4" />
       </video>
-      {/* Blocks touch from reaching video element, prevents native play UI */}
-      <div className={styles.videoShield} />
 
       <div className={styles.tint} />
 
