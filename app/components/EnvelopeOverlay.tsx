@@ -13,11 +13,8 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleOpen = () => {
-    // This click IS a user gesture — start video here if not already playing
     const v = videoRef.current;
-    if (v && v.paused) {
-      v.play().catch(() => {});
-    }
+    if (v && v.paused) v.play().catch(() => {});
 
     setClosing(true);
     setTimeout(() => {
@@ -25,6 +22,12 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
       onOpen();
     }, 900);
   };
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.play().catch(() => {}); // works on desktop/android, silently fails on iOS
+  }, []);
 
   // On desktop/android, autoplay works fine — try immediately
   useEffect(() => {
@@ -57,15 +60,18 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     >
       <video
         ref={videoRef}
-        className={`${styles.bgVideo} ${videoReady ? styles.bgVideoVisible : ""}`}
+        className={styles.bgVideo} // always opacity: 0.22, no conditional class
         src="/videos/floral-frame.mp4"
         loop
         muted
         playsInline
         preload="auto"
         disablePictureInPicture
-        onPlaying={() => setVideoReady(true)} // catches any path that results in play
+        onPlaying={() => {}}
       />
+      {/* Sits exactly over the video, blocks the native play button from being tappable
+        but is itself transparent so the video shows through visually */}
+      <div className={styles.videoBlocker} aria-hidden="true" />
       <div className={styles.tint} />
 
       <div className={styles.content}>

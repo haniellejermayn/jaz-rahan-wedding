@@ -60,10 +60,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
+  opacity: 0.22; /* always visible */
   mix-blend-mode: multiply;
   pointer-events: none;
-  transition: opacity 1.2s ease; /* gentle fade-in once it starts */
 }
 
 .bgVideo::-webkit-media-controls,
@@ -72,8 +71,15 @@
   display: none !important;
 }
 
-.bgVideoVisible {
-  opacity: 0.22;
+/* Transparent layer that sits on top of the video.
+   Intercepts any tap/click intended for the native play button,
+   passing the event up to the overlay's onClick instead. */
+.videoBlocker {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* above video, below .content (z-index: 2) */
+  background: transparent;
+  pointer-events: none; /* let clicks fall through to the overlay div */
 }
 
 .tint {
