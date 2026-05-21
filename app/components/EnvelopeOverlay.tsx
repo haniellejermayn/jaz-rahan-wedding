@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./EnvelopeOverlay.module.css";
 
 interface Props {
@@ -9,6 +9,8 @@ interface Props {
 export default function EnvelopeOverlay({ onOpen }: Props) {
   const [visible, setVisible] = useState(true);
   const [closing, setClosing] = useState(false);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleOpen = () => {
     setClosing(true);
@@ -25,6 +27,20 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     };
   }, [visible]);
 
+  // Attempt autoplay as soon as the component mounts.
+  // Only show the video element if play() actually succeeds.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.play()
+      .then(() => setVideoPlaying(true))
+      .catch(() => {
+        // Autoplay blocked — just leave the gradient background visible.
+        // No play button will appear because the element is hidden via CSS.
+        setVideoPlaying(false);
+      });
+  }, []);
+
   if (!visible) return null;
 
   return (
@@ -35,20 +51,15 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
       aria-label="Open invitation"
     >
       <video
-        className={styles.bgVideo}
+        ref={videoRef}
+        className={`${styles.bgVideo} ${videoPlaying ? styles.bgVideoVisible : ""}`}
         src="/videos/floral-frame.mp4"
-        autoPlay
         loop
         muted
         playsInline
-        controls={false} // explicitly suppress native controls
-        disablePictureInPicture // prevents PiP button on some browsers
         preload="auto"
-        onCanPlay={(e) => {
-          // nudge autoplay once the browser is ready
-          const v = e.currentTarget;
-          if (v.paused) v.play().catch(() => {});
-        }}
+        disablePictureInPicture
+        // No autoPlay prop — we call .play() manually and only show if it works
       />
       <div className={styles.tint} />
 
