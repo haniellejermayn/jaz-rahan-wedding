@@ -9,10 +9,16 @@ interface Props {
 export default function EnvelopeOverlay({ onOpen }: Props) {
   const [visible, setVisible] = useState(true);
   const [closing, setClosing] = useState(false);
-  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleOpen = () => {
+    // This click IS a user gesture — start video here if not already playing
+    const v = videoRef.current;
+    if (v && v.paused) {
+      v.play().catch(() => {});
+    }
+
     setClosing(true);
     setTimeout(() => {
       setVisible(false);
@@ -20,26 +26,25 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     }, 900);
   };
 
+  // On desktop/android, autoplay works fine — try immediately
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+
+    v.play()
+      .then(() => setVideoReady(true))
+      .catch(() => {
+        // Autoplay blocked (iOS) — video stays opacity:0 until tap
+        // handleOpen will start it on first user gesture
+      });
+  }, []);
+
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [visible]);
-
-  // Attempt autoplay as soon as the component mounts.
-  // Only show the video element if play() actually succeeds.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.play()
-      .then(() => setVideoPlaying(true))
-      .catch(() => {
-        // Autoplay blocked — just leave the gradient background visible.
-        // No play button will appear because the element is hidden via CSS.
-        setVideoPlaying(false);
-      });
-  }, []);
 
   if (!visible) return null;
 
@@ -52,14 +57,14 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     >
       <video
         ref={videoRef}
-        className={`${styles.bgVideo} ${videoPlaying ? styles.bgVideoVisible : ""}`}
+        className={`${styles.bgVideo} ${videoReady ? styles.bgVideoVisible : ""}`}
         src="/videos/floral-frame.mp4"
         loop
         muted
         playsInline
         preload="auto"
         disablePictureInPicture
-        // No autoPlay prop — we call .play() manually and only show if it works
+        onPlaying={() => setVideoReady(true)} // catches any path that results in play
       />
       <div className={styles.tint} />
 
