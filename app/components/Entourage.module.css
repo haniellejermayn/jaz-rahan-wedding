@@ -1,38 +1,169 @@
 .section {
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(254,86,155,0.07) 0%, transparent 50%),
-    #ffffff;
-  padding: 6rem 1.5rem; text-align: center;
+    radial-gradient(ellipse at 30% 0%, rgba(254,86,155,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 100%, rgba(153,145,231,0.1) 0%, transparent 50%),
+    var(--white);
+  padding: 7rem 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-.inner { max-width: 520px; margin: 0 auto; }
-.groups { margin-top: 3.5rem; display: flex; flex-direction: column; gap: 3rem; }
-.group { display: flex; flex-direction: column; align-items: center; gap: 1.3rem; }
-.groupLabel { display: flex; align-items: center; gap: 0.9rem; width: 100%; max-width: 360px; }
+
+/* Subtle watercolor stains */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle 240px at 10% 22%, rgba(255,223,70,0.08), transparent 70%),
+    radial-gradient(circle 260px at 90% 78%, rgba(125,194,61,0.08), transparent 70%);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.groups {
+  margin-top: 3.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+/* Each group gets its own accent color via inline style on the group */
+.groupLabel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 420px;
+  padding: 0 0.5rem;
+}
 .labelRule {
-  flex: 1; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(254,86,155,0.3));
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(254,86,155,0.4));
+  position: relative;
+}
+.labelRule::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--rose);
+  opacity: 0.55;
 }
 .labelRule:last-child {
-  background: linear-gradient(to left, transparent, rgba(254,86,155,0.3));
+  background: linear-gradient(to left, transparent, rgba(254,86,155,0.4));
 }
+.labelRule:last-child::after {
+  right: auto;
+  left: 0;
+}
+
 .labelText {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.54rem; font-weight: 400; letter-spacing: 0.3em;
-  text-transform: uppercase; color: #D2447F; white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--rose-deep);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
-.nameList { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
-.nameItem { display: flex; align-items: center; justify-content: center; gap: 0.9rem; }
+.labelOrn {
+  width: 12px;
+  height: 12px;
+}
+
+.nameList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+@media (min-width: 560px) {
+  .nameList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.95rem 1.4rem;
+  }
+}
+
+.nameItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  padding: 0.65rem 1rem;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(254,86,155,0.12);
+  border-radius: 2px;
+  transition: border-color 0.28s, background 0.28s, transform 0.28s;
+  position: relative;
+  overflow: hidden;
+}
+.nameItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--rose), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.nameItem:hover {
+  border-color: rgba(254,86,155,0.3);
+  background: rgba(255,255,255,0.95);
+  transform: translateX(2px);
+}
+.nameItem:hover::before { opacity: 0.7; }
+
 .personName {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.15rem, 4.5vw, 1.4rem);
-  font-weight: 400; color: #2d1a2e; letter-spacing: 0.01em;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  flex: 1;
+  text-align: left;
+  min-width: 0;
+  line-height: 1.35;
 }
-.personDot {
-  width: 4px; height: 4px; border-radius: 50%;
-  background: #FE569B; opacity: 0.6; flex-shrink: 0;
-}
+
 .personRole {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.58rem; font-weight: 300; letter-spacing: 0.2em;
-  text-transform: uppercase; color: #b89ab8;
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  background: rgba(254,86,155,0.08);
+  padding: 0.3rem 0.55rem;
+  border-radius: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }

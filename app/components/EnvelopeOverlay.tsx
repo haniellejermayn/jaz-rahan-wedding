@@ -10,12 +10,17 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
 
   const handleOpen = () => {
     setClosing(true);
-    setTimeout(() => { setVisible(false); onOpen(); }, 900);
+    setTimeout(() => {
+      setVisible(false);
+      onOpen();
+    }, 900);
   };
 
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [visible]);
 
   if (!visible) return null;
@@ -27,44 +32,156 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
       role="button"
       aria-label="Open invitation"
     >
-      <video className={styles.bgVideo} src="/videos/floral-frame.mp4" autoPlay loop muted playsInline />
+      <video
+        className={styles.bgVideo}
+        src="/videos/floral-frame.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
       <div className={styles.tint} />
 
       <div className={styles.content}>
+        <p className={styles.youAreInvited}>You are cordially invited to</p>
+
         <div className={styles.envelopeWrap}>
-          <svg className={styles.envelopeSvg} viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg
+            className={styles.envelopeSvg}
+            viewBox="0 0 240 160"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
             <defs>
               <filter id="paperShadow" x="-10%" y="-10%" width="120%" height="130%">
-                <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="#D2447F" floodOpacity="0.15" />
+                <feDropShadow
+                  dx="0"
+                  dy="8"
+                  stdDeviation="12"
+                  floodColor="#D2447F"
+                  floodOpacity="0.18"
+                />
               </filter>
+              <linearGradient id="envBody" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#fff5f9" />
+                <stop offset="100%" stopColor="#ffe8f1" />
+              </linearGradient>
+              <linearGradient id="envFlap" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#fff0f6" />
+                <stop offset="100%" stopColor="#ffd8e8" />
+              </linearGradient>
             </defs>
+
             {/* Envelope body */}
-            <rect x="8" y="45" width="224" height="110" rx="4" fill="#fff0f5" filter="url(#paperShadow)" />
+            <rect
+              x="8"
+              y="45"
+              width="224"
+              height="110"
+              rx="4"
+              fill="url(#envBody)"
+              filter="url(#paperShadow)"
+            />
+            {/* Inner border (letterpress) */}
+            <rect
+              x="14"
+              y="51"
+              width="212"
+              height="98"
+              rx="2"
+              fill="none"
+              stroke="rgba(210,68,127,0.2)"
+              strokeWidth="0.5"
+            />
             {/* Flap */}
-            <path d="M8,49 L120,108 L232,49 L232,45 Q232,41 228,41 L12,41 Q8,41 8,45Z" fill="#ffe0ec" />
+            <path
+              d="M8,49 L120,108 L232,49 L232,45 Q232,41 228,41 L12,41 Q8,41 8,45Z"
+              fill="url(#envFlap)"
+            />
             {/* Side folds */}
-            <path d="M8,155 L90,100" stroke="rgba(210,68,127,0.2)" strokeWidth="0.8" fill="none" />
-            <path d="M232,155 L150,100" stroke="rgba(210,68,127,0.2)" strokeWidth="0.8" fill="none" />
-            {/* Wax seal — full-colour, no dark */}
-            <circle cx="120" cy="100" r="20" fill="#FE569B" opacity="0.9"/>
-            <circle cx="120" cy="100" r="16" fill="#D2447F"/>
-            <text x="120" y="105" textAnchor="middle" fontFamily="Georgia, serif" fontSize="11" fill="#fff0f5" fontStyle="italic">J&amp;R</text>
-            {/* Ribbon */}
-            <path d="M106,41 Q120,28 134,41" stroke="#FE569B" strokeWidth="1.2" fill="none" />
+            <path
+              d="M8,155 L90,100"
+              stroke="rgba(210,68,127,0.2)"
+              strokeWidth="0.8"
+              fill="none"
+            />
+            <path
+              d="M232,155 L150,100"
+              stroke="rgba(210,68,127,0.2)"
+              strokeWidth="0.8"
+              fill="none"
+            />
+
+            {/* Wax seal with layered glow */}
+            <circle cx="120" cy="100" r="24" fill="#FE569B" opacity="0.25" />
+            <circle cx="120" cy="100" r="20" fill="#FE569B" opacity="0.95" />
+            <circle cx="120" cy="100" r="17" fill="#D2447F" />
+            <circle
+              cx="120"
+              cy="100"
+              r="17"
+              fill="none"
+              stroke="rgba(255, 240, 245, 0.4)"
+              strokeWidth="0.6"
+              strokeDasharray="1 2"
+            />
+            <text
+              x="120"
+              y="106"
+              textAnchor="middle"
+              fontFamily="Georgia, serif"
+              fontSize="13"
+              fontStyle="italic"
+              fill="#fff0f5"
+            >
+              R&amp;J
+            </text>
+
+            {/* Ribbon flourish */}
+            <path
+              d="M100,41 Q120,24 140,41"
+              stroke="#FE569B"
+              strokeWidth="1.4"
+              fill="none"
+              opacity="0.85"
+            />
+
             {/* Leaf sprigs */}
-            <path d="M30,58 Q36,50 42,58 Q36,66 30,58Z" fill="#7DC23D" opacity="0.5" />
-            <path d="M198,58 Q204,50 210,58 Q204,66 198,58Z" fill="#18C5B4" opacity="0.5" />
+            <path
+              d="M28,58 Q36,48 44,58 Q36,68 28,58Z"
+              fill="#7DC23D"
+              opacity="0.6"
+            />
+            <path
+              d="M196,58 Q204,48 212,58 Q204,68 196,58Z"
+              fill="#18C5B4"
+              opacity="0.6"
+            />
+
             {/* Tiny petals on envelope */}
-            <circle cx="55" cy="75" r="4" fill="#FFDF46" opacity="0.35"/>
-            <circle cx="185" cy="75" r="4" fill="#9991E7" opacity="0.35"/>
-            <circle cx="40" cy="125" r="3" fill="#5CA9E0" opacity="0.3"/>
-            <circle cx="200" cy="125" r="3" fill="#FE803D" opacity="0.3"/>
+            <circle cx="55" cy="75" r="4.5" fill="#FFDF46" opacity="0.5" />
+            <circle cx="55" cy="75" r="2" fill="#FEC135" opacity="0.8" />
+
+            <circle cx="185" cy="75" r="4.5" fill="#9991E7" opacity="0.5" />
+            <circle cx="185" cy="75" r="2" fill="#A765CC" opacity="0.8" />
+
+            <circle cx="40" cy="128" r="3.5" fill="#5CA9E0" opacity="0.45" />
+            <circle cx="40" cy="128" r="1.5" fill="#0580E3" opacity="0.8" />
+
+            <circle cx="200" cy="128" r="3.5" fill="#FE803D" opacity="0.45" />
+            <circle cx="200" cy="128" r="1.5" fill="#F67E00" opacity="0.8" />
           </svg>
         </div>
 
-        <p className={styles.youAreInvited}>You are Invited</p>
-        <p className={styles.names}>Jaz &amp; Rahan</p>
-        <p className={styles.date}>July 21 · 2026</p>
+        <div className={styles.namesWrap}>
+          <span className={styles.namesRule} />
+          <p className={styles.names}>
+            Rahan <span className={styles.ampersand}>&amp;</span> Jaz
+          </p>
+          <span className={styles.namesRule} />
+        </div>
+
+        <p className={styles.date}>Tuesday · July 21 · 2026</p>
 
         <span className={styles.tapPrompt}>
           <span className={styles.tapLine} />

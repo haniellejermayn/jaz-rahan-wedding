@@ -24,7 +24,7 @@ export default function Nav() {
     <nav className={styles.nav}>
       {/* Logo scrolls to absolute top, not #hero anchor */}
       <Link href="/" onClick={scrollTop} className={styles.monogram}>
-        J&amp;R
+        R&amp;J
       </Link>
 
       <ul className={styles.links}>

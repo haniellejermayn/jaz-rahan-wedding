@@ -1,7 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  /* ── Guest attire ── */
+  /* ────────────────────────────────────────────────
+     GARDEN PARTY PALETTE
+     The bright "attire" colors are the foundation.
+     ──────────────────────────────────────────────── */
+
+  /* Guest attire — saturated, joyful */
   --rose:       #FE569B;
   --violet:     #9991E7;
   --tangerine:  #FE803D;
@@ -9,7 +14,7 @@
   --leaf:       #7DC23D;
   --sky:        #5CA9E0;
 
-  /* ── Bridal party (deeper) ── */
+  /* Bridal party — deeper, richer companions */
   --rose-deep:    #D2447F;
   --plum:         #A765CC;
   --ember:        #F67E00;
@@ -17,153 +22,241 @@
   --teal:         #18C5B4;
   --cobalt:       #0580E3;
 
-  /* ── Neutrals: all pale / white ── */
+  /* ── Botanicals — for stems, foliage ── */
+  --moss:         #5BA02F;
+  --sage:         #95B97A;
+  --eucalyptus:   #C7DBB0;
+
+  /* ── Warm paper neutrals ── */
   --white:        #ffffff;
-  --petal:        #fdf9f6;       /* warmest near-white, body bg */
-  --paper:        #faf5f0;       /* section alternates */
-  --blush-wash:   #fff0f5;       /* rose-tinted white */
-  --lavender-wash:#f5f3ff;       /* violet-tinted white */
-  --mint-wash:    #f2fbf4;       /* leaf-tinted white */
-  --sky-wash:     #f0f8ff;       /* sky-tinted white */
-  --sun-wash:     #fffdf0;       /* yellow-tinted white */
-  --peach-wash:   #fff6f0;       /* tangerine-tinted white */
+  --petal:        #fdf9f3;       /* warm cream — body bg */
+  --paper:        #faf2e8;       /* warm paper — alternates */
+  --linen:        #f5ead7;       /* deeper paper accent */
+  --blush-wash:   #fff0f6;
+  --lavender-wash:#f6f3ff;
+  --mint-wash:    #f2fbf2;
+  --sky-wash:     #ecf6ff;
+  --sun-wash:     #fffae0;
+  --peach-wash:   #fff1e6;
 
-  /* ── Text — warm near-black, never cold ── */
-  --ink:          #2d1a2e;       /* deepest — headings */
-  --ink-mid:      #4a2f4a;       /* body text */
-  --ink-soft:     #7a5c7a;       /* secondary */
-  --ink-faint:    #b89ab8;       /* captions, labels */
+  /* ── Ink — warm berry-black, never cold ── */
+  --ink:          #2a1226;
+  --ink-mid:      #4a2d4a;
+  --ink-soft:     #7a5a7a;
+  --ink-faint:    #b89ab8;
 
-  /* ── Legacy aliases so existing CSS references don't break ── */
-  --green-deep:   #2d1a2e;
-  --green-dark:   #4a2f4a;
-  --green-mid:    #7a5c7a;
-  --green-soft:   #7a5c7a;
+  /* ── Legacy aliases preserved for any unrewritten components ── */
+  --green-deep:   #2a1226;
+  --green-dark:   #4a2d4a;
+  --green-mid:    #7a5a7a;
+  --green-soft:   #7a5a7a;
   --green-muted:  #b89ab8;
   --green-light:  #f0d8f0;
   --green-pale:   #f5f3ff;
-  --green-mist:   #fdf9f6;
-  --cream:        #fdf9f6;
-  --cream-warm:   #faf5f0;
+  --green-mist:   #fdf9f3;
+  --cream:        #fdf9f3;
+  --cream-warm:   #faf2e8;
   --cream-dark:   #f0e8e8;
   --gold:         #D2447F;
   --gold-light:   #FE569B;
-  --gold-pale:    #fce4ee;
-  --ivory:        #fdf9f6;
-  --text-dark:    #2d1a2e;
-  --text-mid:     #4a2f4a;
-  --text-soft:    #7a5c7a;
+  --gold-pale:    #fff0f6;
+  --ivory:        #fdf9f3;
+  --text-dark:    #2a1226;
+  --text-mid:     #4a2d4a;
+  --text-soft:    #7a5a7a;
   --text-faint:   #b89ab8;
+
+  /* ── Fonts ── */
+  --font-display:  'Fraunces', 'Cormorant Garamond', Georgia, serif;   /* editorial italic */
+  --font-serif:    'Cormorant Garamond', Georgia, serif;               /* elegant secondary */
+  --font-script:   'Pinyon Script', 'Cormorant Garamond', cursive;     /* romantic accent */
+  --font-sans:     'Jost', system-ui, sans-serif;                      /* body / UI */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
 body {
-  font-family: 'Jost', system-ui, sans-serif;
+  font-family: var(--font-sans);
   background: var(--petal);
   color: var(--ink);
   overflow-x: hidden;
+
+  /* Subtle warm paper grain — visible only where backgrounds are light */
+  background-image:
+    radial-gradient(circle at 25% 30%, rgba(254,86,155,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 75% 70%, rgba(125,194,61,0.03) 0%, transparent 50%);
+  background-attachment: fixed;
 }
 
-/* ── Section eyebrow ── */
+::selection { background: rgba(254,86,155,0.3); color: var(--ink); }
+
+/* ───────────────────────────────────────────────
+   SECTION EYEBROW — small tracked label above headings
+   ─────────────────────────────────────────────── */
 .section-eyebrow {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.58rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
   font-weight: 400;
-  letter-spacing: 0.38em;
+  letter-spacing: 0.42em;
   text-transform: uppercase;
   color: var(--rose-deep);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  margin-bottom: 0.6rem;
+  gap: 0.85rem;
+  margin-bottom: 0.7rem;
+  position: relative;
 }
 .section-eyebrow::before,
 .section-eyebrow::after {
   content: '';
   display: block;
-  width: 24px;
+  width: 28px;
   height: 1px;
-  background: var(--rose);
-  opacity: 0.55;
+  background: linear-gradient(to right, transparent, var(--rose));
+  opacity: 0.75;
+}
+.section-eyebrow::after {
+  background: linear-gradient(to left, transparent, var(--rose));
 }
 
-/* ── Section heading ── */
+/* ───────────────────────────────────────────────
+   SECTION HEADING — Fraunces italic, generous
+   ─────────────────────────────────────────────── */
 .section-heading {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(2.8rem, 9vw, 4.2rem);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 5rem);
   font-weight: 300;
   font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 60;
   color: var(--ink);
   text-align: center;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
-/* "light" variant is still dark ink — there are no dark-bg sections now */
 .section-heading-light { color: var(--ink); }
 
-/* ── Ornament rule ── */
+/* ───────────────────────────────────────────────
+   ORNAMENT — flower star with sweep
+   ─────────────────────────────────────────────── */
 .ornament {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin: 0.9rem auto 0;
+  gap: 1.2rem;
+  margin: 1rem auto 0;
   color: var(--rose);
-  font-size: 0.5rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
 }
 .ornament::before, .ornament::after {
   content: '';
   display: block;
-  width: 48px;
+  width: 56px;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--rose));
+  background: linear-gradient(to right, transparent 0%, rgba(254,86,155,0.4) 40%, var(--rose) 100%);
 }
 .ornament::after {
-  background: linear-gradient(to left, transparent, var(--rose));
+  background: linear-gradient(to left, transparent 0%, rgba(254,86,155,0.4) 40%, var(--rose) 100%);
 }
 
-/* ── Reveal animations ── */
+/* ───────────────────────────────────────────────
+   REVEAL ANIMATIONS
+   ─────────────────────────────────────────────── */
 .reveal {
-  opacity: 0; transform: translateY(28px);
-  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-left {
-  opacity: 0; transform: translateX(-24px);
-  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  opacity: 0; transform: translateX(-28px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal-left.visible { opacity: 1; transform: translateX(0); }
 .reveal-right {
-  opacity: 0; transform: translateX(24px);
-  transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  opacity: 0; transform: translateX(28px);
+  transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
 }
 .reveal-right.visible { opacity: 1; transform: translateX(0); }
 .delay-1 { transition-delay: 0.12s; }
-.delay-2 { transition-delay: 0.22s; }
-.delay-3 { transition-delay: 0.34s; }
-.delay-4 { transition-delay: 0.46s; }
+.delay-2 { transition-delay: 0.24s; }
+.delay-3 { transition-delay: 0.38s; }
+.delay-4 { transition-delay: 0.52s; }
 
-/* ── Buttons ── */
+/* ───────────────────────────────────────────────
+   BUTTONS — letterpress feel
+   ─────────────────────────────────────────────── */
 .btn-elegant {
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 400;
-  letter-spacing: 0.32em; text-transform: uppercase;
-  padding: 0.9rem 2.2rem; border: 1px solid currentColor; cursor: pointer;
-  transition: background 0.28s ease, color 0.28s ease, border-color 0.28s ease;
-  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem; font-weight: 400;
+  letter-spacing: 0.36em; text-transform: uppercase;
+  padding: 1.05rem 2.4rem;
+  border: 1px solid currentColor;
+  cursor: pointer; text-decoration: none;
+  position: relative;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease, color 0.28s ease, border-color 0.28s ease;
+  border-radius: 2px;
 }
+.btn-elegant::before {
+  content: ''; position: absolute; inset: 4px;
+  border: 1px solid currentColor; opacity: 0.25; pointer-events: none;
+  border-radius: 1px;
+}
+.btn-elegant:hover { transform: translateY(-2px); }
+
 .btn-dark {
   background: var(--ink); color: var(--white); border-color: var(--ink);
+  box-shadow: 0 4px 16px rgba(42,18,38,0.18);
 }
-.btn-dark:hover { background: var(--ink-mid); border-color: var(--ink-mid); }
+.btn-dark:hover {
+  background: var(--ink-mid); border-color: var(--ink-mid);
+  box-shadow: 0 8px 24px rgba(42,18,38,0.28);
+}
+
 .btn-gold {
   background: var(--rose-deep); color: var(--white); border-color: var(--rose-deep);
+  box-shadow: 0 4px 18px rgba(210,68,127,0.32);
 }
-.btn-gold:hover { background: var(--rose); border-color: var(--rose); }
+.btn-gold:hover {
+  background: var(--rose); border-color: var(--rose);
+  box-shadow: 0 8px 28px rgba(254,86,155,0.42);
+}
+
 .btn-outline-light {
   background: transparent; color: var(--rose-deep); border-color: rgba(210,68,127,0.4);
 }
-.btn-outline-light:hover { background: var(--blush-wash); }
+.btn-outline-light:hover { background: var(--blush-wash); border-color: var(--rose-deep); }
+
+/* ───────────────────────────────────────────────
+   AMBIENT FLOATING PETALS
+   sprinkled across the page, very subtle
+   ─────────────────────────────────────────────── */
+.ambient-petals {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.ambient-petals span {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  opacity: 0;
+  animation: petalFall linear infinite;
+  filter: blur(0.4px);
+}
+@keyframes petalFall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg);  opacity: 0; }
+  10%  { opacity: 0.5; }
+  90%  { opacity: 0.4; }
+  100% { transform: translate3d(20px, 110vh, 0) rotate(360deg); opacity: 0; }
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right { transition: none; opacity: 1; transform: none; }
+  .ambient-petals { display: none; }
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

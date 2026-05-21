@@ -1,41 +1,116 @@
 .section {
-  background: #ffffff;
-  padding: 6rem 1.5rem;
+  background: var(--white);
+  padding: 7rem 1.5rem 7.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
-/* Rainbow petal border top */
+
+/* Top rainbow petal border */
 .section::before {
   content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
   background: linear-gradient(to right,
     #FE569B 0%, #9991E7 17%, #FE803D 34%,
     #FFDF46 50%, #7DC23D 67%, #5CA9E0 84%, #FE569B 100%);
+  background-size: 200% 100%;
+  animation: gradientFlow 12s linear infinite;
 }
-/* Soft floral watercolour blobs in corners */
+@keyframes gradientFlow {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+/* Watercolor blob in background */
 .section::after {
   content: '';
-  position: absolute; inset: 0; pointer-events: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
-    radial-gradient(ellipse at 0% 0%, rgba(255,223,70,0.12) 0%, transparent 35%),
-    radial-gradient(ellipse at 100% 100%, rgba(153,145,231,0.12) 0%, transparent 35%);
+    radial-gradient(ellipse 380px 280px at 8% 12%, rgba(255,223,70,0.14), transparent 70%),
+    radial-gradient(ellipse 360px 320px at 92% 88%, rgba(153,145,231,0.14), transparent 70%),
+    radial-gradient(ellipse 280px 240px at 50% 45%, rgba(254,86,155,0.06), transparent 70%);
+}
+
+/* Corner botanical sprigs */
+.cornerSprig {
+  position: absolute;
+  width: clamp(80px, 14vw, 140px);
+  height: clamp(120px, 18vw, 180px);
+  pointer-events: none;
+  z-index: 1;
+}
+.cornerTL { top: 2rem; left: 1rem; }
+.cornerBR { bottom: 2rem; right: 1rem; transform: scale(-1, -1); }
+
+@media (max-width: 640px) {
+  .cornerSprig { opacity: 0.7; }
+  .cornerTL { left: -0.5rem; top: 1rem; }
+  .cornerBR { right: -0.5rem; bottom: 1rem; }
 }
 
 .inner {
-  position: relative; z-index: 1;
-  max-width: 480px; margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.dear {
+  font-style: italic;
+  color: var(--rose-deep);
+  font-family: var(--font-script);
+  font-size: 0.62em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  vertical-align: 0.04em;
+}
+
+.openQuote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 6.5rem;
+  font-weight: 400;
+  line-height: 0.5;
+  color: var(--rose);
+  opacity: 0.35;
+  display: block;
+  margin: 2rem 0 -1.5rem;
+  height: 2.5rem;
 }
 
 .text {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(1.15rem, 4.5vw, 1.35rem);
-  font-weight: 300; font-style: italic; line-height: 1.9;
-  color: #4a2f4a; margin-top: 2.2rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 4.5vw, 1.42rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.85;
+  color: var(--ink-mid);
+  margin-top: 1.2rem;
+  position: relative;
 }
 
 .sign {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.7rem; font-style: italic; font-weight: 400;
-  color: #D2447F; margin-top: 1.8rem; letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.signNames {
+  font-family: var(--font-script);
+  font-size: 2.6rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--rose-deep);
+  font-weight: 400;
+  line-height: 1;
 }

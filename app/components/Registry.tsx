@@ -1,45 +1,134 @@
+"use client";
+import { useState } from "react";
 import styles from "./Registry.module.css";
 
+type Method = {
+  id: string;
+  label: string;       // e.g. "GCash"
+  holder: string;      // account-holder name
+  identifier: string;  // mobile number / account number
+  identifierLabel?: string; // e.g. "Mobile" or "Account no."
+};
+
+/* Real account details to be added later; the masked placeholders
+   keep the card layout and Copy button intact in the meantime. */
+const methods: Method[] = [
+  {
+    id: "gcash",
+    label: "GCash",
+    holder: "Coming soon",
+    identifier: "•••• ••• ••••",
+    identifierLabel: "Mobile",
+  },
+  {
+    id: "maya",
+    label: "Maya",
+    holder: "Coming soon",
+    identifier: "•••• ••• ••••",
+    identifierLabel: "Mobile",
+  },
+  {
+    id: "bank",
+    label: "Bank Transfer",
+    holder: "Coming soon",
+    identifier: "•••• •••• ••••",
+    identifierLabel: "Account no.",
+  },
+];
+
 export default function Registry() {
+  const [copied, setCopied] = useState<string | null>(null);
+  const [pending, setPending] = useState<string | null>(null);
+
+  const handleCopy = async (id: string, value: string) => {
+    // Detect placeholder values (masked bullets) — show "Soon" feedback
+    // instead of writing an empty string to the clipboard.
+    const isPlaceholder = /[•]/.test(value);
+    if (isPlaceholder) {
+      setPending(id);
+      setTimeout(() => setPending(null), 1800);
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(value.replace(/[\s•]/g, ""));
+      setCopied(id);
+      setTimeout(() => setCopied(null), 1800);
+    } catch {
+      /* clipboard may be unavailable; silently no-op */
+    }
+  };
+
   return (
     <section id="registry" className={styles.section}>
       <div className={styles.inner}>
-        <p className="section-eyebrow reveal">Gifts &amp; Wishes</p>
-        <h2 className="section-heading reveal delay-1">Registry</h2>
+        <p className="section-eyebrow reveal">A Note on Gifts</p>
+        <h2 className="section-heading reveal delay-1">With Love</h2>
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.prose} reveal delay-2`}>
-          Your presence at our celebration is the most treasured gift we could receive.
-          Should you wish to bless us further, we have put together a small registry
-          to guide you.
+          Your presence at our wedding is already the greatest gift we could
+          ever ask for. Should you wish to bless our new chapter with
+          something more, we have chosen to forgo a traditional registry
+          &mdash; a monetary gift would be cherished beyond measure.
         </p>
 
-        <a
-          href="https://docs.google.com/spreadsheets"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`${styles.registryLink} reveal delay-3`}
-        >
-          <div className={styles.linkLeft}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
-              <rect x="2" y="3" width="16" height="14" rx="1.5"/>
-              <path d="M2,7 L18,7"/>
-              <path d="M7,7 L7,17"/>
-              <path d="M7,10 L14,10"/>
-              <path d="M7,13 L14,13"/>
-            </svg>
-            <div>
-              <span className={styles.linkTitle}>Our Gift Registry</span>
-              <span className={styles.linkSub}>View the full list</span>
+        <div className={`${styles.methods} reveal delay-3`}>
+          {methods.map((m) => (
+            <div key={m.id} className={styles.methodCard}>
+              <div className={styles.methodHeader}>
+                <span className={styles.methodLabel}>{m.label}</span>
+                <button
+                  type="button"
+                  className={styles.copyBtn}
+                  onClick={() => handleCopy(m.id, m.identifier)}
+                  aria-label={`Copy ${m.label} ${m.identifierLabel ?? "number"}`}
+                >
+                  {copied === m.id ? (
+                    <>
+                      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                        <path d="M1.5,5.5 L4.5,8.5 L9.5,2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      Copied
+                    </>
+                  ) : pending === m.id ? (
+                    <>
+                      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+                        <circle cx="5.5" cy="5.5" r="4" />
+                        <path d="M5.5,3 V5.5 L7,7" strokeLinecap="round" />
+                      </svg>
+                      Soon
+                    </>
+                  ) : (
+                    <>
+                      <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.3" aria-hidden="true">
+                        <rect x="3.5" y="3.5" width="6" height="6" rx="0.8" />
+                        <path d="M1.5,7.5 V2 a0.5,0.5 0 0 1 0.5,-0.5 H7" />
+                      </svg>
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <span className={styles.methodId}>{m.identifier}</span>
+              <span className={styles.methodSub}>
+                {m.identifierLabel && (
+                  <>
+                    {m.identifierLabel}
+                    <span className={styles.subDot} aria-hidden="true">·</span>
+                  </>
+                )}
+                {m.holder}
+              </span>
             </div>
-          </div>
-          <svg className={styles.arrow} width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
-            <path d="M2,11 L11,2M4.5,2H11V8.5"/>
-          </svg>
-        </a>
+          ))}
+        </div>
 
         <p className={`${styles.note} reveal delay-3`}>
-          A card and your warm company on the day are always more than enough.
+          <em>
+            A heartfelt card and your warm company on the day are always
+            more than enough.
+          </em>
         </p>
       </div>
     </section>

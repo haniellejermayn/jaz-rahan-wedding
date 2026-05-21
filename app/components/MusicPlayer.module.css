@@ -1,102 +1,308 @@
 .section {
   background:
-    radial-gradient(ellipse at 20% 30%, rgba(153,145,231,0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(254,86,155,0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(255,223,70,0.1) 0%, transparent 40%),
-    #faf5f0;
-  padding: 5.5rem 1.5rem; text-align: center; position: relative;
+    radial-gradient(ellipse 70% 50% at 15% 25%, rgba(153, 145, 231, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 75%, rgba(254, 86, 155, 0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(255, 223, 70, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 35% at 80% 20%, rgba(92, 169, 224, 0.1) 0%, transparent 50%),
+    var(--paper);
+  padding: clamp(4.5rem, 9vw, 6.5rem) 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle watercolor stains */
+.section::before,
+.section::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+.section::before {
+  top: -10%;
+  left: -8%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(167, 101, 204, 0.25) 0%, transparent 70%);
+}
+.section::after {
+  bottom: -10%;
+  right: -8%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(254, 128, 61, 0.22) 0%, transparent 70%);
 }
 
 .player {
-  margin: 3rem auto 0; max-width: 280px;
-  display: flex; flex-direction: column; align-items: center; gap: 1.4rem;
-  position: relative; padding: 2rem 1.8rem 1.6rem;
-  background: rgba(255,255,255,0.8);
-  border-radius: 2px;
-  box-shadow: 0 2px 32px rgba(254,86,155,0.12), 0 1px 4px rgba(0,0,0,0.04);
+  margin: 3rem auto 0;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  padding: 2.4rem 2rem 1.8rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(253, 249, 243, 0.88) 100%);
+  border-radius: 3px;
+  box-shadow:
+    0 4px 40px rgba(254, 86, 155, 0.12),
+    0 2px 8px rgba(42, 18, 38, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  z-index: 1;
 }
 
-/* Gradient border — rainbow petal */
+/* Letterpress double-border */
 .player::before {
   content: "";
-  position: absolute; inset: 0; pointer-events: none; border-radius: 2px;
-  background: linear-gradient(135deg,
-    rgba(254,86,155,0.5) 0%,
-    rgba(153,145,231,0.4) 25%,
-    rgba(92,169,224,0.35) 50%,
-    rgba(125,194,61,0.35) 75%,
-    rgba(254,86,155,0.45) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude; padding: 1.5px;
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  border: 1px solid rgba(210, 68, 127, 0.25);
+  border-radius: 2px;
 }
 
-.trackRow { display: flex; align-items: center; gap: 1.1rem; width: 100%; }
+/* Outer rainbow gradient halo */
+.player::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  border-radius: 4px;
+  background: linear-gradient(
+    135deg,
+    rgba(254, 86, 155, 0.55) 0%,
+    rgba(167, 101, 204, 0.5) 22%,
+    rgba(92, 169, 224, 0.45) 44%,
+    rgba(125, 194, 61, 0.45) 66%,
+    rgba(255, 223, 70, 0.55) 84%,
+    rgba(254, 86, 155, 0.55) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1.5px;
+  z-index: -1;
+}
+
+.trackRow {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
 
 .albumArt {
-  flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%; overflow: hidden;
-  box-shadow: 0 0 0 2px rgba(254,86,155,0.2), 0 4px 16px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(210, 68, 127, 0.2),
+    0 0 0 4px rgba(254, 86, 155, 0.08),
+    0 4px 16px rgba(42, 18, 38, 0.1);
 }
-.artSvg { width: 100%; height: 100%; display: block; }
 
-.trackInfo { display: flex; flex-direction: column; gap: 0.2rem; text-align: left; min-width: 0; }
-.trackName {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.18rem; font-style: italic; font-weight: 300; color: #2d1a2e;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2;
+.albumArt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+  pointer-events: none;
 }
+
+.artSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+  min-width: 0;
+  flex: 1;
+}
+
+.trackName {
+  font-family: var(--font-display), "Fraunces", Georgia, serif;
+  font-size: 1.32rem;
+  font-style: italic;
+  font-weight: 400;
+  font-variation-settings: "opsz" 24;
+  color: var(--ink, #2a1226);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
 .trackArtist {
-  font-family: "Jost", sans-serif; font-size: 0.52rem;
-  letter-spacing: 0.3em; text-transform: uppercase; color: #b89ab8;
+  font-family: var(--font-sans), "Jost", sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #b89ab8;
+  font-weight: 400;
 }
 
 .progressBar {
-  position: relative; width: 100%; height: 20px; cursor: pointer;
-  display: flex; align-items: center;
+  position: relative;
+  width: 100%;
+  height: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+  touch-action: none;
+  outline: none;
 }
+
+.progressBar:focus-visible {
+  outline: 1px dashed rgba(254, 86, 155, 0.5);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .track {
-  position: absolute; left: 0; right: 0; height: 1px;
-  background: rgba(210,68,127,0.15);
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(210, 68, 127, 0.18);
 }
+
 .fill {
-  position: absolute; left: 0; height: 1px;
-  background: linear-gradient(to right, #FE569B, #9991E7);
-  pointer-events: none; transition: width 0.15s linear;
+  position: absolute;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(to right, #FE569B 0%, #A765CC 50%, #9991E7 100%);
+  pointer-events: none;
+  transition: width 0.15s linear;
+  box-shadow: 0 0 6px rgba(254, 86, 155, 0.4);
 }
-.dragging .fill { transition: none; }
+.dragging .fill {
+  transition: none;
+}
+
 .thumb {
-  position: absolute; top: 50%; transform: translate(-50%, -50%);
-  width: 10px; height: 10px; border-radius: 50%; background: #FE569B;
-  pointer-events: none; opacity: 0; transition: opacity 0.2s;
-  box-shadow: 0 0 8px rgba(254,86,155,0.5);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FE569B 0%, #D2447F 100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.9),
+    0 0 10px rgba(254, 86, 155, 0.5);
 }
-.progressBar:hover .thumb, .progressBar.dragging .thumb { opacity: 1; }
+.progressBar:hover .thumb,
+.progressBar.dragging .thumb {
+  opacity: 1;
+}
+.progressBar:hover .thumb {
+  transform: translate(-50%, -50%) scale(1.15);
+}
 
 .times {
-  display: flex; justify-content: space-between; width: 100%; margin-top: -0.7rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: -0.8rem;
+  z-index: 1;
 }
+
 .times span {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.72rem; font-weight: 300; font-style: italic; color: #b89ab8;
-  letter-spacing: 0.04em; font-variant-numeric: tabular-nums;
+  font-family: var(--font-display), "Fraunces", Georgia, serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "opsz" 14;
+  color: #b89ab8;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
 .playBtn {
-  width: 44px; height: 44px; border-radius: 50%; border: none;
-  background: transparent; color: #D2447F; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: color 0.22s, transform 0.18s; position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #D2447F;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.25s, transform 0.2s;
+  position: relative;
+  z-index: 1;
 }
+
+.playBtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(254, 86, 155, 0.35);
+  transition: border-color 0.25s, transform 0.25s;
+}
+
 .playBtn::after {
-  content: ""; position: absolute; inset: 0; border-radius: 50%;
-  border: 1px solid rgba(254,86,155,0.25); opacity: 0; transition: opacity 0.22s;
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(254, 86, 155, 0.25);
+  opacity: 0;
+  transition: opacity 0.25s, transform 0.25s;
 }
-.playBtn:hover { color: #FE569B; transform: scale(1.08); }
-.playBtn:hover::after { opacity: 1; }
-.playing { color: #FE569B; }
-.playing::after { opacity: 1; border-color: rgba(254,86,155,0.4); }
+
+.playBtn:hover {
+  color: #FE569B;
+  transform: scale(1.08);
+}
+.playBtn:hover::before {
+  border-color: rgba(254, 86, 155, 0.6);
+}
+.playBtn:hover::after {
+  opacity: 1;
+}
+
+.playing {
+  color: #FE569B;
+}
+.playing::before {
+  border-color: rgba(254, 86, 155, 0.55);
+}
+.playing::after {
+  opacity: 1;
+  border-color: rgba(254, 86, 155, 0.35);
+}
 
 .hint {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.72rem; font-style: italic; color: #b89ab8; margin-top: -0.3rem;
+  font-family: var(--font-display), "Fraunces", Georgia, serif;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-variation-settings: "opsz" 14;
+  color: #b89ab8;
+  margin-top: -0.3rem;
+  letter-spacing: 0.02em;
 }

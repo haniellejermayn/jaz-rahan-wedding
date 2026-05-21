@@ -19,6 +19,22 @@ import RSVP from "./components/RSVP";
 import RSVPFloat from "./components/RSVPFloat";
 import Footer from "./components/Footer";
 
+/* Ambient floating petals — sprinkled across the page */
+const PETALS = [
+  { left: "8%",  size: 7,  color: "#FE569B", duration: 22, delay: 0  },
+  { left: "18%", size: 5,  color: "#9991E7", duration: 28, delay: 4  },
+  { left: "28%", size: 8,  color: "#FE803D", duration: 24, delay: 9  },
+  { left: "38%", size: 4,  color: "#FFDF46", duration: 30, delay: 2  },
+  { left: "48%", size: 6,  color: "#7DC23D", duration: 26, delay: 12 },
+  { left: "58%", size: 5,  color: "#5CA9E0", duration: 25, delay: 6  },
+  { left: "68%", size: 7,  color: "#FE569B", duration: 27, delay: 14 },
+  { left: "78%", size: 4,  color: "#A765CC", duration: 23, delay: 8  },
+  { left: "88%", size: 6,  color: "#FEC135", duration: 29, delay: 11 },
+  { left: "95%", size: 5,  color: "#FE569B", duration: 24, delay: 16 },
+  { left: "13%", size: 4,  color: "#18C5B4", duration: 31, delay: 19 },
+  { left: "53%", size: 5,  color: "#FE803D", duration: 26, delay: 21 },
+];
+
 export default function Home() {
   const [opened, setOpened] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -44,6 +60,23 @@ export default function Home() {
       <EnvelopeOverlay onOpen={handleOpen} />
 
       <div style={{ visibility: opened ? "visible" : "hidden" }}>
+        {/* Ambient floating petals across whole page */}
+        <div className="ambient-petals" aria-hidden="true">
+          {PETALS.map((p, i) => (
+            <span
+              key={i}
+              style={{
+                left: p.left,
+                width: `${p.size}px`,
+                height: `${p.size}px`,
+                background: p.color,
+                animationDuration: `${p.duration}s`,
+                animationDelay: `${p.delay}s`,
+              }}
+            />
+          ))}
+        </div>
+
         <Nav />
         <main>
           <Hero />

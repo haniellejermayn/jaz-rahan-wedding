@@ -18,14 +18,20 @@ export default function MusicPlayer({ audioRef }: Props) {
   const [progress, setProgress] = useState(0); // 0–100
   const [duration, setDuration] = useState(0);
   const [dragging, setDragging] = useState(false);
+
+  // Use a ref for the dragging flag so the timeupdate handler sees the
+  // current value without re-attaching listeners (which would call
+  // a.load() again and restart playback). This is the fix for the
+  // "restart" bug.
+  const draggingRef = useRef(false);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  // ── Attach audio listeners ──
+  // ── Attach audio listeners ONCE on mount ──
   useEffect(() => {
     const a = audioRef.current;
     if (!a) return;
 
-    // Force metadata load immediately
+    // Force metadata load only once, on mount
     a.load();
 
     const syncDuration = () => {
@@ -34,7 +40,9 @@ export default function MusicPlayer({ audioRef }: Props) {
     const onPlay = () => setPlaying(true);
     const onPause = () => setPlaying(false);
     const onTime = () => {
-      if (!dragging && a.duration) {
+      // While the user is dragging the thumb, don't let timeupdate
+      // overwrite the visual progress — let the pointer drive it.
+      if (!draggingRef.current && a.duration) {
         setProgress((a.currentTime / a.duration) * 100);
       }
     };
@@ -44,9 +52,9 @@ export default function MusicPlayer({ audioRef }: Props) {
     a.addEventListener("timeupdate", onTime);
     a.addEventListener("loadedmetadata", syncDuration);
     a.addEventListener("durationchange", syncDuration);
-    a.addEventListener("canplay", syncDuration); // fallback
+    a.addEventListener("canplay", syncDuration);
 
-    // Already loaded? Grab duration right now
+    // If metadata already arrived, grab duration right now
     syncDuration();
 
     return () => {
@@ -57,65 +65,103 @@ export default function MusicPlayer({ audioRef }: Props) {
       a.removeEventListener("durationchange", syncDuration);
       a.removeEventListener("canplay", syncDuration);
     };
-  }, [audioRef, dragging]);
+  }, [audioRef]);
 
-  // ── Play/pause ──
+  // ── Play / pause ──
   const togglePlay = () => {
     const a = audioRef.current;
     if (!a) return;
-    a.paused ? a.play().catch(() => {}) : a.pause();
+    if (a.paused) {
+      a.play().catch(() => {});
+    } else {
+      a.pause();
+    }
   };
 
-  // ── Seek ──
-  const seekTo = useCallback(
-    (clientX: number) => {
-      const bar = trackRef.current;
+  // ── Convert clientX → percent (0–1) along the track ──
+  const pctFromClientX = useCallback((clientX: number) => {
+    const bar = trackRef.current;
+    if (!bar) return 0;
+    const { left, width } = bar.getBoundingClientRect();
+    if (width <= 0) return 0;
+    return Math.min(Math.max((clientX - left) / width, 0), 1);
+  }, []);
+
+  // ── Commit a seek to the audio element (only on release / tap) ──
+  const commitSeek = useCallback(
+    (pct: number) => {
       const a = audioRef.current;
-      if (!bar || !a || !a.duration) return;
-      const { left, width } = bar.getBoundingClientRect();
-      const pct = Math.min(Math.max((clientX - left) / width, 0), 1);
-      a.currentTime = pct * a.duration;
-      setProgress(pct * 100);
+      if (a && a.duration && isFinite(a.duration)) {
+        a.currentTime = pct * a.duration;
+      }
     },
     [audioRef],
   );
 
-  const onMouseDown = (e: React.MouseEvent) => {
+  // ── Pointer handlers (one set, works for mouse + touch + pen) ──
+  // Visual progress updates immediately on every move for smoothness;
+  // the audio is only actually seeked on release. This eliminates the
+  // "lag while dragging" feel that comes from seeking on every move.
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const target = e.currentTarget;
+    try {
+      target.setPointerCapture(e.pointerId);
+    } catch { /* ignore */ }
+    draggingRef.current = true;
     setDragging(true);
-    seekTo(e.clientX);
-  };
-  const onTouchStart = (e: React.TouchEvent) => {
-    setDragging(true);
-    seekTo(e.touches[0].clientX);
+    const pct = pctFromClientX(e.clientX);
+    setProgress(pct * 100);
   };
 
-  const onMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (dragging) seekTo(e.clientX);
-    },
-    [dragging, seekTo],
-  );
-  const onTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (dragging) seekTo(e.touches[0].clientX);
-    },
-    [dragging, seekTo],
-  );
-  const stopDrag = useCallback(() => setDragging(false), []);
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    const pct = pctFromClientX(e.clientX);
+    setProgress(pct * 100);
+  };
 
-  useEffect(() => {
-    if (!dragging) return;
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", stopDrag);
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", stopDrag);
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", stopDrag);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", stopDrag);
-    };
-  }, [dragging, onMouseMove, onTouchMove, stopDrag]);
+  const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    const target = e.currentTarget;
+    try {
+      target.releasePointerCapture(e.pointerId);
+    } catch { /* ignore */ }
+    const pct = pctFromClientX(e.clientX);
+    setProgress(pct * 100);
+    commitSeek(pct);
+    draggingRef.current = false;
+    setDragging(false);
+  };
+
+  const onPointerCancel = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!draggingRef.current) return;
+    const target = e.currentTarget;
+    try {
+      target.releasePointerCapture(e.pointerId);
+    } catch { /* ignore */ }
+    // commit whatever the last visual progress is so audio matches the UI
+    commitSeek(progress / 100);
+    draggingRef.current = false;
+    setDragging(false);
+  };
+
+  // ── Keyboard support: arrow keys jog by 5s ──
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const a = audioRef.current;
+    if (!a || !a.duration) return;
+    let dt = 0;
+    if (e.key === "ArrowRight") dt = 5;
+    else if (e.key === "ArrowLeft") dt = -5;
+    else if (e.key === "Home") {
+      a.currentTime = 0;
+      return;
+    } else if (e.key === "End") {
+      a.currentTime = a.duration - 0.1;
+      return;
+    } else return;
+    e.preventDefault();
+    a.currentTime = Math.min(Math.max(a.currentTime + dt, 0), a.duration);
+  };
 
   const currentSecs = duration ? (progress / 100) * duration : 0;
 
@@ -123,15 +169,9 @@ export default function MusicPlayer({ audioRef }: Props) {
     <section id="music" className={styles.section}>
       <audio ref={audioRef} src="/audio/song.mp3" preload="auto" loop />
 
-      <p className="section-eyebrow reveal" >
-        Setting the Mood
-      </p>
-      <h2 className="section-heading reveal delay-1">
-        Our Song
-      </h2>
-      <div className="ornament reveal delay-2" >
-        ✦
-      </div>
+      <p className="section-eyebrow reveal">Setting the Mood</p>
+      <h2 className="section-heading reveal delay-1">Our Song</h2>
+      <div className="ornament reveal delay-2">✦</div>
 
       <div className={`${styles.player} reveal delay-3`}>
         {/* Album art placeholder + track info side by side */}
@@ -186,7 +226,7 @@ export default function MusicPlayer({ audioRef }: Props) {
                 fontStyle="italic"
                 opacity="0.6"
               >
-                J&amp;R
+                R&amp;J
               </text>
             </svg>
           </div>
@@ -201,9 +241,13 @@ export default function MusicPlayer({ audioRef }: Props) {
         <div
           ref={trackRef}
           className={`${styles.progressBar} ${dragging ? styles.dragging : ""}`}
-          onMouseDown={onMouseDown}
-          onTouchStart={onTouchStart}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerCancel}
+          onKeyDown={onKeyDown}
           role="slider"
+          tabIndex={0}
           aria-label="Seek"
           aria-valuenow={Math.round(progress)}
           aria-valuemin={0}

@@ -1,40 +1,152 @@
 .section {
   background:
-    radial-gradient(ellipse at 100% 0%, rgba(92,169,224,0.12) 0%, transparent 40%),
-    radial-gradient(ellipse at 0% 100%, rgba(125,194,61,0.1) 0%, transparent 40%),
-    #faf5f0;
-  padding: 6rem 1.5rem; text-align: center;
+    radial-gradient(ellipse at 100% 0%, rgba(92,169,224,0.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 0% 100%, rgba(125,194,61,0.14) 0%, transparent 42%),
+    radial-gradient(ellipse at 50% 50%, rgba(153,145,231,0.06) 0%, transparent 60%),
+    var(--paper);
+  padding: clamp(4.5rem, 9vw, 7rem) 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
-.inner { max-width: 420px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+
+/* Soft watercolor stains */
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle 260px at 18% 32%, rgba(254,86,155,0.07), transparent 70%),
+    radial-gradient(circle 300px at 82% 70%, rgba(125,194,61,0.08), transparent 70%);
+  filter: blur(8px);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .nameBlock {
-  margin-top: 2.8rem; padding: 2rem 0;
-  border-top: 1px solid rgba(92,169,224,0.25);
-  border-bottom: 1px solid rgba(92,169,224,0.25);
+  margin-top: 3rem;
+  padding: 2.2rem 1.5rem;
   width: 100%;
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
 }
+
+.nameBlock::before,
+.nameBlock::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 1px;
+  width: 70%;
+  background: linear-gradient(to right, transparent, var(--cobalt) 30%, var(--cobalt) 70%, transparent);
+  opacity: 0.4;
+}
+.nameBlock::before { top: 0; }
+.nameBlock::after  { bottom: 0; }
 
 .venueName {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.5rem, 6.5vw, 2.1rem);
-  font-weight: 400; font-style: italic; color: #2d1a2e; letter-spacing: 0.01em;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  font-variation-settings: "opsz" 72;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  line-height: 1.15;
 }
 
-.venueAddress {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1rem; font-weight: 300; font-style: italic;
-  color: #7a5c7a; line-height: 1.85; margin-top: 0.65rem;
+.venueLocation {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  margin-top: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+.locationRule {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: rgba(254, 86, 155, 0.5);
 }
 
+/* ── Map frame with decorative corner sprigs ── */
 .mapFrame {
-  width: 100%; margin-top: 2.2rem; border-radius: 2px; overflow: hidden;
-  border: 1px solid rgba(92,169,224,0.2); position: relative;
+  width: 100%;
+  margin-top: 2.6rem;
+  position: relative;
+  padding: 0;
 }
-.mapSvg { width: 100%; display: block; }
-.mapLabel {
-  position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-  font-family: 'Jost', sans-serif; font-size: 0.52rem; letter-spacing: 0.28em;
-  text-transform: uppercase; color: #7a5c7a;
-  background: rgba(250,245,240,0.9); padding: 0.3rem 1rem; white-space: nowrap;
+
+.mapShell {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 3px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #eaf3fb 0%, #f5ead7 100%);
+  border: 1px solid rgba(92, 169, 224, 0.32);
+  box-shadow:
+    0 12px 36px rgba(92, 169, 224, 0.18),
+    0 2px 8px rgba(42, 18, 38, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
-.mapBtn { margin-top: 2rem; }
+
+/* Letterpress double-border inside the shell */
+.mapShell::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(92, 169, 224, 0.22);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.mapIframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Corner botanical sprigs that overlap the map frame */
+.mapSprig {
+  position: absolute;
+  width: clamp(40px, 9vw, 64px);
+  height: clamp(40px, 9vw, 64px);
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 1px 2px rgba(42, 18, 38, 0.08));
+}
+.sprigTL { top: -10px;  left: -10px;  }
+.sprigTR { top: -10px;  right: -10px; transform: scaleX(-1); }
+.sprigBL { bottom: -10px; left: -10px; transform: scaleY(-1); }
+.sprigBR { bottom: -10px; right: -10px; transform: scale(-1, -1); }
+
+@media (min-width: 720px) {
+  .mapShell { aspect-ratio: 16 / 10; }
+}
+
+.mapBtn {
+  margin-top: 2.4rem;
+}

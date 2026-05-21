@@ -25,7 +25,7 @@ export default function Countdown() {
 
   return (
     <div className={styles.strip}>
-      <p className={styles.label}>Counting down to forever</p>
+      <p className={styles.label}>counting down to forever</p>
       <div className={styles.grid}>
         {[
           { n: pad(days),  u: "Days" },

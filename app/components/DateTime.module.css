@@ -1,65 +1,196 @@
 .section {
   background:
-    radial-gradient(ellipse at 95% 10%, rgba(255,223,70,0.14) 0%, transparent 40%),
-    radial-gradient(ellipse at 5% 90%, rgba(254,86,155,0.1) 0%, transparent 40%),
-    #ffffff;
-  padding: 6rem 1.5rem;
+    radial-gradient(ellipse at 95% 10%, rgba(255,223,70,0.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 5% 90%, rgba(254,86,155,0.12) 0%, transparent 42%),
+    radial-gradient(ellipse at 50% 50%, rgba(125,194,61,0.06) 0%, transparent 60%),
+    var(--white);
+  padding: 7rem 1.5rem;
+  position: relative;
+  overflow: hidden;
 }
-.inner { max-width: 440px; margin: 0 auto; text-align: center; }
 
-.dateBlock {
-  display: flex; flex-direction: column; align-items: center;
-  margin: 2.8rem 0 3.8rem;
-  border-top: 1px solid rgba(254,86,155,0.2);
-  border-bottom: 1px solid rgba(153,145,231,0.2);
-  padding: 1.6rem 0; gap: 0;
+.inner {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
+
+/* DATE CARD — like an actual invitation */
+.dateCard {
+  margin: 3rem 0 4rem;
+  padding: 2.4rem 1.5rem 2.2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,240,246,0.5));
+  border-radius: 2px;
+}
+
+/* Decorative double-border */
+.dateCard::before,
+.dateCard::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(254,86,155,0.55) 20%, rgba(254,86,155,0.55) 80%, transparent);
+}
+.dateCard::before { top: 0; }
+.dateCard::after { bottom: 0; }
 
 .dateSub {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.58rem; font-weight: 300; letter-spacing: 0.42em;
-  text-transform: uppercase; color: #b89ab8; margin-bottom: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+}
+
+.dateRow {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  margin: 0.4rem 0;
+}
+
+.dateMonth,
+.dateYearV {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 5.5vw, 1.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-mid);
+  letter-spacing: 0.02em;
+  position: relative;
+  top: -0.5em;
+  padding-bottom: 0.4em;
+}
+.dateMonth::after,
+.dateYearV::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(254,86,155,0.4);
+  position: absolute;
+  bottom: 0.1em;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .dateMain {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(3.2rem, 15vw, 5.5rem);
-  font-weight: 300; font-style: italic; color: #2d1a2e;
-  line-height: 1; letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-size: clamp(5.5rem, 22vw, 8rem);
+  font-weight: 300;
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--ink);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  font-variant-numeric: lining-nums;
 }
 
-.dateYear {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.05rem; font-weight: 300; letter-spacing: 0.42em;
-  color: #D2447F; margin-top: 0.3rem;
+.dateOrnament {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--rose-deep);
+  letter-spacing: 0.02em;
+}
+.dateOrnament span:not(em) {
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(254,86,155,0.45);
+}
+.dateOrnament em {
+  font-style: italic;
 }
 
-.timeline { display: flex; flex-direction: column; text-align: left; }
-.row { display: grid; grid-template-columns: 74px 26px 1fr; align-items: flex-start; }
-.timeCol { padding-top: 0.1rem; text-align: right; }
+/* TIMELINE */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 88px 32px 1fr;
+  align-items: flex-start;
+  position: relative;
+}
+
+.timeCol {
+  padding-top: 0.2rem;
+  text-align: right;
+}
 .time {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.88rem; font-weight: 400; color: #b89ab8;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink-soft);
+  letter-spacing: 0.02em;
+  font-variant-numeric: lining-nums tabular-nums;
 }
-.stemCol { display: flex; flex-direction: column; align-items: center; padding-top: 0.32rem; }
+
+.stemCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.18rem;
+}
 .dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #FE569B; flex-shrink: 0;
-  box-shadow: 0 0 0 3px #ffffff, 0 0 0 4px rgba(254,86,155,0.25);
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 .stem {
-  flex: 1; width: 1px; min-height: 38px;
-  background: linear-gradient(to bottom, rgba(254,86,155,0.3), transparent);
+  flex: 1;
+  width: 1px;
+  min-height: 50px;
+  background: linear-gradient(to bottom, var(--accent, #FE569B) 0%, rgba(254,86,155,0.18) 50%, transparent 100%);
   margin-top: 5px;
+  opacity: 0.55;
 }
-.labelCol { padding-bottom: 2.2rem; padding-left: 0.9rem; }
+
+.labelCol {
+  padding-bottom: 2.5rem;
+  padding-left: 1.1rem;
+}
 .eventLabel {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.15rem; font-weight: 500; color: #2d1a2e;
-  display: block; line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--ink);
+  display: block;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 .eventNote {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.58rem; font-weight: 300; letter-spacing: 0.12em;
-  color: #b89ab8; display: block; margin-top: 0.3rem;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.35rem;
+  line-height: 1.5;
 }

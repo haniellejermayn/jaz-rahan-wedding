@@ -3,8 +3,14 @@ import styles from "./PhotoCarousel.module.css";
 
 // Placeholder cards with varying heights for editorial feel
 const CARDS = [
-  { h: 300 }, { h: 240 }, { h: 280 }, { h: 260 },
-  { h: 320 }, { h: 250 }, { h: 290 }, { h: 270 },
+  { h: 300, tone: "rose" },
+  { h: 240, tone: "violet" },
+  { h: 280, tone: "tangerine" },
+  { h: 260, tone: "sunray" },
+  { h: 320, tone: "leaf" },
+  { h: 250, tone: "sky" },
+  { h: 290, tone: "berry" },
+  { h: 270, tone: "teal" },
 ];
 
 export default function PhotoCarousel() {
@@ -17,7 +23,7 @@ export default function PhotoCarousel() {
         <p className="section-eyebrow">Our Moments</p>
         <h2 className="section-heading">Gallery</h2>
         <div className="ornament">✦</div>
-        <p className={styles.note}>Photos coming soon</p>
+        <p className={styles.note}>Pressed memories, coming soon</p>
       </div>
 
       <div className={styles.trackWrap}>
@@ -25,17 +31,47 @@ export default function PhotoCarousel() {
           {all.map((c, i) => (
             <div
               key={i}
-              className={styles.card}
+              className={`${styles.card} ${styles[c.tone]}`}
               style={{ height: c.h }}
             >
-              {/* Replace this div with <Image> once photos are ready */}
               <div className={styles.placeholder}>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <rect x="2" y="5" width="28" height="22" rx="2" stroke="#9991E7" strokeWidth="1.2"/>
-                  <circle cx="11" cy="13" r="3" stroke="#9991E7" strokeWidth="1.2"/>
-                  <path d="M2,21 L10,15 L17,21 L23,16 L30,21" stroke="#9991E7" strokeWidth="1.2" fill="none"/>
+                {/* Botanical bloom illustration as placeholder */}
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  aria-hidden="true"
+                  className={styles.bloomIcon}
+                >
+                  {/* stem */}
+                  <path
+                    d="M24,44 Q23,32 24,20"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    fill="none"
+                    opacity="0.55"
+                  />
+                  {/* leaves */}
+                  <path
+                    d="M24,32 Q16,28 12,22 Q18,26 24,32Z"
+                    fill="currentColor"
+                    opacity="0.35"
+                  />
+                  <path
+                    d="M24,32 Q32,28 36,22 Q30,26 24,32Z"
+                    fill="currentColor"
+                    opacity="0.35"
+                  />
+                  {/* bloom petals */}
+                  <ellipse cx="24" cy="18" rx="9" ry="8" fill="currentColor" opacity="0.25" />
+                  <ellipse cx="24" cy="18" rx="6" ry="5.5" fill="currentColor" opacity="0.4" />
+                  <circle cx="24" cy="18" r="2.5" fill="currentColor" opacity="0.85" />
                 </svg>
               </div>
+              {/* corner tab marks */}
+              <span className={styles.tabTopLeft} aria-hidden="true" />
+              <span className={styles.tabBottomRight} aria-hidden="true" />
             </div>
           ))}
         </div>
