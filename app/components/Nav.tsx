@@ -55,6 +55,16 @@ export default function Nav() {
         className={`${styles.drawer} ${open ? styles.drawerOpen : ""}`}
         aria-hidden={!open}
       >
+        {/* Close button lives inside the drawer so it's above z-index 200 */}
+        <button
+          className={styles.drawerClose}
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+        >
+          <span />
+          <span />
+        </button>
+
         <ul className={styles.drawerLinks}>
           {links.map((l) => (
             <li key={l.href}>
