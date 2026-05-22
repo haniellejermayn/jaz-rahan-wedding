@@ -19,19 +19,19 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     const v = videoRef.current;
     if (v && v.paused) v.play().catch(() => {});
 
-    // Phase 1 — seal breaks, flap opens, card emerges (0–800ms)
+    // Phase 1 (0–1200ms): seal breaks, flap folds, card emerges
     setOpening(true);
 
-    // Phase 2 — start crossfade: page fades in while overlay fades out (800ms)
+    // Phase 2 (1200ms): card zooms forward, page begins fading in
     setTimeout(() => {
-      onOpen();
       setExiting(true);
-    }, 800);
+      onOpen();
+    }, 1200);
 
-    // Phase 3 — unmount overlay after crossfade completes (1700ms)
+    // Phase 3 (2300ms): overlay removed
     setTimeout(() => {
       setVisible(false);
-    }, 1700);
+    }, 2300);
   };
 
   useEffect(() => {
@@ -95,33 +95,28 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
       <div className={styles.content}>
         <p className={styles.youAreInvited}>You are cordially invited to</p>
 
-        <div className={styles.envelopeWrap}>
+        <div className={styles.envelopeStage}>
           <svg
             className={styles.envelopeSvg}
-            viewBox="0 0 280 200"
+            viewBox="0 0 280 220"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
             <defs>
               <linearGradient id="envBody" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fff8fb" />
+                <stop offset="0%" stopColor="#fffafc" />
                 <stop offset="55%" stopColor="#ffeaf3" />
-                <stop offset="100%" stopColor="#ffd2e3" />
+                <stop offset="100%" stopColor="#fbcfe1" />
               </linearGradient>
 
               <linearGradient id="envFlap" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fff3f8" />
-                <stop offset="100%" stopColor="#ffc8dd" />
+                <stop offset="0%" stopColor="#fff5fa" />
+                <stop offset="100%" stopColor="#f9bcd5" />
               </linearGradient>
 
-              <linearGradient id="envLiner" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#f7c5d8" />
-                <stop offset="100%" stopColor="#eaa5c0" />
-              </linearGradient>
-
-              <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fffefb" />
-                <stop offset="100%" stopColor="#fdf3e8" />
+              <linearGradient id="envInside" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#3a1226" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#5a1a3a" stopOpacity="0.18" />
               </linearGradient>
 
               <radialGradient id="sealGrad" cx="0.36" cy="0.32" r="0.7">
@@ -130,284 +125,266 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 <stop offset="100%" stopColor="#A82A65" />
               </radialGradient>
 
-              <filter
-                id="paperShadow"
-                x="-20%"
-                y="-20%"
-                width="140%"
-                height="140%"
-              >
+              <filter id="paperShadow" x="-20%" y="-20%" width="140%" height="140%">
                 <feDropShadow
                   dx="0"
                   dy="6"
                   stdDeviation="8"
                   floodColor="#7a1f4a"
-                  floodOpacity="0.14"
+                  floodOpacity="0.16"
                 />
               </filter>
 
-              <filter
-                id="sealGlow"
-                x="-50%"
-                y="-50%"
-                width="200%"
-                height="200%"
-              >
-                <feGaussianBlur stdDeviation="4" />
+              <filter id="sealGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="5" />
               </filter>
             </defs>
 
-            {/* === Envelope body (back panel) === */}
+            {/* Ambient pink halo */}
+            <ellipse
+              cx="140"
+              cy="115"
+              rx="155"
+              ry="100"
+              fill="#FE569B"
+              opacity="0.08"
+              filter="url(#sealGlow)"
+            />
+
+            {/* === Envelope body === */}
             <g filter="url(#paperShadow)">
               <rect
                 x="20"
-                y="24"
+                y="30"
                 width="240"
-                height="160"
-                rx="8"
-                ry="8"
+                height="170"
+                rx="10"
                 fill="url(#envBody)"
               />
-              {/* Inner liner strip — peeks at the envelope opening */}
-              <path
-                d="M20,32 L20,52 L260,52 L260,32 Z"
-                fill="url(#envLiner)"
-                opacity="0.45"
-              />
-              {/* Subtle letterpress border */}
-              <rect
-                x="26"
-                y="30"
-                width="228"
-                height="148"
-                rx="4"
-                ry="4"
-                fill="none"
-                stroke="rgba(180,50,100,0.13)"
-                strokeWidth="0.5"
-              />
             </g>
 
-            {/* === Card hidden inside envelope (emerges on open) === */}
-            <g className={styles.envelopeCard}>
-              <rect
-                x="40"
-                y="52"
-                width="200"
-                height="110"
-                rx="2"
-                fill="url(#cardGrad)"
-                stroke="rgba(180,50,100,0.15)"
-                strokeWidth="0.4"
-              />
-              <rect
-                x="46"
-                y="58"
-                width="188"
-                height="98"
-                rx="1"
-                fill="none"
-                stroke="rgba(180,50,100,0.22)"
-                strokeWidth="0.4"
-              />
-              <text
-                x="140"
-                y="100"
-                textAnchor="middle"
-                fontFamily="Georgia, serif"
-                fontStyle="italic"
-                fontSize="12"
-                fill="#a04075"
-                opacity="0.75"
-              >
-                Rahan &amp; Jaz
-              </text>
-              <line
-                x1="105"
-                y1="110"
-                x2="175"
-                y2="110"
-                stroke="rgba(180,50,100,0.3)"
-                strokeWidth="0.4"
-              />
-              <text
-                x="140"
-                y="124"
-                textAnchor="middle"
-                fontFamily="Jost, sans-serif"
-                fontSize="6"
-                fill="#a04075"
-                opacity="0.65"
-                letterSpacing="1.6"
-              >
-                JULY · 21 · 2026
-              </text>
-            </g>
-
-            {/* === Bottom V-crease (anchors the seal point visually) === */}
+            {/* === Interior "well" (dark wedge visible when flap opens) === */}
             <path
-              d="M22,180 L140,110 L258,180"
-              stroke="rgba(180,50,100,0.18)"
+              d="M28,38 L140,128 L252,38 L252,54 L142,144 L138,144 L28,54 Z"
+              fill="url(#envInside)"
+            />
+
+            {/* === Subtle inner letterpress border === */}
+            <rect
+              x="28"
+              y="38"
+              width="224"
+              height="154"
+              rx="5"
+              fill="none"
+              stroke="rgba(180,50,100,0.16)"
+              strokeWidth="0.5"
+            />
+
+            {/* === Bottom V-crease (anchors composition) === */}
+            <path
+              d="M28,192 L140,128 L252,192"
+              stroke="rgba(180,50,100,0.22)"
               strokeWidth="0.7"
               fill="none"
               strokeLinejoin="round"
             />
 
-            {/* === Decorative botanicals on envelope body === */}
-            <g opacity="0.75">
+            {/* === Botanical accents along bottom (full palette) === */}
+            <g opacity="0.78">
+              {/* Left sprig */}
               <path
-                d="M38,140 Q44,134 50,140 Q44,146 38,140Z"
+                d="M42,160 Q48,154 54,160 Q48,166 42,160Z"
                 fill="#7DC23D"
               />
               <path
-                d="M48,144 Q53,141 58,144"
+                d="M54,160 Q60,156 66,160"
                 stroke="#5a9a2e"
                 strokeWidth="0.5"
                 fill="none"
               />
+              <circle cx="38" cy="168" r="2.4" fill="#FEC135" />
+              <circle cx="38" cy="168" r="1" fill="#F67E00" opacity="0.9" />
+              <circle cx="62" cy="166" r="1.6" fill="#5CA9E0" />
+              {/* Right sprig (mirrored, different colors) */}
               <path
-                d="M230,140 Q236,134 242,140 Q236,146 230,140Z"
+                d="M226,160 Q232,154 238,160 Q232,166 226,160Z"
                 fill="#18C5B4"
               />
               <path
-                d="M222,144 Q227,141 232,144"
+                d="M214,160 Q220,156 226,160"
                 stroke="#0e9a8c"
                 strokeWidth="0.5"
                 fill="none"
               />
-            </g>
-            <g>
-              <circle cx="58" cy="160" r="3" fill="#FFDF46" opacity="0.55" />
-              <circle cx="58" cy="160" r="1.3" fill="#FEC135" opacity="0.85" />
-              <circle cx="222" cy="160" r="3" fill="#9991E7" opacity="0.55" />
-              <circle cx="222" cy="160" r="1.3" fill="#A765CC" opacity="0.85" />
-              <circle cx="40" cy="170" r="2.4" fill="#5CA9E0" opacity="0.5" />
-              <circle cx="240" cy="170" r="2.4" fill="#FE803D" opacity="0.5" />
+              <circle cx="242" cy="168" r="2.4" fill="#9991E7" />
+              <circle cx="242" cy="168" r="1" fill="#A765CC" opacity="0.9" />
+              <circle cx="218" cy="166" r="1.6" fill="#FE803D" />
             </g>
 
-            {/* === Top flap (animates open) === */}
+            {/* === TOP FLAP — animates open via scaleY(0) === */}
             <g className={styles.envelopeFlap}>
               <path
                 d="
-                  M20,32
-                  Q20,24 28,24
-                  L252,24
-                  Q260,24 260,32
-                  L260,38
-                  Q260,42 257,44
-                  L146,116
-                  Q140,120 134,116
-                  L23,44
-                  Q20,42 20,38
+                  M20,40
+                  Q20,30 30,30
+                  L250,30
+                  Q260,30 260,40
+                  L260,46
+                  Q260,52 256,54
+                  L146,126
+                  Q140,130 134,126
+                  L24,54
+                  Q20,52 20,46
                   Z"
                 fill="url(#envFlap)"
-                stroke="rgba(180,50,100,0.2)"
+                stroke="rgba(180,50,100,0.28)"
                 strokeWidth="0.6"
                 filter="url(#paperShadow)"
               />
-              {/* Inner border on flap */}
+
+              {/* Inner letterpress border on flap */}
               <path
-                d="M28,30 L252,30 L252,38 L141,114 L28,38 Z"
+                d="M30,40 L250,40 L250,46 L141,124 L30,46 Z"
                 fill="none"
-                stroke="rgba(180,50,100,0.1)"
+                stroke="rgba(180,50,100,0.12)"
                 strokeWidth="0.4"
               />
-              {/* Top-edge highlight — paper-fold sheen */}
+
+              {/* Top-edge paper sheen */}
               <path
-                d="M30,26 L250,26"
-                stroke="rgba(255,255,255,0.45)"
+                d="M32,33 L248,33"
+                stroke="rgba(255,255,255,0.55)"
                 strokeWidth="0.8"
                 fill="none"
               />
-              {/* Botanical flourishes on flap shoulders */}
-              <g opacity="0.7">
-                <path
-                  d="M36,46 Q42,40 48,46 Q42,52 36,46Z"
-                  fill="#7DC23D"
-                />
-                <circle cx="50" cy="54" r="1.8" fill="#FEC135" opacity="0.7" />
-                <path
-                  d="M232,46 Q238,40 244,46 Q238,52 232,46Z"
-                  fill="#18C5B4"
-                />
-                <circle cx="230" cy="54" r="1.8" fill="#A765CC" opacity="0.7" />
-              </g>
-              {/* Delicate ribbon flourish */}
+
+              {/* Decorative ribbon arch at top */}
               <path
-                d="M114,30 Q140,18 166,30"
-                stroke="#FE569B"
+                d="M112,38 Q140,22 168,38"
+                stroke="#D2447F"
                 strokeWidth="1.2"
                 fill="none"
-                opacity="0.65"
+                opacity="0.75"
                 strokeLinecap="round"
               />
+
+              {/* Floral accents on flap shoulders */}
+              <g opacity="0.78">
+                <path
+                  d="M40,52 Q46,46 52,52 Q46,58 40,52Z"
+                  fill="#7DC23D"
+                />
+                <circle cx="58" cy="60" r="1.8" fill="#FEC135" />
+                <circle cx="34" cy="62" r="1.4" fill="#5CA9E0" />
+
+                <path
+                  d="M228,52 Q234,46 240,52 Q234,58 228,52Z"
+                  fill="#18C5B4"
+                />
+                <circle cx="222" cy="60" r="1.8" fill="#A765CC" />
+                <circle cx="246" cy="62" r="1.4" fill="#FE803D" />
+              </g>
             </g>
 
-            {/* === WAX SEAL (separate group; fades independently) === */}
+            {/* === WAX SEAL — separate group; pulses and fades === */}
             <g className={styles.envelopeSeal}>
+              {/* Soft outer halo */}
               <circle
-                cx="140"
-                cy="98"
-                r="32"
-                fill="#FE569B"
-                opacity="0.18"
-                filter="url(#sealGlow)"
-              />
-              <ellipse
                 cx="140"
                 cy="100"
-                rx="26"
-                ry="25"
-                fill="rgba(120,30,70,0.3)"
+                r="42"
+                fill="#FE569B"
+                opacity="0.25"
+                filter="url(#sealGlow)"
               />
-              <circle cx="140" cy="98" r="25" fill="url(#sealGrad)" />
+
+              {/* Cast shadow */}
+              <ellipse
+                cx="140"
+                cy="103"
+                rx="31"
+                ry="30"
+                fill="rgba(100,20,60,0.4)"
+              />
+
+              {/* Wax body with 3D radial gradient */}
+              <circle cx="140" cy="100" r="30" fill="url(#sealGrad)" />
+
+              {/* Scalloped wax rim */}
               <circle
                 cx="140"
-                cy="98"
-                r="25"
+                cy="100"
+                r="30"
                 fill="none"
                 stroke="rgba(255,255,255,0.22)"
                 strokeWidth="1"
-                strokeDasharray="1.8 2.4"
+                strokeDasharray="2 2.5"
               />
+
+              {/* Inner embossed ring */}
               <circle
                 cx="140"
-                cy="98"
-                r="19"
+                cy="100"
+                r="22"
                 fill="none"
-                stroke="rgba(255,255,255,0.32)"
-                strokeWidth="0.5"
+                stroke="rgba(255,255,255,0.42)"
+                strokeWidth="0.7"
               />
+
+              {/* Glossy highlight (3D wax cue) */}
               <ellipse
-                cx="132"
-                cy="90"
-                rx="8"
-                ry="5"
-                fill="rgba(255,255,255,0.2)"
+                cx="129"
+                cy="91"
+                rx="9"
+                ry="6"
+                fill="rgba(255,255,255,0.28)"
               />
 
               {/*
-                ⤵  MONOGRAM PLACEHOLDER
-                Replace this <g> with your monogram SVG when ready.
-                Center on (140, 98), recommended ~30×26px,
-                fill cream/white (#fff5f9) for contrast against the wax.
+                ⤵ MONOGRAM PLACEHOLDER
+                Inner usable area is ~44px diameter (radius ≈ 22).
+                Replace this <g> with your monogram paths when ready —
+                center on (140, 100), fill="#fff5f9" for contrast.
               */}
               <g className={styles.sealMonogram}>
                 <text
                   x="140"
-                  y="105"
+                  y="115"
                   textAnchor="middle"
                   fontFamily="Pinyon Script, Georgia, serif"
                   fontStyle="italic"
-                  fontSize="22"
+                  fontSize="36"
                   fill="#fff5f9"
-                  letterSpacing="-1"
+                  opacity="0.95"
                 >
-                  R&amp;J
+                  &amp;
                 </text>
               </g>
             </g>
           </svg>
+
+          {/* === The emerging card — HTML for flexible styling === */}
+          <div className={styles.invitationCard} aria-hidden="true">
+            <div className={styles.cardFrame}>
+              <div className={styles.cardOrnament}>
+                <span style={{ background: "#FFDF46" }} />
+                <span style={{ background: "#FE569B" }} />
+                <span style={{ background: "#7DC23D" }} />
+              </div>
+              <p className={styles.cardLabel}>save the date</p>
+              <p className={styles.cardMonogram}>
+                R<i>&amp;</i>J
+              </p>
+              <span className={styles.cardDivider} />
+              <p className={styles.cardDateLine}>21 · 07 · 2026</p>
+              <div className={styles.cardOrnament}>
+                <span style={{ background: "#9991E7" }} />
+                <span style={{ background: "#FE569B" }} />
+                <span style={{ background: "#18C5B4" }} />
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className={styles.namesWrap}>

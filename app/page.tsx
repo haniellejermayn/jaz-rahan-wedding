@@ -62,7 +62,7 @@ export default function Home() {
       <div
         style={{
           opacity: opened ? 1 : 0,
-          transition: "opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+          transition: "opacity 1s cubic-bezier(0.22, 1, 0.36, 1)",
           pointerEvents: opened ? "auto" : "none",
         }}
       >
