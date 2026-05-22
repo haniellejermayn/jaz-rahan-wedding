@@ -4,7 +4,7 @@ const MAP_EMBED_URL =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3932.0045736209627!2d118.74288547502798!3d9.765679090328078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33b563982e86ffed%3A0x45d1901a7d4247ca!2sCitystate%20Asturias%20Hotel%20Palawan!5e0!3m2!1sen!2sph!4v1779377041659!5m2!1sen!2sph";
 
 const MAP_DIRECTIONS_URL =
-  "https://www.google.com/maps/dir/?api=1&destination=Citystate+Asturias+Hotel+Palawan&destination_place_id=ChIJ_f-GLpdjtTMRykJCfRqQ0UU";
+  "https://maps.app.goo.gl/8EvWBqCjVttBiHVCA?g_st=ic";
 
 export default function Venue() {
   return (
