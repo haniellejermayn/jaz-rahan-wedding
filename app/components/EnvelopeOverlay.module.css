@@ -8,48 +8,20 @@
   justify-content: center;
   cursor: pointer;
   overflow: hidden;
-  /* Blooming garden — full rainbow palette */
   background:
-    radial-gradient(
-      ellipse 50% 35% at 10% 12%,
-      rgba(255, 223, 70, 0.35) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 45% 30% at 88% 10%,
-      rgba(254, 86, 155, 0.3) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 40% 30% at 5% 65%,
-      rgba(92, 169, 224, 0.26) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 40% 30% at 92% 65%,
-      rgba(125, 194, 61, 0.26) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 60% 35% at 50% 95%,
-      rgba(153, 145, 231, 0.3) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 40% 30% at 75% 40%,
-      rgba(254, 128, 61, 0.18) 0%,
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse 100% 80% at 50% 50%,
-      rgba(253, 249, 243, 0.5) 0%,
-      transparent 75%
-    ),
+    radial-gradient(ellipse 50% 35% at 10% 12%, rgba(255, 223, 70, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 30% at 88% 10%, rgba(254, 86, 155, 0.3)  0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 5%  65%, rgba(92, 169, 224, 0.26) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 92% 65%, rgba(125, 194, 61, 0.26) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 35% at 50% 95%, rgba(153, 145, 231, 0.3) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 75% 40%, rgba(254, 128, 61, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(253, 249, 243, 0.5) 0%, transparent 75%),
     #fdf9f3;
   transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  perspective: 1200px;
 }
 
-.overlay.closing {
+.overlay.exiting {
   opacity: 0;
   pointer-events: none;
 }
@@ -60,36 +32,16 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.22; /* always visible */
+  opacity: 0.22;
   mix-blend-mode: multiply;
   pointer-events: none;
-
-  /* Hide native play button on mobile browsers */
-  -webkit-media-controls: none;
-  -webkit-media-controls-start-playback-button: none;
 }
-
-/* Target WebKit's shadow DOM controls */
-.bgVideo::-webkit-media-controls {
-  display: none !important;
-}
-
-.bgVideo::-webkit-media-controls-start-playback-button {
+.bgVideo::-webkit-media-controls,
+.bgVideo::-webkit-media-controls-start-playback-button,
+.bgVideo::-webkit-media-controls-panel {
   display: none !important;
   -webkit-appearance: none;
   appearance: none;
-}
-
-.bgVideo::-webkit-media-controls-panel {
-  display: none !important;
-}
-
-.videoShield {
-  position: absolute;
-  inset: 0;
-  z-index: 1; /* above video (z-index 0), below content (z-index 2) */
-  background: transparent;
-  pointer-events: none; /* clicks still fall through to the overlay's onClick */
 }
 
 .bgPoster {
@@ -101,10 +53,6 @@
   opacity: 0.22;
   mix-blend-mode: multiply;
   pointer-events: none;
-}
-
-.tint {
-  display: none;
 }
 
 .content {
@@ -119,14 +67,8 @@
 }
 
 @keyframes floatIn {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .youAreInvited {
@@ -141,6 +83,7 @@
   margin-bottom: 1.6rem;
   opacity: 0;
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  transition: opacity 0.4s ease, transform 0.5s ease;
 }
 
 .envelopeWrap {
@@ -149,23 +92,88 @@
   animation:
     fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both,
     gentleFloat 4.8s ease-in-out 1.6s infinite;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.7s ease;
 }
 
 @keyframes gentleFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-12px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
 }
 
 .envelopeSvg {
-  width: 230px;
-  max-width: 70vw;
-  filter: drop-shadow(0 12px 32px rgba(210, 68, 127, 0.2));
+  width: 270px;
+  max-width: 75vw;
+  filter: drop-shadow(0 14px 32px rgba(180, 40, 100, 0.2));
+  overflow: visible;
 }
+
+/* === Animated SVG sub-groups === */
+
+.envelopeFlap {
+  transform-box: fill-box;
+  transform-origin: center top;
+  transition: transform 0.85s cubic-bezier(0.55, 0.1, 0.35, 1) 0.15s;
+}
+
+.envelopeSeal {
+  transform-box: fill-box;
+  transform-origin: center center;
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
+
+.envelopeCard {
+  transform-box: fill-box;
+  transform-origin: center center;
+  opacity: 0;
+  transform: translateY(18px) scale(0.94);
+  transition:
+    opacity 0.6s ease 0.35s,
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+}
+
+/* === Opening state === */
+
+.opening .envelopeSeal {
+  transform: scale(1.18);
+  opacity: 0;
+}
+
+.opening .envelopeFlap {
+  transform: scaleY(-0.92);
+}
+
+.opening .envelopeCard {
+  opacity: 1;
+  transform: translateY(-26px) scale(1);
+}
+
+.opening .envelopeWrap {
+  animation: none;
+  transform: translateY(-22px) scale(1.03);
+}
+
+.opening .youAreInvited,
+.opening .namesWrap,
+.opening .date,
+.opening .tapPrompt {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+/* === Exit state — envelope drifts away as page fades in behind === */
+
+.exiting .envelopeWrap {
+  animation: none;
+  transform: translateY(-70px) scale(1.12);
+  opacity: 0;
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.75s ease 0.1s;
+}
+
+/* === Names / date / tap-prompt (unchanged styles) === */
 
 .namesWrap {
   display: flex;
@@ -174,24 +182,17 @@
   margin-top: 0.4rem;
   opacity: 0;
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1s both;
+  transition: opacity 0.4s ease, transform 0.5s ease;
 }
 
 .namesRule {
   display: block;
   width: clamp(28px, 8vw, 56px);
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(210, 68, 127, 0.5) 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(210, 68, 127, 0.5) 100%);
 }
 .namesWrap .namesRule:last-child {
-  background: linear-gradient(
-    90deg,
-    rgba(210, 68, 127, 0.5) 0%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, rgba(210, 68, 127, 0.5) 0%, transparent 100%);
 }
 
 .names {
@@ -203,7 +204,6 @@
   letter-spacing: 0;
   margin: 0;
   min-height: 120%;
-  /* slight color shift for poetic feel */
   background: linear-gradient(135deg, #2a1226 0%, #5c1f4a 50%, #2a1226 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -233,6 +233,7 @@
   margin-top: 1rem;
   opacity: 0;
   animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.2s both;
+  transition: opacity 0.4s ease, transform 0.5s ease;
 }
 
 .tapPrompt {
@@ -249,6 +250,7 @@
   animation:
     fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.8s both,
     pulse 2.8s ease 2.8s infinite;
+  transition: opacity 0.4s ease, transform 0.5s ease;
 }
 
 .tapLine {
@@ -259,24 +261,13 @@
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -285,6 +276,11 @@
     animation: none;
     opacity: 1;
   }
+  .envelopeFlap,
+  .envelopeSeal,
+  .envelopeCard {
+    transition: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -292,11 +288,10 @@
     padding: 1.5rem 1rem;
   }
   .envelopeSvg {
-    width: 180px;
+    width: 220px;
   }
 }
 
-/* Hide video/poster on desktop — gradient background is enough */
 @media (min-width: 768px) {
   .bgVideo,
   .bgPoster {

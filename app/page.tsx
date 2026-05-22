@@ -59,7 +59,13 @@ export default function Home() {
     <>
       <EnvelopeOverlay onOpen={handleOpen} />
 
-      <div style={{ visibility: opened ? "visible" : "hidden" }}>
+      <div
+        style={{
+          opacity: opened ? 1 : 0,
+          transition: "opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1)",
+          pointerEvents: opened ? "auto" : "none",
+        }}
+      >
         {/* Ambient floating petals across whole page */}
         <div className="ambient-petals" aria-hidden="true">
           {PETALS.map((p, i) => (
