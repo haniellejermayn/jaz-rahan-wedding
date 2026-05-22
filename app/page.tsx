@@ -18,7 +18,6 @@ import Registry from "./components/Registry";
 import RSVP from "./components/RSVP";
 import RSVPFloat from "./components/RSVPFloat";
 import Footer from "./components/Footer";
-import SectionTransition from "./components/SectionTransition";
 
 /* Ambient floating petals — sprinkled across the page */
 const PETALS = [
@@ -87,29 +86,17 @@ export default function Home() {
         <Nav />
         <main>
           <Hero />
-          <SectionTransition from="var(--petal)" to="var(--paper)" />
           <Countdown />
-          <SectionTransition from="var(--paper)" to="var(--white)" />
           <Welcome />
-          <SectionTransition from="var(--white)" to="var(--paper)" />
           <MusicPlayer audioRef={audioRef} />
-          <SectionTransition from="var(--paper)" to="var(--petal)" />
           <PhotoCarousel />
-          {/* PhotoCarousel(petal) → FloralDivider(petal) — no transition needed */}
-          <FloralDivider />
-          <SectionTransition from="var(--petal)" to="var(--white)" />
+          <div data-edge-flush><FloralDivider /></div>
           <Entourage />
-          <SectionTransition from="var(--white)" to="var(--petal)" />
-          <FloralDivider dark />
-          <SectionTransition from="var(--petal)" to="var(--paper)" />
+          <div data-edge-flush><FloralDivider dark /></div>
           <Attire />
-          <SectionTransition from="var(--paper)" to="var(--white)" />
           <DateTime />
-          <SectionTransition from="var(--white)" to="var(--paper)" />
           <Venue />
-          <SectionTransition from="var(--paper)" to="var(--white)" />
           <Registry />
-          <SectionTransition from="var(--white)" to="var(--petal)" />
           <RSVP />
         </main>
         <Footer />

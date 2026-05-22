@@ -260,3 +260,68 @@ body {
   .ambient-petals { display: none; }
   * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* ───────────────────────────────────────────────
+   SECTION EDGE BLEND
+   Each section's top and bottom edges fade to
+   transparent, letting the body's --petal cream
+   show through. When two sections meet, both fade
+   at their shared boundary, so the colors blend
+   smoothly through the warm paper tone instead of
+   meeting at a hard seam.
+
+   First/last sections in <main> keep their outer
+   edges solid so they meet the nav and footer
+   cleanly.
+
+   Opt out per element with [data-edge-flush] — used
+   for the FloralDividers, since their tiny SVG would
+   otherwise be eaten by the fade.
+   ─────────────────────────────────────────────── */
+main {
+  --edge-fade: clamp(32px, 4vw, 48px);
+}
+main > *:not([data-edge-flush]) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--edge-fade),
+    #000 calc(100% - var(--edge-fade)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--edge-fade),
+    #000 calc(100% - var(--edge-fade)),
+    transparent 100%
+  );
+}
+main > *:first-child:not([data-edge-flush]) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(100% - var(--edge-fade)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0,
+    #000 calc(100% - var(--edge-fade)),
+    transparent 100%
+  );
+}
+main > *:last-child:not([data-edge-flush]) {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--edge-fade),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 var(--edge-fade),
+    #000 100%
+  );
+}
