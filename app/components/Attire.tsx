@@ -79,21 +79,25 @@ export default function Attire() {
             Guest Palette
             <span className={styles.paletteRule} />
           </p>
-          <div className={styles.swatches}>
-            {guestPalette.map((c, i) => (
-              <div key={c.name} className={styles.swatchItem} style={{ animationDelay: `${0.4 + i * 0.08}s` }}>
-                <div className={styles.swatchOuter}>
-                  {/* Soft watercolor halo around the swatch */}
-                  <div className={styles.swatchHalo} style={{ background: c.hex }} />
-                  <div className={styles.swatch} style={{ background: c.hex }} aria-label={c.name}>
-                    {/* Tiny center highlight */}
-                    <span className={styles.swatchShine} />
-                  </div>
+
+          <div className={styles.swatchCard}>
+            <div className={styles.swatches}>
+              {guestPalette.map((c, i) => (
+                <div
+                  key={c.name}
+                  className={styles.swatchItem}
+                  style={{ animationDelay: `${0.4 + i * 0.08}s` }}
+                >
+                  <div
+                    className={styles.swatch}
+                    style={{ background: c.hex }}
+                    aria-label={c.name}
+                  />
+                  <span className={styles.swatchName}>{c.name}</span>
+                  <span className={styles.swatchHex}>{c.hex}</span>
                 </div>
-                <span className={styles.swatchName}>{c.name}</span>
-                <span className={styles.swatchHex}>{c.hex}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
