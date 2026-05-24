@@ -123,7 +123,7 @@ export default function Welcome() {
         <p className="section-eyebrow reveal">A Note From Us</p>
         <h2 className="section-heading reveal delay-1">
           Welcome,
-          <br />
+          <br /><br />
           <em className={styles.dear}>dear friends and family</em>
         </h2>
         <div className="ornament reveal delay-2">✦</div>
