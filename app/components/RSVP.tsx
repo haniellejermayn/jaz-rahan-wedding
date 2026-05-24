@@ -3,41 +3,6 @@ import styles from "./RSVP.module.css";
 export default function RSVP() {
   return (
     <section id="rsvp" className={styles.section}>
-      {/* Top decorative sprig — small floral garland */}
-      <svg className={styles.topSprig} viewBox="0 0 220 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M0,40 Q55,18 110,30 Q165,18 220,40" stroke="rgba(91,160,47,0.5)" strokeWidth="1.3" fill="none" strokeLinecap="round"/>
-        <path d="M0,52 Q55,30 110,42 Q165,30 220,52" stroke="rgba(149,185,122,0.4)" strokeWidth="0.9" fill="none"/>
-        {/* Left blossom */}
-        <g transform="translate(40,28)">
-          <circle r="11" fill="#FE569B" opacity="0.25"/>
-          <circle r="7"  fill="#FE569B" opacity="0.5"/>
-          <circle r="3.5" fill="#D2447F" opacity="0.78"/>
-          <circle r="1.5" fill="#FFDF46"/>
-        </g>
-        {/* Centre big bloom */}
-        <g transform="translate(110,28)">
-          <circle r="14" fill="#FE803D" opacity="0.22"/>
-          <circle r="9"  fill="#FE803D" opacity="0.5"/>
-          <circle r="5"  fill="#F67E00" opacity="0.78"/>
-          <circle r="2"  fill="#FFDF46"/>
-        </g>
-        {/* Right blossom */}
-        <g transform="translate(180,28)">
-          <circle r="11" fill="#9991E7" opacity="0.28"/>
-          <circle r="7"  fill="#9991E7" opacity="0.5"/>
-          <circle r="3.5" fill="#A765CC" opacity="0.78"/>
-          <circle r="1.5" fill="#FFDF46"/>
-        </g>
-        {/* Leaves */}
-        <path d="M76,46 Q60,38 50,48 Q60,56 76,46Z" fill="#7DC23D" opacity="0.55"/>
-        <path d="M144,46 Q160,38 170,48 Q160,56 144,46Z" fill="#18C5B4" opacity="0.55"/>
-        {/* Accent dots */}
-        <circle cx="15"  cy="42" r="2" fill="#FFDF46" opacity="0.7"/>
-        <circle cx="205" cy="42" r="2" fill="#FFDF46" opacity="0.7"/>
-        <circle cx="78"  cy="20" r="1.5" fill="#5CA9E0" opacity="0.7"/>
-        <circle cx="142" cy="20" r="1.5" fill="#5CA9E0" opacity="0.7"/>
-      </svg>
-
       <div className={styles.inner}>
         <p className="section-eyebrow reveal">Kindly Reply</p>
         <h2 className="section-heading reveal delay-1">RSVP</h2>

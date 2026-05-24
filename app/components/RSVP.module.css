@@ -6,19 +6,6 @@
   overflow: hidden;
 }
 
-/* Top decorative sprig */
-.topSprig {
-  position: absolute;
-  top: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(140px, 28vw, 220px);
-  height: clamp(60px, 12vw, 88px);
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.85;
-}
-
 .inner {
   position: relative;
   z-index: 2;

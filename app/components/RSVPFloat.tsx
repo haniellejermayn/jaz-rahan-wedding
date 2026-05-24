@@ -31,8 +31,8 @@ export default function RSVPFloat() {
       {/* Tiny botanical sprig — quieter than a pulse animation */}
       <svg
         className={styles.icon}
-        width="14"
-        height="14"
+        width="17"
+        height="17"
         viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

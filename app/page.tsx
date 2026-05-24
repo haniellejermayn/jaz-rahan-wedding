@@ -88,15 +88,21 @@ export default function Home() {
         <main>
           <Hero />
           <Countdown />
-          <Welcome />
-          <MusicPlayer audioRef={audioRef} />
-          <PhotoCarousel />
           <div data-edge-flush><FloralDivider /></div>
-          <Entourage />
+          <Welcome />
           <div data-edge-flush><FairyLightsDivider /></div>
+          <MusicPlayer audioRef={audioRef} />
+          <div data-edge-flush><FloralDivider /></div>
+          <PhotoCarousel />
+          <div data-edge-flush><FairyLightsDivider /></div>
+          <Entourage />
+          <div data-edge-flush><FloralDivider /></div>
           <Attire />
+          <div data-edge-flush><FairyLightsDivider /></div>
           <DateTime />
+          <div data-edge-flush><FloralDivider /></div>
           <Venue />
+          <div data-edge-flush><FairyLightsDivider /></div>
           <Registry />
           <div data-edge-flush><FloralDivider dark /></div>
           <RSVP />

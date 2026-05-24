@@ -1,4 +1,4 @@
-/* Mirrors FloralDivider's outer rhythm so the two read as a pair
+/* Outer rhythm matches FloralDivider so the two read as a matched pair
    when alternated between sections. */
 .wrap {
   width: 100%;
@@ -12,7 +12,7 @@
   position: relative;
 }
 
-/* Decorative side rules with gradient fade — identical to FloralDivider */
+/* Decorative side rules — no dot terminators per client direction */
 .ruleLeft,
 .ruleRight {
   flex: 1;
@@ -25,56 +25,37 @@
     rgba(42, 37, 32, 0.18) 65%,
     transparent 100%
   );
-  position: relative;
   max-width: 180px;
 }
 
-.ruleLeft::before,
-.ruleRight::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 4px;
-  height: 4px;
-  background: var(--ink-mid);
-  border-radius: 50%;
-  transform: translateY(-50%);
-  opacity: 0.7;
-  box-shadow: 0 0 0 2px rgba(42, 37, 32, 0.08);
-}
-.ruleLeft::before { right: 0; }
-.ruleRight::after { left: 0; }
-
-.videoFrame {
+/* ── The lights themselves ─────────────────────────────────────────
+   The sprite sheet is 8 frames × 744×167 = 5952×167 PNG with
+   transparent background. We size the visible window to one frame's
+   aspect ratio and step the background-position 7 times to cycle
+   through all 8 frames, then loop. steps(8) gives proper frame-by-
+   frame animation rather than smooth scrubbing.
+   ──────────────────────────────────────────────────────────────── */
+.lights {
   width: 100%;
   max-width: 460px;
   flex-shrink: 0;
-  aspect-ratio: 1488 / 540;
-  overflow: hidden;
-  display: block;
-  position: relative;
-  /* No border, no radius — the lights should feel like they're strung
-     across the page itself, not framed in a card. */
+  aspect-ratio: 744 / 167;
+  background-image: url('/images/fairy-lights-sprite.png');
+  background-repeat: no-repeat;
+  /* Sheet has 8 frames in a row. Rendered at 8× container width so
+     each frame is exactly one container wide. */
+  background-size: 800% 100%;
+  background-position: 0% 0%;
+  /* steps(8) with a -114.286% end yields 8 evenly-spaced holds at
+     0%, -14.29%, -28.57%, ..., -100% — landing precisely on each
+     frame boundary. (114.286 = 100 × 8/7, the standard sprite formula
+     when N steps must cover N frames evenly.) */
+  animation: fairyLightsCycle 1.6s steps(8) infinite;
 }
 
-.video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Fuse the video's cream background into the page's ivory. Without
-     this you'd see a faint warm rectangle around the lights. */
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
-
-/* Hide native controls / play UI on iOS Safari */
-.video::-webkit-media-controls,
-.video::-webkit-media-controls-start-playback-button,
-.video::-webkit-media-controls-panel {
-  display: none !important;
-  -webkit-appearance: none;
-  appearance: none;
+@keyframes fairyLightsCycle {
+  from { background-position: 0% 0%; }
+  to   { background-position: -114.286% 0%; }
 }
 
 @media (max-width: 640px) {
@@ -86,12 +67,16 @@
   .ruleRight {
     max-width: 60px;
   }
+  .lights {
+    max-width: 320px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Pause the lights for users who'd rather not see motion.
-     The poster frame remains visible, so the decoration still reads. */
-  .video {
-    animation-play-state: paused;
+  /* Hold a single mid-cycle frame for users who'd rather not see motion.
+     -57.14% lands on frame 4 (the middle of the 8). */
+  .lights {
+    animation: none;
+    background-position: -57.14% 0%;
   }
 }
