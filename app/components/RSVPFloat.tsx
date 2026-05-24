@@ -28,24 +28,44 @@ export default function RSVPFloat() {
       className={`${styles.btn} ${show ? styles.visible : ""}`}
       aria-label="RSVP"
     >
-      {/* Small botanical leaf */}
+      {/* Tiny botanical sprig — quieter than a pulse animation */}
       <svg
         className={styles.icon}
-        width="12"
-        height="12"
-        viewBox="0 0 12 12"
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <path d="M6,11 Q5,7 6,2 Q7,7 6,11Z" fill="#ffffff" opacity="0.7" />
-        <path d="M6,7 Q3,5 1,3 Q4,4 6,7Z" fill="#ffffff" opacity="0.6" />
-        <path d="M6,7 Q9,5 11,3 Q8,4 6,7Z" fill="#ffffff" opacity="0.6" />
+        <path
+          d="M7,12 Q6,8 7,3"
+          stroke="currentColor"
+          strokeWidth="0.9"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.7"
+        />
+        <path
+          d="M7,7 Q4,5.5 2,4"
+          stroke="currentColor"
+          strokeWidth="0.8"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.55"
+        />
+        <path
+          d="M7,7 Q10,5.5 12,4"
+          stroke="currentColor"
+          strokeWidth="0.8"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.55"
+        />
+        <circle cx="7" cy="2.5" r="1.2" fill="currentColor" opacity="0.75" />
       </svg>
 
       <span className={styles.label}>RSVP</span>
-
-      <span className={styles.pulse} aria-hidden="true" />
     </a>
   );
 }

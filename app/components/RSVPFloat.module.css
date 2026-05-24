@@ -3,53 +3,57 @@
   bottom: 1.8rem;
   right: 1.5rem;
   z-index: 50;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.95rem 1.7rem;
+  gap: 0.55rem;
+  padding: 0.7rem 1.25rem;
   text-decoration: none;
-  background: var(--ink);
-  color: var(--ivory);
-  font-family: var(--font-sans);
-  font-style: normal;
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  border-radius: 999px;
+  background: var(--paper-warm);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  line-height: 1;
+  border: 1px solid var(--ink-line);
+  border-radius: 2px;
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(10px);
   pointer-events: none;
   transition:
     opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.3s ease,
-    background 0.3s ease;
+    background 0.3s ease,
+    border-color 0.3s ease;
   box-shadow:
-    0 6px 22px rgba(42, 37, 32, 0.30),
-    0 2px 6px rgba(42, 37, 32, 0.18);
+    0 6px 18px rgba(42, 37, 32, 0.10),
+    0 1px 3px rgba(42, 37, 32, 0.05);
 }
 
-/* Letterpress inner border */
+/* Letterpress inner border — matches the deadline block & buttons elsewhere */
 .btn::before {
   content: "";
   position: absolute;
   inset: 4px;
-  border: 1px solid rgba(247, 241, 230, 0.32);
-  border-radius: 999px;
+  border: 1px solid var(--ink-line-soft);
+  border-radius: 1px;
   pointer-events: none;
 }
 
 .btn:hover {
-  background: var(--ink-mid);
+  background: var(--ivory);
+  border-color: var(--ink-mid);
+  color: var(--ink);
+  transform: translateY(-2px);
   box-shadow:
-    0 10px 30px rgba(42, 37, 32, 0.42),
-    0 3px 10px rgba(42, 37, 32, 0.22);
-  transform: translateY(-3px) scale(1.02);
+    0 10px 24px rgba(42, 37, 32, 0.14),
+    0 2px 6px rgba(42, 37, 32, 0.06);
 }
 
 .btn:active {
-  transform: translateY(-1px) scale(1);
+  transform: translateY(-1px);
 }
 
 .visible {
@@ -60,61 +64,23 @@
 
 .icon {
   flex-shrink: 0;
-  opacity: 0.95;
+  color: var(--ink-mid);
   position: relative;
   z-index: 1;
-}
-
-.pulse {
-  position: absolute;
-  inset: -4px;
-  border: 1.5px solid rgba(42, 37, 32, 0.45);
-  border-radius: 999px;
-  pointer-events: none;
-  animation: ringPulse 2.8s ease-out infinite;
-}
-
-.pulse::after {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border: 1px solid rgba(42, 37, 32, 0.28);
-  border-radius: 999px;
-  animation: ringPulse 2.8s ease-out infinite 1.4s;
-}
-
-@keyframes ringPulse {
-  0% {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  65% {
-    opacity: 0;
-    transform: scale(1.18);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.18);
-  }
 }
 
 .label {
   position: relative;
   z-index: 1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pulse,
-  .pulse::after {
-    animation: none;
-  }
+  /* Tiny optical lift so the italic baseline sits visually centered */
+  padding-bottom: 1px;
 }
 
 @media (max-width: 480px) {
   .btn {
     bottom: 1.2rem;
     right: 1.2rem;
-    padding: 0.85rem 1.4rem;
-    font-size: 0.58rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.98rem;
   }
 }

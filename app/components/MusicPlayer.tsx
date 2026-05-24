@@ -183,64 +183,22 @@ export default function MusicPlayer({ audioRef }: Props) {
         {/* Album art placeholder + track info side by side */}
         <div className={styles.trackRow}>
           <div className={styles.albumArt} aria-hidden="true">
-            {/* Simple botanical monogram as stand-in art */}
-            <svg
-              viewBox="0 0 60 60"
-              xmlns="http://www.w3.org/2000/svg"
-              className={styles.artSvg}
-            >
-              <circle cx="30" cy="30" r="28" fill="#fff0f5" />
-              <path
-                d="M30,48 Q28,36 30,24 Q32,36 30,48Z"
-                stroke="#FE569B"
-                strokeWidth="1"
-                fill="none"
-                opacity="0.7"
-              />
-              <path
-                d="M30,36 Q22,30 18,24"
-                stroke="#FE569B"
-                strokeWidth="1"
-                fill="none"
-                opacity="0.6"
-              />
-              <path
-                d="M18,24 Q20,18 26,22 Q22,28 18,24Z"
-                fill="#D2447F"
-                opacity="0.7"
-              />
-              <path
-                d="M30,36 Q38,30 42,24"
-                stroke="#FE569B"
-                strokeWidth="1"
-                fill="none"
-                opacity="0.6"
-              />
-              <path
-                d="M42,24 Q40,18 34,22 Q38,28 42,24Z"
-                fill="#D2447F"
-                opacity="0.7"
-              />
-              <circle cx="30" cy="24" r="2.5" fill="#FFDF46" opacity="0.8" />
-              <text
-                x="30"
-                y="55"
-                textAnchor="middle"
-                fontFamily="Georgia,serif"
-                fontSize="6"
-                fill="#9991E7"
-                fontStyle="italic"
-                opacity="0.6"
-              >
-                R&amp;J
-              </text>
-            </svg>
+            {/* Caslon monogram fallback — shown if the cover image fails to load */}
+            <span className={styles.albumFallback}>R&amp;J</span>
+            <img
+              src="/audio/cover.jpg"
+              alt=""
+              className={styles.albumImg}
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
+            />
           </div>
 
           <div className={styles.trackInfo}>
             <span className={styles.trackName}>Ikaw at Ako</span>
             <span className={styles.trackArtist}>
-              Moira Dela Torre & Jason Marvin
+              Johnoy Danao
             </span>
           </div>
         </div>
