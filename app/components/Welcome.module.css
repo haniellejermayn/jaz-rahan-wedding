@@ -32,8 +32,9 @@
 .inner {
   position: relative;
   z-index: 2;
-  max-width: 560px;
+  max-width: min(680px, 90vw);
   margin: 0 auto;
+  width: 100%;
 }
 
 .dear {
@@ -47,8 +48,9 @@
 
 .card {
   margin: 2rem auto 0;
-  max-width: 400px;
-  padding: 2.4rem 2rem 2rem;
+  width: 100%;
+  max-width: min(680px, 90vw);
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 3.5rem);
   background: var(--paper-warm);
   border-radius: 3px;
   border: 1px solid var(--ink-line);

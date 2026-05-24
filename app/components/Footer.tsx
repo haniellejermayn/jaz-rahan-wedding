@@ -1,16 +1,46 @@
 import styles from "./Footer.module.css";
 
-const petals = [
-  { bg: "#D2447F", w: 10, h: 16 },
-  { bg: "#7DC23D", w: 15, h: 10 },
-  { bg: "#FE569B", w: 12, h: 18 },
-  { bg: "#9991E7", w: 16, h: 10 },
-  { bg: "#FFDF46", w: 13, h: 19 },
-  { bg: "#FE803D", w: 10, h: 16 },
-  { bg: "#5CA9E0", w: 16, h: 11 },
-  { bg: "#7DC23D", w: 11, h: 17 },
-  { bg: "#FE569B", w: 14, h: 10 },
+const flowers = [
+  { color: "#D2447F", dark: "#a8305f", size: 22 },
+  { color: "#7DC23D", dark: "#5a9a2e", size: 18 },
+  { color: "#FE569B", dark: "#c93d7a", size: 24 },
+  { color: "#9991E7", dark: "#6d63cc", size: 20 },
+  { color: "#FFDF46", dark: "#e5b800", size: 26 },
+  { color: "#FE803D", dark: "#d45e1a", size: 20 },
+  { color: "#5CA9E0", dark: "#2e7ec4", size: 22 },
+  { color: "#7DC23D", dark: "#5a9a2e", size: 18 },
+  { color: "#FE569B", dark: "#c93d7a", size: 20 },
 ];
+
+function Flower({ color, dark, size }: { color: string; dark: string; size: number }) {
+  const r = size / 2;
+  const pr = r * 0.42;   // petal radius
+  const cr = r * 0.22;   // center dot radius
+  const dist = r * 0.44; // petal center offset from origin
+
+  // 5 petals at 72° apart, starting from top
+  const petals = Array.from({ length: 5 }, (_, i) => {
+    const angle = (i * 72 - 90) * (Math.PI / 180);
+    const cx = Math.cos(angle) * dist;
+    const cy = Math.sin(angle) * dist;
+    return <ellipse key={i} cx={cx} cy={cy} rx={pr} ry={pr * 1.35} transform={`rotate(${i * 72}, ${cx}, ${cy})`} fill={color} opacity="0.85" />;
+  });
+
+  return (
+    <svg
+      className={styles.flower}
+      width={size}
+      height={size}
+      viewBox={`${-r} ${-r} ${size} ${size}`}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {petals}
+      <circle cx="0" cy="0" r={cr * 1.4} fill={dark} opacity="0.5" />
+      <circle cx="0" cy="0" r={cr} fill={dark} />
+    </svg>
+  );
+}
 
 export default function Footer() {
   return (
@@ -28,13 +58,9 @@ export default function Footer() {
         <span />
       </div>
       <p className={styles.date}>July 21 · 2026</p>
-      <div className={styles.petals} aria-hidden="true">
-        {petals.map((p, i) => (
-          <div
-            key={i}
-            className={styles.petal}
-            style={{ background: p.bg, width: p.w, height: p.h }}
-          />
+      <div className={styles.flowers} aria-hidden="true">
+        {flowers.map((f, i) => (
+          <Flower key={i} color={f.color} dark={f.dark} size={f.size} />
         ))}
       </div>
       <p className={styles.made}>
