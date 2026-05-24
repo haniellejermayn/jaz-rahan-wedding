@@ -128,17 +128,19 @@ export default function Welcome() {
         </h2>
         <div className="ornament reveal delay-2">✦</div>
 
-        <p className={`${styles.text} reveal delay-3`}>
-          With gratitude and joy, we invite you to stand with us as we
-          begin this new chapter together. <strong>Your company on
-          our wedding day means a great deal to us</strong>, and we look
-          forward to sharing it with you.
-        </p>
+        <div className={`${styles.card} reveal delay-3`}>
+          <p className={styles.text}>
+            With gratitude and joy, we invite you to stand with us as we
+            begin this new chapter together. <strong>Your company on
+            our wedding day means a great deal to us</strong>, and we look
+            forward to sharing it with you.
+          </p>
 
-        <p className={`${styles.sign} reveal delay-3`}>
-          With love,
-          <span className={styles.signNames}>Rahan &amp; Jazmine</span>
-        </p>
+          <p className={styles.sign}>
+            With love,
+            <span className={styles.signNames}>Rahan &amp; Jazmine</span>
+          </p>
+        </div>
       </div>
     </section>
   );

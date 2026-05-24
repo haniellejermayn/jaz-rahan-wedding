@@ -54,6 +54,28 @@
   letter-spacing: 0;
 }
 
+.card {
+  margin: 2rem auto 0;
+  max-width: 400px;
+  padding: 2.4rem 2rem 2rem;
+  background: var(--paper-warm);
+  border-radius: 3px;
+  border: 1px solid var(--ink-line);
+  box-shadow:
+    0 4px 24px rgba(42, 37, 32, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  border: 1px solid var(--ink-line-soft);
+  border-radius: 2px;
+}
+
 .text {
   font-family: var(--font-serif);
   font-size: clamp(1.05rem, 3.6vw, 1.18rem);
@@ -61,7 +83,6 @@
   font-style: normal;
   line-height: 1.85;
   color: var(--ink-mid);
-  margin-top: 1.6rem;
   position: relative;
 }
 
