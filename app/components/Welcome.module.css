@@ -3,38 +3,29 @@
   padding: clamp(3.5rem, 7vw, 5rem) 1.5rem;
   text-align: center;
   position: relative;
-  overflow: hidden;
 }
 
-/* Corner botanical sprigs — kept colorful per brief */
+/* Corner botanical sprigs — sit inside the card */
 .cornerSprig {
   position: absolute;
-  width: clamp(80px, 14vw, 140px);
-  height: clamp(120px, 18vw, 180px);
+  width: clamp(60px, 12vw, 100px);
+  height: clamp(90px, 16vw, 140px);
   pointer-events: none;
   z-index: 1;
 }
 .cornerTL {
-  top: 2rem;
-  left: 1rem;
+  top: 0;
+  left: 0;
 }
 .cornerBR {
-  bottom: 2rem;
-  right: 1rem;
+  bottom: 0;
+  right: 0;
   transform: scale(-1, -1);
 }
 
 @media (max-width: 640px) {
   .cornerSprig {
     opacity: 0.7;
-  }
-  .cornerTL {
-    left: -0.5rem;
-    top: 1rem;
-  }
-  .cornerBR {
-    right: -0.5rem;
-    bottom: 1rem;
   }
 }
 
@@ -65,6 +56,7 @@
     0 4px 24px rgba(42, 37, 32, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
   position: relative;
+  overflow: hidden;
 }
 
 .card::before {
@@ -74,6 +66,11 @@
   pointer-events: none;
   border: 1px solid var(--ink-line-soft);
   border-radius: 2px;
+  z-index: 0;
+}
+
+.heading {
+  line-height: 1.6;
 }
 
 .text {
