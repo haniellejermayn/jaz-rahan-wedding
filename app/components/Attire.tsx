@@ -1,12 +1,12 @@
 import styles from "./Attire.module.css";
 
 const guestPalette = [
-  { name: "Rose",      hex: "#FE569B" },
-  { name: "Violet",    hex: "#9991E7" },
-  { name: "Tangerine", hex: "#FE803D" },
-  { name: "Sunray",    hex: "#FFDF46" },
-  { name: "Leaf",      hex: "#7DC23D" },
-  { name: "Sky",       hex: "#5CA9E0" },
+  { name: "Hot pink",        hex: "#FE569B" },
+  { name: "Lavender",        hex: "#9991E7" },
+  { name: "Tangerine",       hex: "#FE803D" },
+  { name: "Butter yellow",   hex: "#FFDF46" },
+  { name: "Fern green",      hex: "#7DC23D" },
+  { name: "Cornflower blue", hex: "#5CA9E0" },
 ];
 
 export default function Attire() {
