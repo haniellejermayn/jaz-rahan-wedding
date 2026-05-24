@@ -10,6 +10,7 @@ import Welcome from "./components/Welcome";
 import MusicPlayer from "./components/MusicPlayer";
 import PhotoCarousel from "./components/PhotoCarousel";
 import FloralDivider from "./components/FloralDivider";
+import FairyLightsDivider from "./components/FairyLightsDivider";
 import Entourage from "./components/Entourage";
 import Attire from "./components/Attire";
 import DateTime from "./components/DateTime";
@@ -92,11 +93,12 @@ export default function Home() {
           <PhotoCarousel />
           <div data-edge-flush><FloralDivider /></div>
           <Entourage />
-          <div data-edge-flush><FloralDivider dark /></div>
+          <div data-edge-flush><FairyLightsDivider /></div>
           <Attire />
           <DateTime />
           <Venue />
           <Registry />
+          <div data-edge-flush><FloralDivider dark /></div>
           <RSVP />
         </main>
         <Footer />

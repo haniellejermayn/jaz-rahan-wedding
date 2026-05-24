@@ -1,0 +1,97 @@
+/* Mirrors FloralDivider's outer rhythm so the two read as a pair
+   when alternated between sections. */
+.wrap {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  position: relative;
+}
+
+/* Decorative side rules with gradient fade — identical to FloralDivider */
+.ruleLeft,
+.ruleRight {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(42, 37, 32, 0.18) 35%,
+    rgba(42, 37, 32, 0.28) 50%,
+    rgba(42, 37, 32, 0.18) 65%,
+    transparent 100%
+  );
+  position: relative;
+  max-width: 180px;
+}
+
+.ruleLeft::before,
+.ruleRight::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: var(--ink-mid);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  box-shadow: 0 0 0 2px rgba(42, 37, 32, 0.08);
+}
+.ruleLeft::before { right: 0; }
+.ruleRight::after { left: 0; }
+
+.videoFrame {
+  width: 100%;
+  max-width: 460px;
+  flex-shrink: 0;
+  aspect-ratio: 1488 / 540;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  /* No border, no radius — the lights should feel like they're strung
+     across the page itself, not framed in a card. */
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Fuse the video's cream background into the page's ivory. Without
+     this you'd see a faint warm rectangle around the lights. */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Hide native controls / play UI on iOS Safari */
+.video::-webkit-media-controls,
+.video::-webkit-media-controls-start-playback-button,
+.video::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 1rem 1rem;
+    gap: 0.5rem;
+  }
+  .ruleLeft,
+  .ruleRight {
+    max-width: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Pause the lights for users who'd rather not see motion.
+     The poster frame remains visible, so the decoration still reads. */
+  .video {
+    animation-play-state: paused;
+  }
+}

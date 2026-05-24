@@ -256,7 +256,7 @@ body {
    of paper.
    ─────────────────────────────────────────────── */
 main {
-  --edge-fade: clamp(32px, 4vw, 48px);
+  --edge-fade: clamp(20px, 2.5vw, 30px);
 }
 main > *:not([data-edge-flush]) {
   -webkit-mask-image: linear-gradient(

@@ -1,6 +1,6 @@
 .section {
   background: var(--ivory);
-  padding: clamp(4.5rem, 9vw, 6.5rem) 0 clamp(4rem, 8vw, 5.5rem);
+  padding: clamp(3.5rem, 7vw, 5rem) 0 clamp(3rem, 6vw, 4.5rem);
   overflow: hidden;
   position: relative;
 }
