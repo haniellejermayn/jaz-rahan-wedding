@@ -1,39 +1,9 @@
 .section {
-  background:
-    radial-gradient(
-      ellipse at 30% 0%,
-      rgba(254, 86, 155, 0.1) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 70% 100%,
-      rgba(153, 145, 231, 0.1) 0%,
-      transparent 50%
-    ),
-    var(--white);
+  background: var(--ivory);
   padding: 7rem 1.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
-}
-
-/* Subtle watercolor stains */
-.section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(
-      circle 240px at 10% 22%,
-      rgba(255, 223, 70, 0.08),
-      transparent 70%
-    ),
-    radial-gradient(
-      circle 260px at 90% 78%,
-      rgba(125, 194, 61, 0.08),
-      transparent 70%
-    );
 }
 
 .inner {
@@ -58,7 +28,7 @@
   position: relative;
 }
 
-/* Each group gets its own accent color via inline style on the group */
+/* Each group label */
 .groupLabel {
   display: flex;
   align-items: center;
@@ -70,7 +40,7 @@
 .labelRule {
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(254, 86, 155, 0.4));
+  background: var(--ink-line);
   position: relative;
 }
 .labelRule::after {
@@ -79,14 +49,11 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
-  background: var(--rose);
-  opacity: 0.55;
-}
-.labelRule:last-child {
-  background: linear-gradient(to left, transparent, rgba(254, 86, 155, 0.4));
+  background: var(--ink-soft);
+  opacity: 0.5;
 }
 .labelRule:last-child::after {
   right: auto;
@@ -94,16 +61,17 @@
 }
 
 .labelText {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--rose-deep);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink);
   white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.7rem;
 }
 .labelOrn {
   width: 12px;
@@ -131,9 +99,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.9rem;
-  padding: 0.65rem 1rem;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(254, 86, 155, 0.12);
+  padding: 0.7rem 1rem;
+  background: var(--paper-warm);
+  border: 1px solid var(--ink-line-soft);
   border-radius: 2px;
   transition:
     border-color 0.28s,
@@ -153,13 +121,13 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--rose), transparent);
+  background: linear-gradient(to bottom, transparent, var(--ink-mid), transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
 .nameItem:hover {
-  border-color: rgba(254, 86, 155, 0.3);
-  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--ink-line);
+  background: #fff;
   transform: translateX(2px);
 }
 .nameItem:hover::before {
@@ -170,9 +138,9 @@
   font-family: var(--font-serif);
   font-size: 1rem;
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
   color: var(--ink);
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
   flex: 1;
   text-align: center;
   min-width: 0;
@@ -182,11 +150,11 @@
 .personRole {
   font-family: var(--font-sans);
   font-size: 0.5rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--rose-deep);
-  background: rgba(254, 86, 155, 0.08);
+  color: var(--ink);
+  background: var(--linen);
   padding: 0.3rem 0.55rem;
   border-radius: 1px;
   white-space: nowrap;

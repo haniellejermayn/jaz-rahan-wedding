@@ -104,12 +104,12 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
           >
             <defs>
               <linearGradient id="envBody" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fff5f9" />
-                <stop offset="100%" stopColor="#ffe0ed" />
+                <stop offset="0%" stopColor="#fbf6ec" />
+                <stop offset="100%" stopColor="#efe5d2" />
               </linearGradient>
               <linearGradient id="envFlap" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#fff0f6" />
-                <stop offset="100%" stopColor="#ffd0e3" />
+                <stop offset="0%" stopColor="#f7f1e6" />
+                <stop offset="100%" stopColor="#e5d9c1" />
               </linearGradient>
               <filter
                 id="paperShadow"
@@ -122,8 +122,8 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                   dx="0"
                   dy="6"
                   stdDeviation="9"
-                  floodColor="#D2447F"
-                  floodOpacity="0.16"
+                  floodColor="#2a2520"
+                  floodOpacity="0.18"
                 />
               </filter>
             </defs>
@@ -147,25 +147,25 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               height="128"
               rx="3"
               fill="none"
-              stroke="rgba(210,68,127,0.2)"
+              stroke="rgba(42,37,32,0.22)"
               strokeWidth="0.5"
             />
 
             {/* Side fold creases converging at center */}
             <path
               d="M8,30 L120,100 L232,30"
-              stroke="rgba(210,68,127,0.18)"
+              stroke="rgba(42,37,32,0.18)"
               strokeWidth="0.5"
               fill="none"
             />
             <path
               d="M8,158 L120,100 L232,158"
-              stroke="rgba(210,68,127,0.18)"
+              stroke="rgba(42,37,32,0.18)"
               strokeWidth="0.5"
               fill="none"
             />
 
-            {/* Botanical accents — full palette, on body only */}
+            {/* Botanical accents — small petals only, kept colorful */}
             <g opacity="0.72">
               <path d="M26,42 Q32,36 38,42 Q32,48 26,42Z" fill="#7DC23D" />
               <path
@@ -198,39 +198,34 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               <path
                 d="M8,30 Q8,24 14,24 L226,24 Q232,24 232,30 L120,104 L8,30 Z"
                 fill="url(#envFlap)"
-                stroke="rgba(210,68,127,0.25)"
+                stroke="rgba(42,37,32,0.28)"
                 strokeWidth="0.5"
               />
             </g>
 
-            {/* === WAX SEAL — separate group; flat 2D; fades on open === */}
+            {/* === WAX SEAL — neutralized to deep ink === */}
             <g className={styles.envelopeSeal}>
-              <circle cx="120" cy="96" r="22" fill="#FE569B" />
-              <circle cx="120" cy="96" r="18" fill="#D2447F" />
+              <circle cx="120" cy="96" r="22" fill="#4a4339" />
+              <circle cx="120" cy="96" r="18" fill="#2a2520" />
               <circle
                 cx="120"
                 cy="96"
                 r="18"
                 fill="none"
-                stroke="rgba(255,240,245,0.5)"
+                stroke="rgba(247,241,230,0.45)"
                 strokeWidth="0.5"
                 strokeDasharray="1 2"
               />
 
-              {/*
-                Monogram placeholder — swap in your monogram paths here.
-                Center on (120, 96). Inner usable area ~36px (radius 18).
-                Use fill="#fff5f9" for contrast against the wax.
-              */}
               <g className={styles.sealMonogram}>
                 <text
                   x="120"
                   y="101"
                   textAnchor="middle"
-                  fontFamily="Cormorant Garamond, Georgia, serif"
+                  fontFamily="Libre Caslon Text, Georgia, serif"
                   fontStyle="italic"
                   fontSize="14"
-                  fill="#fff5f9"
+                  fill="#f7f1e6"
                   letterSpacing="0.5"
                 >
                   R&amp;J
@@ -243,7 +238,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
         <div className={styles.namesWrap}>
           <span className={styles.namesRule} />
           <p className={styles.names}>
-            Rahan <span className={styles.ampersand}>&amp;</span> Jaz
+            Rahan <span className={styles.ampersand}>&amp;</span> Jazmine
           </p>
           <span className={styles.namesRule} />
         </div>

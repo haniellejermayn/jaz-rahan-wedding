@@ -13,7 +13,7 @@ const petals = [
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <span className={styles.monogram}>Rahan &amp; Jaz</span>
+      <span className={styles.monogram}>Rahan &amp; Jazmine</span>
       <div className={styles.divider} aria-hidden="true">
         <span />
         <span className={styles.dot}>✦</span>

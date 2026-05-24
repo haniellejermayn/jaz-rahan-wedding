@@ -1,24 +1,9 @@
 .section {
-  background:
-    radial-gradient(ellipse at 100% 50%, rgba(254, 128, 61, 0.12) 0%, transparent 45%),
-    radial-gradient(ellipse at 0% 50%, rgba(254, 86, 155, 0.1) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 0%, rgba(255, 223, 70, 0.08) 0%, transparent 40%),
-    var(--white);
+  background: var(--ivory);
   padding: clamp(4.5rem, 9vw, 7rem) 1.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
-}
-
-.section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle 220px at 12% 22%, rgba(167, 101, 204, 0.06), transparent 70%),
-    radial-gradient(circle 240px at 88% 80%, rgba(125, 194, 61, 0.06), transparent 70%);
-  filter: blur(10px);
 }
 
 .inner {
@@ -33,13 +18,17 @@
 
 .prose {
   font-family: var(--font-serif);
-  font-size: clamp(1.05rem, 4vw, 1.22rem);
-  font-weight: 300;
-  font-style: italic;
+  font-size: clamp(1rem, 3.6vw, 1.12rem);
+  font-weight: 400;
+  font-style: normal;
   line-height: 1.85;
   color: var(--ink-mid);
   margin-top: 2.4rem;
   max-width: 460px;
+}
+.prose strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .methods {
@@ -53,13 +42,13 @@
 .methodCard {
   position: relative;
   padding: 1.7rem 1.6rem 1.5rem;
-  background: linear-gradient(135deg, var(--white) 0%, var(--blush-wash) 100%);
+  background: var(--paper-warm);
   border-radius: 2px;
   text-align: left;
+  border: 1px solid var(--ink-line-soft);
   box-shadow:
-    0 4px 18px rgba(254, 86, 155, 0.08),
-    inset 0 0 0 1px rgba(254, 86, 155, 0.18);
-  transition: box-shadow 0.3s, transform 0.3s;
+    0 4px 14px rgba(42, 37, 32, 0.06);
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
 }
 
 /* Letterpress double-border */
@@ -67,7 +56,7 @@
   content: "";
   position: absolute;
   inset: 6px;
-  border: 1px solid rgba(254, 86, 155, 0.22);
+  border: 1px solid var(--ink-line-soft);
   border-radius: 1px;
   pointer-events: none;
   transition: border-color 0.3s;
@@ -75,12 +64,12 @@
 
 .methodCard:hover {
   transform: translateY(-2px);
+  border-color: var(--ink-line);
   box-shadow:
-    0 10px 26px rgba(254, 86, 155, 0.14),
-    inset 0 0 0 1px rgba(254, 86, 155, 0.36);
+    0 10px 24px rgba(42, 37, 32, 0.10);
 }
 .methodCard:hover::before {
-  border-color: rgba(254, 86, 155, 0.36);
+  border-color: var(--ink-line);
 }
 
 .methodHeader {
@@ -96,11 +85,10 @@
 .methodLabel {
   font-family: var(--font-display);
   font-size: 1.05rem;
-  font-weight: 500;
-  font-style: italic;
-  font-variation-settings: "opsz" 18;
-  color: var(--rose-deep);
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--ink);
+  letter-spacing: 0;
 }
 
 .copyBtn {
@@ -110,20 +98,20 @@
   padding: 0.4rem 0.7rem;
   font-family: var(--font-sans);
   font-size: 0.54rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--rose-deep);
+  color: var(--ink);
   background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(254, 86, 155, 0.25);
+  border: 1px solid var(--ink-line);
   border-radius: 1px;
   cursor: pointer;
   transition: background 0.22s, color 0.22s, border-color 0.22s, transform 0.22s;
 }
 .copyBtn:hover {
-  background: rgba(254, 86, 155, 0.08);
-  border-color: rgba(254, 86, 155, 0.45);
-  color: var(--rose);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--ivory);
 }
 .copyBtn:active {
   transform: scale(0.97);
@@ -133,9 +121,8 @@
   display: block;
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 5vw, 1.7rem);
-  font-style: italic;
-  font-weight: 400;
-  font-variation-settings: "opsz" 36;
+  font-style: normal;
+  font-weight: 700;
   color: var(--ink);
   letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
@@ -148,7 +135,7 @@
   margin-top: 0.6rem;
   font-family: var(--font-sans);
   font-size: 0.56rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--ink-soft);
@@ -163,9 +150,9 @@
 .note {
   font-family: var(--font-serif);
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
-  color: var(--ink-soft);
+  color: var(--ink-mid);
   margin-top: 2.4rem;
   line-height: 1.75;
 }

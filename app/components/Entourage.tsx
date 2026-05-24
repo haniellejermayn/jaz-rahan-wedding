@@ -75,7 +75,7 @@ export default function Entourage() {
   return (
     <section id="entourage" className={styles.section}>
       <div className={styles.inner}>
-        <p className="section-eyebrow reveal">The People Who Matter Most</p>
+        <p className="section-eyebrow reveal">Standing With Us</p>
         <h2 className="section-heading reveal delay-1">Our Entourage</h2>
         <div className="ornament reveal delay-2">✦</div>
 

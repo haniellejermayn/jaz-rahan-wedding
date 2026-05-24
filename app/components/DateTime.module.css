@@ -1,9 +1,5 @@
 .section {
-  background:
-    radial-gradient(ellipse at 95% 10%, rgba(255,223,70,0.16) 0%, transparent 42%),
-    radial-gradient(ellipse at 5% 90%, rgba(254,86,155,0.12) 0%, transparent 42%),
-    radial-gradient(ellipse at 50% 50%, rgba(125,194,61,0.06) 0%, transparent 60%),
-    var(--white);
+  background: var(--ivory);
   padding: 7rem 1.5rem;
   position: relative;
   overflow: hidden;
@@ -26,8 +22,9 @@
   flex-direction: column;
   align-items: center;
   gap: 0.8rem;
-  background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,240,246,0.5));
+  background: var(--paper-warm);
   border-radius: 2px;
+  border: 1px solid var(--ink-line-soft);
 }
 
 /* Decorative double-border */
@@ -38,7 +35,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(254,86,155,0.55) 20%, rgba(254,86,155,0.55) 80%, transparent);
+  background: linear-gradient(to right, transparent, var(--ink-line) 20%, var(--ink-line) 80%, transparent);
 }
 .dateCard::before { top: 0; }
 .dateCard::after { bottom: 0; }
@@ -46,10 +43,10 @@
 .dateSub {
   font-family: var(--font-sans);
   font-size: 0.62rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--rose-deep);
+  color: var(--ink);
 }
 
 .dateRow {
@@ -63,8 +60,8 @@
 .dateYearV {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 5.5vw, 1.8rem);
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 600;
+  font-style: normal;
   color: var(--ink-mid);
   letter-spacing: 0.02em;
   position: relative;
@@ -77,7 +74,7 @@
   display: block;
   width: 30px;
   height: 1px;
-  background: rgba(254,86,155,0.4);
+  background: var(--ink-line);
   position: absolute;
   bottom: 0.1em;
   left: 50%;
@@ -87,12 +84,11 @@
 .dateMain {
   font-family: var(--font-display);
   font-size: clamp(5.5rem, 22vw, 8rem);
-  font-weight: 300;
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-weight: 700;
+  font-style: normal;
   color: var(--ink);
   line-height: 0.85;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   font-variant-numeric: lining-nums;
 }
 
@@ -103,14 +99,14 @@
   font-family: var(--font-serif);
   font-size: 0.95rem;
   font-style: italic;
-  color: var(--rose-deep);
-  letter-spacing: 0.02em;
+  color: var(--ink-mid);
+  letter-spacing: 0;
 }
 .dateOrnament span:not(em) {
   display: block;
   width: 30px;
   height: 1px;
-  background: rgba(254,86,155,0.45);
+  background: var(--ink-line);
 }
 .dateOrnament em {
   font-style: italic;
@@ -136,13 +132,14 @@
   text-align: right;
 }
 .time {
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--ink-soft);
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-style: normal;
+  color: var(--ink);
+  letter-spacing: 0.12em;
   font-variant-numeric: lining-nums tabular-nums;
+  text-transform: uppercase;
 }
 
 .stemCol {
@@ -165,9 +162,8 @@
   flex: 1;
   width: 1px;
   min-height: 50px;
-  background: linear-gradient(to bottom, var(--accent, #FE569B) 0%, rgba(254,86,155,0.18) 50%, transparent 100%);
+  background: linear-gradient(to bottom, var(--ink-line) 0%, var(--ink-line-soft) 70%, transparent 100%);
   margin-top: 5px;
-  opacity: 0.55;
 }
 
 .labelCol {
@@ -176,20 +172,20 @@
 }
 .eventLabel {
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 400;
-  font-style: italic;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-style: normal;
   color: var(--ink);
   display: block;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  line-height: 1.15;
+  letter-spacing: 0;
 }
 .eventNote {
   font-family: var(--font-serif);
   font-size: 0.95rem;
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
-  color: var(--ink-soft);
+  color: var(--ink-mid);
   display: block;
   margin-top: 0.35rem;
   line-height: 1.5;

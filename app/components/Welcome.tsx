@@ -124,20 +124,20 @@ export default function Welcome() {
         <h2 className="section-heading reveal delay-1">
           Welcome,
           <br />
-          <em className={styles.dear}>dear ones</em>
+          <em className={styles.dear}>dear friends and family</em>
         </h2>
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.text} reveal delay-3`}>
-          With hearts overflowing with gratitude and joy, we invite you to stand
-          with us as we begin the most beautiful chapter of our lives together.
-          Your presence is not just a gift &mdash; it is the very thing that
-          makes this day complete.
+          With gratitude and joy, we invite you to stand with us as we
+          begin this new chapter together. <strong>Your company on
+          our wedding day means a great deal to us</strong>, and we look
+          forward to sharing it with you.
         </p>
 
         <p className={`${styles.sign} reveal delay-3`}>
-          With all our love,
-          <span className={styles.signNames}>Rahan &amp; Jaz</span>
+          With love,
+          <span className={styles.signNames}>Rahan &amp; Jazmine</span>
         </p>
       </div>
     </section>

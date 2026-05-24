@@ -44,35 +44,37 @@ export default function RSVP() {
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.prose} reveal delay-2`}>
-          To help us prepare for you with the care you deserve, please let us
-          know if you will be joining us.
+          To help us prepare with care, please let us know if you will be
+          joining us.
         </p>
 
-        <p className={`${styles.deadline} reveal delay-3`}>
-          Kindly reply by{" "}
+        {/* Prominent deadline — the focal piece of this section */}
+        <div className={`${styles.deadlineBlock} reveal delay-3`}>
+          <span className={styles.deadlineEyebrow}>Please Reply By</span>
           <span className={styles.deadlineDate}>June 21, 2026</span>
-        </p>
+          <span className={styles.deadlineNote}>One month before the wedding</span>
+        </div>
 
         <div className={`${styles.qrWrap} reveal delay-3`}>
           <div className={styles.qrBox}>
             <svg width="110" height="110" viewBox="0 0 100 100" fill="none" aria-label="QR code placeholder">
-              <rect x="8"  y="8"  width="30" height="30" rx="3" stroke="#2a1226" strokeWidth="2.5" fill="none"/>
-              <rect x="15" y="15" width="16" height="16" fill="#2a1226"/>
-              <rect x="62" y="8"  width="30" height="30" rx="3" stroke="#2a1226" strokeWidth="2.5" fill="none"/>
-              <rect x="69" y="15" width="16" height="16" fill="#2a1226"/>
-              <rect x="8"  y="62" width="30" height="30" rx="3" stroke="#2a1226" strokeWidth="2.5" fill="none"/>
-              <rect x="15" y="69" width="16" height="16" fill="#2a1226"/>
-              <rect x="46" y="8"  width="8" height="8" fill="#D2447F"/>
-              <rect x="46" y="20" width="8" height="8" fill="#D2447F" opacity="0.5"/>
-              <rect x="62" y="46" width="8" height="8" fill="#D2447F"/>
-              <rect x="76" y="46" width="8" height="8" fill="#D2447F" opacity="0.6"/>
-              <rect x="62" y="60" width="8" height="8" fill="#D2447F" opacity="0.7"/>
-              <rect x="84" y="60" width="8" height="8" fill="#D2447F"/>
-              <rect x="46" y="62" width="8" height="8" fill="#D2447F" opacity="0.8"/>
-              <rect x="46" y="76" width="8" height="8" fill="#D2447F"/>
-              <rect x="60" y="76" width="8" height="8" fill="#D2447F" opacity="0.5"/>
-              <rect x="76" y="72" width="8" height="8" fill="#D2447F" opacity="0.7"/>
-              <rect x="84" y="84" width="8" height="8" fill="#D2447F"/>
+              <rect x="8"  y="8"  width="30" height="30" rx="3" stroke="#2a2520" strokeWidth="2.5" fill="none"/>
+              <rect x="15" y="15" width="16" height="16" fill="#2a2520"/>
+              <rect x="62" y="8"  width="30" height="30" rx="3" stroke="#2a2520" strokeWidth="2.5" fill="none"/>
+              <rect x="69" y="15" width="16" height="16" fill="#2a2520"/>
+              <rect x="8"  y="62" width="30" height="30" rx="3" stroke="#2a2520" strokeWidth="2.5" fill="none"/>
+              <rect x="15" y="69" width="16" height="16" fill="#2a2520"/>
+              <rect x="46" y="8"  width="8" height="8" fill="#2a2520"/>
+              <rect x="46" y="20" width="8" height="8" fill="#2a2520" opacity="0.5"/>
+              <rect x="62" y="46" width="8" height="8" fill="#2a2520"/>
+              <rect x="76" y="46" width="8" height="8" fill="#2a2520" opacity="0.6"/>
+              <rect x="62" y="60" width="8" height="8" fill="#2a2520" opacity="0.7"/>
+              <rect x="84" y="60" width="8" height="8" fill="#2a2520"/>
+              <rect x="46" y="62" width="8" height="8" fill="#2a2520" opacity="0.8"/>
+              <rect x="46" y="76" width="8" height="8" fill="#2a2520"/>
+              <rect x="60" y="76" width="8" height="8" fill="#2a2520" opacity="0.5"/>
+              <rect x="76" y="72" width="8" height="8" fill="#2a2520" opacity="0.7"/>
+              <rect x="84" y="84" width="8" height="8" fill="#2a2520"/>
             </svg>
             <p className={styles.qrLabel}>Scan to RSVP</p>
             <p className={styles.qrSub}>Replace with your actual QR code</p>

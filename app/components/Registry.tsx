@@ -66,10 +66,10 @@ export default function Registry() {
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.prose} reveal delay-2`}>
-          Your presence at our wedding is already the greatest gift we could
-          ever ask for. Should you wish to bless our new chapter with
-          something more, we have chosen to forgo a traditional registry
-          &mdash; a monetary gift would be cherished beyond measure.
+          <strong>Your company at our wedding is gift enough.</strong>{" "}
+          Should you wish to mark our new chapter with something more,
+          we have chosen to forgo a traditional registry &mdash; a
+          monetary gift would be warmly appreciated.
         </p>
 
         <div className={`${styles.methods} reveal delay-3`}>
@@ -126,8 +126,8 @@ export default function Registry() {
 
         <p className={`${styles.note} reveal delay-3`}>
           <em>
-            A heartfelt card and your warm company on the day are always
-            more than enough.
+            A heartfelt card and your company on the day are always
+            enough.
           </em>
         </p>
       </div>

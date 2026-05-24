@@ -6,23 +6,25 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.95rem 1.8rem;
-  background: rgba(253, 249, 243, 0.88);
+  background: rgba(247, 241, 230, 0.88);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid rgba(254, 86, 155, 0.18);
+  border-bottom: 1px solid var(--ink-line-soft);
 }
 
 .monogram {
-  font-family: var(--font-script);
-  font-size: 2rem;
-  color: var(--rose-deep);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
   text-decoration: none;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   transition: color 0.22s;
 }
 .monogram:hover {
-  color: var(--rose);
+  color: var(--ink-mid);
 }
 
 .links {
@@ -33,8 +35,8 @@
 
 .link {
   font-family: var(--font-sans);
-  font-size: 0.6rem;
-  font-weight: 400;
+  font-size: 0.62rem;
+  font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--ink-mid);
@@ -50,13 +52,13 @@
   left: 50%;
   width: 0;
   height: 1px;
-  background: linear-gradient(to right, var(--rose), var(--violet));
+  background: var(--ink);
   transition:
     width 0.3s ease,
     left 0.3s ease;
 }
 .link:hover {
-  color: var(--rose-deep);
+  color: var(--ink);
 }
 .link:hover::after {
   width: 100%;
@@ -78,7 +80,7 @@
   display: block;
   width: 24px;
   height: 1.5px;
-  background: var(--rose-deep);
+  background: var(--ink);
   transition:
     transform 0.3s ease,
     opacity 0.3s ease;
@@ -94,30 +96,12 @@
 }
 
 .drawer {
-  /* Portaled to <body>, so position: fixed anchors to the viewport */
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100dvh;
-  /* dvh fallback for older browsers */
   min-height: 100vh;
-  background:
-    radial-gradient(
-      ellipse at 10% 15%,
-      rgba(255, 223, 70, 0.22) 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      ellipse at 90% 85%,
-      rgba(153, 145, 231, 0.22) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at 50% 50%,
-      rgba(254, 86, 155, 0.08) 0%,
-      transparent 60%
-    ),
-    rgba(253, 249, 243, 0.985);
+  background: rgba(247, 241, 230, 0.985);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   display: flex;
@@ -128,7 +112,6 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  /* Above the nav (100) so it covers the page entirely */
   z-index: 200;
 }
 .drawerOpen {
@@ -142,18 +125,17 @@
   flex-direction: column;
   align-items: center;
   gap: 1.8rem;
-  margin: 0; /* ← was: margin: auto 0 */
+  margin: 0;
 }
 
 .drawerLink {
   font-family: var(--font-display);
-  font-size: clamp(1.7rem, 7vw, 2.6rem);
-  font-weight: 300;
-  font-style: italic;
-  font-variation-settings: "opsz" 144;
+  font-size: clamp(1.6rem, 6.5vw, 2.3rem);
+  font-weight: 400;
+  font-style: normal;
   color: var(--ink);
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   transition: color 0.22s;
   position: relative;
   display: inline-block;
@@ -166,14 +148,14 @@
   left: 50%;
   width: 0;
   height: 1px;
-  background: var(--rose);
+  background: var(--ink);
   transition:
     width 0.3s,
     left 0.3s;
 }
 .drawerLink:hover,
 .drawerLink:active {
-  color: var(--rose-deep);
+  color: var(--ink-mid);
 }
 .drawerLink:hover::after {
   width: 60%;
@@ -199,7 +181,7 @@
   position: absolute;
   width: 24px;
   height: 1.5px;
-  background: var(--rose-deep);
+  background: var(--ink);
 }
 .drawerClose span:nth-child(1) {
   transform: rotate(45deg);
@@ -224,7 +206,6 @@
 }
 
 @media (max-height: 580px) {
-  /* Short viewports (landscape phones): tighten things up */
   .drawer {
     padding: 4rem 1.5rem 2rem;
   }

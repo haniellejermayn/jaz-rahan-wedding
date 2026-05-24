@@ -19,7 +19,7 @@ export default function Attire() {
 
         <p className={`${styles.theme} reveal delay-2`}>
           <span className={styles.themeOrn}>—</span>
-          Garden Formal
+          <strong>Garden Formal</strong>
           <span className={styles.themeOrn}>—</span>
         </p>
 
@@ -31,16 +31,16 @@ export default function Attire() {
         <div className={styles.columns}>
           <div className={`${styles.col} reveal-left delay-2`}>
             <svg className={styles.colIcon} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M20,4 L26,12 L30,12 L30,20 L26,20 L26,36 L14,36 L14,20 L10,20 L10,12 L14,12 Z" fill="none" stroke="#D2447F" strokeWidth="0.9" strokeLinejoin="round"/>
-              <path d="M20,12 L20,36" stroke="#D2447F" strokeWidth="0.7" opacity="0.6"/>
-              <circle cx="20" cy="16" r="1.2" fill="#FE569B"/>
-              <circle cx="20" cy="22" r="1" fill="#FE569B" opacity="0.7"/>
+              <path d="M20,4 L26,12 L30,12 L30,20 L26,20 L26,36 L14,36 L14,20 L10,20 L10,12 L14,12 Z" fill="none" stroke="currentColor" strokeWidth="0.9" strokeLinejoin="round"/>
+              <path d="M20,12 L20,36" stroke="currentColor" strokeWidth="0.7" opacity="0.6"/>
+              <circle cx="20" cy="16" r="1.2" fill="currentColor"/>
+              <circle cx="20" cy="22" r="1" fill="currentColor" opacity="0.7"/>
             </svg>
             <h3 className={styles.colHeading}>Gentlemen</h3>
             <p className={styles.colBody}>
-              Barong Tagalog in your assigned colour, or a tailored suit.
-              We encourage the vibrant palette below &mdash; let your outfit
-              join the bloom.
+              <strong>Barong Tagalog</strong> in your assigned colour from
+              the palette below. We kindly ask that you wear a barong
+              rather than a suit.
             </p>
           </div>
 
@@ -56,18 +56,18 @@ export default function Attire() {
 
           <div className={`${styles.col} reveal-right delay-2`}>
             <svg className={styles.colIcon} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M20,4 L14,14 L8,38 L32,38 L26,14 L20,4 Z" fill="none" stroke="#D2447F" strokeWidth="0.9" strokeLinejoin="round"/>
-              <path d="M14,14 L26,14" stroke="#D2447F" strokeWidth="0.7" opacity="0.6"/>
-              <path d="M20,4 L20,38" stroke="#D2447F" strokeWidth="0.5" opacity="0.3"/>
-              <circle cx="20" cy="20" r="1" fill="#FE569B"/>
-              <circle cx="16" cy="28" r="0.8" fill="#FE569B" opacity="0.7"/>
-              <circle cx="24" cy="28" r="0.8" fill="#FE569B" opacity="0.7"/>
+              <path d="M20,4 L14,14 L8,38 L32,38 L26,14 L20,4 Z" fill="none" stroke="currentColor" strokeWidth="0.9" strokeLinejoin="round"/>
+              <path d="M14,14 L26,14" stroke="currentColor" strokeWidth="0.7" opacity="0.6"/>
+              <path d="M20,4 L20,38" stroke="currentColor" strokeWidth="0.5" opacity="0.3"/>
+              <circle cx="20" cy="20" r="1" fill="currentColor"/>
+              <circle cx="16" cy="28" r="0.8" fill="currentColor" opacity="0.7"/>
+              <circle cx="24" cy="28" r="0.8" fill="currentColor" opacity="0.7"/>
             </svg>
             <h3 className={styles.colHeading}>Ladies</h3>
             <p className={styles.colBody}>
-              Floor-length gowns or elegant midi dresses. Floral prints
-              are warmly welcomed. Please reserve white and ivory for
-              the bride.
+              <strong>Floor-length gowns or elegant midi dresses</strong>.
+              Floral prints are warmly welcomed. Please reserve white and
+              ivory for the bride.
             </p>
           </div>
         </div>

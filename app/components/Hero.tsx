@@ -486,7 +486,7 @@ export default function Hero() {
               </text>
             </svg>
           </span>
-          <span className={styles.secondName}>Jaz</span>
+          <span className={styles.secondName}>Jazmine</span>
         </h1>
 
         <p className={styles.invitedLine}>

@@ -1,66 +1,12 @@
 .section {
-  background: var(--white);
+  background: var(--ivory);
   padding: 7rem 1.5rem 7.5rem;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-/* Top rainbow petal border */
-.section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(
-    to right,
-    #fe569b 0%,
-    #9991e7 17%,
-    #fe803d 34%,
-    #ffdf46 50%,
-    #7dc23d 67%,
-    #5ca9e0 84%,
-    #fe569b 100%
-  );
-  background-size: 200% 100%;
-  animation: gradientFlow 12s linear infinite;
-}
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 200% 0%;
-  }
-}
-
-/* Watercolor blob in background */
-.section::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse 380px 280px at 8% 12%,
-      rgba(255, 223, 70, 0.14),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 360px 320px at 92% 88%,
-      rgba(153, 145, 231, 0.14),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 280px 240px at 50% 45%,
-      rgba(254, 86, 155, 0.06),
-      transparent 70%
-    );
-}
-
-/* Corner botanical sprigs */
+/* Corner botanical sprigs — kept colorful per brief */
 .cornerSprig {
   position: absolute;
   width: clamp(80px, 14vw, 140px);
@@ -101,45 +47,50 @@
 
 .dear {
   font-style: italic;
-  color: var(--rose-deep);
-  font-family: var(--font-script);
-  font-size: 0.62em;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1em;
   font-weight: 400;
-  letter-spacing: 0.02em;
-  vertical-align: 0.04em;
+  letter-spacing: 0;
 }
 
 .text {
   font-family: var(--font-serif);
-  font-size: clamp(1.2rem, 4.5vw, 1.42rem);
-  font-weight: 300;
-  font-style: italic;
+  font-size: clamp(1.05rem, 3.6vw, 1.18rem);
+  font-weight: 400;
+  font-style: normal;
   line-height: 1.85;
   color: var(--ink-mid);
-  margin-top: 1.2rem;
+  margin-top: 1.6rem;
   position: relative;
+}
+
+.text strong {
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .sign {
   font-family: var(--font-sans);
   font-size: 0.62rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   margin-top: 2.4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.8rem;
 }
 
 .signNames {
-  font-family: var(--font-script);
-  font-size: 2.6rem;
-  letter-spacing: normal;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-style: italic;
+  letter-spacing: 0;
   text-transform: none;
-  color: var(--rose-deep);
+  color: var(--ink);
   font-weight: 400;
   line-height: 1;
 }
