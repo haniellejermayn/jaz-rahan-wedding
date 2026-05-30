@@ -175,10 +175,6 @@ export default function MusicPlayer({ audioRef }: Props) {
     <section id="music" className={styles.section}>
       <audio ref={audioRef} src="/audio/song.mp3" preload="auto" loop />
 
-      <p className="section-eyebrow reveal">Setting the Mood</p>
-      <h2 className="section-heading reveal delay-1">Our Song</h2>
-      <div className="ornament reveal delay-2">✦</div>
-
       <div className={`${styles.player} reveal delay-3`}>
         {/* Album art placeholder + track info side by side */}
         <div className={styles.trackRow}>
