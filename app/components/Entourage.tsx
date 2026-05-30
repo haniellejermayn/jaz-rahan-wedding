@@ -33,10 +33,10 @@ const groups: Group[] = [
     variant: "pairs",
     pairs: [
       { partnerA: "Cong. Gil Acosta Jr.", partnerB: "Former V. Mayor Maria Nancy M. Socrates" },
-      { partnerA: 'Councilor Modesto "Jonjie" V. Rodriguez', partnerB: "Dra. Leah M. Dolor" },
+      { partnerA: 'Councilor Jonjie V. Rodriguez', partnerB: "Dra. Leah M. Dolor" },
       { partnerA: "Jerickson C. Chua", partnerB: "Sheryl Jean A. Chua" },
       { partnerA: "Hon. Miguel Aaron D. Palayon", partnerB: "Helen C. Bundal" },
-      { partnerA: 'Former V. Mayor Isagani "Willy" A. Dimatatac', partnerB: "Alma A. Chua" },
+      { partnerA: 'Former V. Mayor "Willy" A. Dimatatac', partnerB: "Alma A. Chua" },
       { partnerA: "Engr. Josue S. Estiandan", partnerB: "Mary Grace B. Chua" },
       { partnerA: "Rogel R. Austria", partnerB: "Joy E. Austria" },
     ],
@@ -136,10 +136,18 @@ export default function Entourage() {
               {g.variant === "pairs" ? (
                 <ul className={styles.pairList}>
                   {g.pairs!.map((pair, i) => (
-                    <li key={i} className={styles.pairItem}>
-                      <span className={styles.pairName}>{pair.partnerA}</span>
-                      <span className={styles.pairAmp} aria-hidden="true">&amp;</span>
-                      <span className={styles.pairName}>{pair.partnerB}</span>
+                    <li key={i} className={styles.pairRow}>
+                      <span className={styles.pairCard}>
+                        <span className={styles.pairCardName}>{pair.partnerA}</span>
+                      </span>
+                      <span className={styles.pairConnector} aria-hidden="true">
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="12" height="12">
+                          <path d="M8,14 C8,14 1.5,9.7 1.5,5.3 C1.5,3.2 3.1,1.8 5,1.8 C6.3,1.8 7.4,2.5 8,3.6 C8.6,2.5 9.7,1.8 11,1.8 C12.9,1.8 14.5,3.2 14.5,5.3 C14.5,9.7 8,14 8,14 Z" fill="#FFD1DC" />
+                        </svg>
+                      </span>
+                      <span className={styles.pairCard}>
+                        <span className={styles.pairCardName}>{pair.partnerB}</span>
+                      </span>
                     </li>
                   ))}
                 </ul>

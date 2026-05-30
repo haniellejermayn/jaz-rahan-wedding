@@ -499,7 +499,7 @@ export default function Hero() {
           <span className={styles.dateYear}>2026</span>
         </div>
 
-        <p className={styles.venue}>Citystate Asturias Hotel Palawan</p>
+        <p className={styles.venue}>Puerto Princesa · Palawan</p>
       </div>
 
       <a href="#welcome" className={styles.scrollCta} aria-label="Scroll down">
