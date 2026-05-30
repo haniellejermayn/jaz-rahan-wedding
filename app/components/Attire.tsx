@@ -38,8 +38,7 @@ export default function Attire() {
             </svg>
             <h3 className={styles.colHeading}>Gentlemen</h3>
             <p className={styles.colBody}>
-              <strong>Barong Tagalog</strong> in your assigned colour from
-              the palette below. We kindly ask that you wear a barong
+              <strong>Barong Tagalog</strong>. We kindly ask that you wear a barong
               rather than a suit.
             </p>
           </div>
@@ -66,8 +65,7 @@ export default function Attire() {
             <h3 className={styles.colHeading}>Ladies</h3>
             <p className={styles.colBody}>
               <strong>Floor-length gowns or elegant midi dresses</strong>.
-              Floral prints are warmly welcomed. Please reserve white and
-              ivory for the bride.
+              Floral prints are warmly welcomed.
             </p>
           </div>
         </div>
@@ -76,10 +74,9 @@ export default function Attire() {
         <div className={`${styles.paletteWrap} reveal delay-3`}>
           <p className={styles.paletteLabel}>
             <span className={styles.paletteRule} />
-            Guest Palette
+            Ladies' Palette
             <span className={styles.paletteRule} />
           </p>
-
           <div className={styles.swatchCard}>
             <div className={styles.swatches}>
               {guestPalette.map((c, i) => (
