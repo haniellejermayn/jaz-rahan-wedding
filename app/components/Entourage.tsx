@@ -34,10 +34,10 @@ const groups: Group[] = [
     pairs: [
       { partnerA: "Cong. Gil Acosta Jr.", partnerB: "Former V. Mayor Maria Nancy M. Socrates" },
       { partnerA: 'Councilor Modesto "Jonjie" V. Rodriguez', partnerB: "Dra. Leah M. Dolor" },
-      { partnerA: "Hon. Miguel Aaron D. Palayon", partnerB: "Helen O. Bundal" },
-      { partnerA: 'Former V. Mayor Isagani "Willy" A. Dimatatac', partnerB: "Alma B. Bautista" },
-      { partnerA: "Engr. Josue Estiandan", partnerB: "Mary Grace B. Chua" },
       { partnerA: "Jerickson C. Chua", partnerB: "Sheryl Jean A. Chua" },
+      { partnerA: "Hon. Miguel Aaron D. Palayon", partnerB: "Helen C. Bundal" },
+      { partnerA: 'Former V. Mayor Isagani "Willy" A. Dimatatac', partnerB: "Alma A. Chua" },
+      { partnerA: "Engr. Josue Estiandan", partnerB: "Mary Grace B. Chua" },
       { partnerA: "Rogel R. Austria", partnerB: "Joy E. Austria" },
     ],
   },
