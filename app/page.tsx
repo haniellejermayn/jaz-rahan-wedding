@@ -16,6 +16,7 @@ import Attire from "./components/Attire";
 import DateTime from "./components/DateTime";
 import Venue from "./components/Venue";
 import Registry from "./components/Registry";
+import FAQ from "./components/FAQ";
 import RSVP from "./components/RSVP";
 import RSVPFloat from "./components/RSVPFloat";
 import Footer from "./components/Footer";
@@ -104,6 +105,8 @@ export default function Home() {
           <Venue />
           <div data-edge-flush><FloralDivider /></div>
           <Registry />
+          <div data-edge-flush><FloralDivider /></div>
+          <FAQ />
           <div data-edge-flush><FloralDivider dark /></div>
           <RSVP />
         </main>

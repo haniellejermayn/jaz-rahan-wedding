@@ -1,0 +1,296 @@
+.section {
+  background: var(--ivory);
+  padding: clamp(3.5rem, 7vw, 5rem) 1.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.intro {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  font-style: italic;
+  color: var(--ink-mid);
+  margin: 1.4rem auto 0;
+  max-width: 520px;
+  line-height: 1.65;
+}
+
+/* ── Accordion list ───────────────────────────────────────────── */
+.list {
+  margin-top: clamp(2.4rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+/* Each card sits on the palest paper wash — light and quiet, never inky */
+.item {
+  --accent: var(--rose);
+  --accent-deep: var(--rose-deep);
+  background: var(--paper-warm);
+  border: 1px solid var(--ink-line);
+  border-radius: 6px;
+  overflow: hidden;
+  transition:
+    border-color 0.32s ease,
+    box-shadow 0.32s ease,
+    background 0.32s ease;
+}
+.item:hover {
+  border-color: rgba(42, 37, 32, 0.26);
+  box-shadow: 0 4px 16px rgba(42, 37, 32, 0.05);
+}
+.itemOpen {
+  background: color-mix(in srgb, var(--ivory) 60%, var(--white) 40%);
+  border-color: rgba(42, 37, 32, 0.2);
+  box-shadow: 0 6px 22px rgba(42, 37, 32, 0.06);
+}
+
+/* ── Question row (the toggle button) ─────────────────────────── */
+.q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Soft, accent-tinted chip — garden colour at a whisper, with a
+   hairline ring. The line icon inside carries the deeper tone. */
+.chip {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-deep);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.chip svg {
+  width: 21px;
+  height: 21px;
+  display: block;
+}
+.item:hover .chip {
+  transform: translateY(-1px);
+}
+
+.qText {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 2.5vw, 1.12rem);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+/* + / − toggle drawn from two hairlines */
+.toggle {
+  flex-shrink: 0;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-left: 0.4rem;
+}
+.toggle::before,
+.toggle::after {
+  content: "";
+  position: absolute;
+  background: var(--ink-soft);
+  border-radius: 1px;
+  transition:
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease,
+    background 0.3s ease;
+}
+.toggle::before {
+  /* horizontal bar */
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  transform: translateY(-50%);
+}
+.toggle::after {
+  /* vertical bar */
+  left: 50%;
+  top: 0;
+  width: 1.5px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.itemOpen .toggle::after {
+  transform: translateX(-50%) scaleY(0);
+}
+.itemOpen .toggle::before {
+  background: var(--accent-deep);
+}
+
+/* ── Answer panel — animates open with grid rows ──────────────── */
+.panelWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.panelWrapOpen {
+  grid-template-rows: 1fr;
+}
+.panel {
+  overflow: hidden;
+}
+
+.panelInner {
+  /* align the answer under the question text, just past the chip */
+  padding: 0 1.4rem 1.25rem;
+  padding-left: calc(1.25rem + 38px + 1rem);
+}
+.panelInner::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: var(--ink-line-soft);
+  margin: 0 0 0.95rem;
+}
+
+.a {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.78;
+  color: var(--ink-mid);
+}
+.a strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.a p + p {
+  margin-top: 0.7rem;
+}
+
+/* A clearly-editable placeholder marker for details to be filled in */
+.placeholder {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  background: var(--paper-cool);
+  border: 1px dashed var(--ink-faint);
+  border-radius: 4px;
+  padding: 0.12em 0.5em;
+  white-space: nowrap;
+}
+
+/* ── Contact rows (inside the last answer) ────────────────────── */
+.contacts {
+  margin-top: 0.95rem;
+  display: flex;
+  flex-direction: column;
+}
+.contactRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  padding: 0.65rem 0;
+  border-top: 1px solid var(--ink-line-soft);
+}
+.contactRow:first-child {
+  border-top: none;
+  padding-top: 0.2rem;
+}
+.cRole {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  min-width: 3.6em;
+}
+.cName {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.06rem;
+  color: var(--ink);
+}
+.cPhone {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-mid);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink-line);
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+.cPhone:hover {
+  color: var(--ink);
+  border-color: var(--ink-mid);
+}
+.cFb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  box-shadow: inset 0 0 0 1px var(--ink-line);
+  transition:
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+.cFb:hover {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink-mid);
+  transform: translateY(-1px);
+}
+.cFb svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+/* ── Narrow screens ───────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .q {
+    gap: 0.8rem;
+    padding: 1rem 1.05rem;
+  }
+  .chip {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+  .chip svg {
+    width: 19px;
+    height: 19px;
+  }
+  .panelInner {
+    padding: 0 1.1rem 1.15rem;
+    padding-left: 1.1rem; /* flush on mobile — the indent is too wide here */
+  }
+}
