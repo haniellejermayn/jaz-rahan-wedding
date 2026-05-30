@@ -64,7 +64,7 @@ export default function Footer() {
         ))}
       </div>
       <p className={styles.made}>
-        made with <em>♡</em>
+        website made by hanielle <em>♡</em>
       </p>
     </footer>
   );
