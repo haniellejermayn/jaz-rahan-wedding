@@ -1,9 +1,46 @@
 import styles from "./Entourage.module.css";
 
 type Person = { name: string; role?: string };
-type Group = { label: string; people: Person[]; layout?: "single" | "double" };
+type Pair = { partnerA: string; partnerB: string };
+type Group = {
+  label: string;
+  variant?: "list" | "pairs";
+  people?: Person[];
+  pairs?: Pair[];
+};
 
 const groups: Group[] = [
+  {
+    label: "Officiant",
+    people: [{ name: "TBD" }],
+  },
+  {
+    label: "Parents of the Groom",
+    variant: "pairs",
+    pairs: [
+      { partnerA: "Engr. Rolando M. Dolor", partnerB: "Amie E. Dolor" },
+    ],
+  },
+  {
+    label: "Parents of the Bride",
+    variant: "pairs",
+    pairs: [
+      { partnerA: "Jeffry C. Chua", partnerB: "Hazel Gay E. Chua" },
+    ],
+  },
+  {
+    label: "Principal Sponsors",
+    variant: "pairs",
+    pairs: [
+      { partnerA: "Cong. Gil Acosta Jr.", partnerB: "Former V. Mayor Maria Nancy M. Socrates" },
+      { partnerA: 'Councilor Modesto "Jonjie" V. Rodriguez', partnerB: "Dra. Leah M. Dolor" },
+      { partnerA: "Hon. Miguel Aaron D. Palayon", partnerB: "Helen O. Bundal" },
+      { partnerA: 'Former V. Mayor Isagani "Willy" A. Dimatatac', partnerB: "Alma B. Bautista" },
+      { partnerA: "Engr. Josue Estiandan", partnerB: "Mary Grace B. Chua" },
+      { partnerA: "Jerickson C. Chua", partnerB: "Sheryl Jean A. Chua" },
+      { partnerA: "Rogel R. Austria", partnerB: "Joy E. Austria" },
+    ],
+  },
   {
     label: "Best Men",
     people: [
@@ -96,19 +133,31 @@ export default function Entourage() {
                 <span className={styles.labelRule} />
               </div>
 
-              <ul className={styles.nameList}>
-                {g.people.map((p, i) => (
-                  <li
-                    key={i}
-                    className={`${styles.nameItem} ${p.role ? styles.nameItemWithRole : ""}`}
-                  >
-                    <span className={styles.personName}>{p.name}</span>
-                    {p.role && (
-                      <span className={styles.personRole}>{p.role}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
+              {g.variant === "pairs" ? (
+                <ul className={styles.pairList}>
+                  {g.pairs!.map((pair, i) => (
+                    <li key={i} className={styles.pairItem}>
+                      <span className={styles.pairName}>{pair.partnerA}</span>
+                      <span className={styles.pairAmp} aria-hidden="true">&amp;</span>
+                      <span className={styles.pairName}>{pair.partnerB}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <ul className={styles.nameList}>
+                  {g.people!.map((p, i) => (
+                    <li
+                      key={i}
+                      className={`${styles.nameItem} ${p.role ? styles.nameItemWithRole : ""}`}
+                    >
+                      <span className={styles.personName}>{p.name}</span>
+                      {p.role && (
+                        <span className={styles.personRole}>{p.role}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </div>
