@@ -165,7 +165,6 @@
 }
 
 /* X close button inside the drawer */
-*/
 .drawerClose {
   position: fixed;               /* ← fixed so it doesn't affect flex flow */
   top: 1.2rem;
