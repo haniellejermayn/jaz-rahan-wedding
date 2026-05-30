@@ -16,8 +16,8 @@ export default function RSVP() {
         {/* Prominent deadline — the focal piece of this section */}
         <div className={`${styles.deadlineBlock} reveal delay-3`}>
           <span className={styles.deadlineEyebrow}>Please Reply By</span>
-          <span className={styles.deadlineDate}>June 21, 2026</span>
-          <span className={styles.deadlineNote}>One month before the wedding</span>
+          <span className={styles.deadlineDate}>June 30, 2026</span>
+          <span className={styles.deadlineNote}>Three weeks before the wedding</span>
         </div>
 
         <div className={`${styles.qrWrap} reveal delay-3`}>
