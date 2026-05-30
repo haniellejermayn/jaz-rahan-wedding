@@ -38,8 +38,7 @@ export default function Attire() {
             </svg>
             <h3 className={styles.colHeading}>Gentlemen</h3>
             <p className={styles.colBody}>
-              <strong>Barong Tagalog</strong>. We kindly ask that you wear a barong
-              rather than a suit.
+              <strong>Classic or modern Barong Tagalog</strong> with black pants.
             </p>
           </div>
 

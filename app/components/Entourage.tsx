@@ -22,7 +22,7 @@ const groups: Group[] = [
     label: "Groomsmen",
     people: [
       { name: "Ralph Ajlen E. Dolor" },
-      { name: "Patrick Jolo E. Dolor" },
+      { name: "Engr. Patrick Jolo E. Dolor" },
       { name: "Hosea Jeffrey E. Chua" },
       { name: "Jozef Gabriel E. Chua" },
       { name: "Carlos Chester Esquivias" },
