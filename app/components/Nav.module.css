@@ -105,8 +105,9 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   display: flex;
+  flex-direction: column;        /* ← column instead of row-ish centering */
   align-items: center;
-  justify-content: center;
+  justify-content: center;       /* centers the links vertically */
   padding: 0;
   overflow-y: auto;
   opacity: 0;
@@ -126,6 +127,7 @@
   align-items: center;
   gap: 1.8rem;
   margin: 0;
+  margin-bottom: 2rem;
 }
 
 .drawerLink {
@@ -163,8 +165,9 @@
 }
 
 /* X close button inside the drawer */
+*/
 .drawerClose {
-  position: absolute;
+  position: fixed;               /* ← fixed so it doesn't affect flex flow */
   top: 1.2rem;
   right: 1.4rem;
   width: 36px;
@@ -176,6 +179,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 201;                  /* ← above the drawer */
 }
 .drawerClose span {
   position: absolute;
