@@ -37,7 +37,7 @@ const groups: Group[] = [
       { partnerA: "Jerickson C. Chua", partnerB: "Sheryl Jean A. Chua" },
       { partnerA: "Hon. Miguel Aaron D. Palayon", partnerB: "Helen C. Bundal" },
       { partnerA: 'Former V. Mayor Isagani "Willy" A. Dimatatac', partnerB: "Alma A. Chua" },
-      { partnerA: "Engr. Josue Estiandan", partnerB: "Mary Grace B. Chua" },
+      { partnerA: "Engr. Josue S. Estiandan", partnerB: "Mary Grace B. Chua" },
       { partnerA: "Rogel R. Austria", partnerB: "Joy E. Austria" },
     ],
   },
