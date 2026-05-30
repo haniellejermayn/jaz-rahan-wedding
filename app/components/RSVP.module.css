@@ -37,20 +37,23 @@
   max-width: 380px;
   padding: 1.6rem 1.6rem 1.8rem;
   position: relative;
-  background: var(--ink);
-  color: var(--ivory);
+  background: var(--linen);
+  color: var(--ink);
   border-radius: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.55rem;
-  box-shadow: 0 8px 28px rgba(42, 37, 32, 0.18);
+  border: 1px solid var(--ink-line);
+  box-shadow:
+    0 8px 28px rgba(42, 37, 32, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .deadlineBlock::before {
   content: '';
   position: absolute;
   inset: 6px;
-  border: 1px solid rgba(247, 241, 230, 0.28);
+  border: 1px solid var(--ink-line-soft);
   border-radius: 1px;
   pointer-events: none;
 }
@@ -61,16 +64,7 @@
   font-weight: 600;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: rgba(247, 241, 230, 0.7);
-}
-
-.deadlineLabel {
-  font-family: var(--font-serif);
-  font-size: 0.92rem;
-  font-style: italic;
-  font-weight: 400;
-  color: rgba(247, 241, 230, 0.85);
-  letter-spacing: 0;
+  color: var(--ink-soft);
 }
 
 .deadlineDate {
@@ -78,7 +72,7 @@
   font-size: clamp(1.7rem, 6.5vw, 2.1rem);
   font-weight: 700;
   font-style: normal;
-  color: var(--ivory);
+  color: var(--ink);
   letter-spacing: 0;
   line-height: 1.1;
 }
@@ -90,7 +84,7 @@
   font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(247, 241, 230, 0.55);
+  color: var(--ink-soft);
 }
 
 /* QR card */
