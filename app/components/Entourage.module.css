@@ -213,3 +213,9 @@
   flex-shrink: 0;
   line-height: 1;
 }
+
+@media (min-width: 560px) {
+  .nameList .nameItem:only-child {
+    grid-column: 1 / -1;
+  }
+}
