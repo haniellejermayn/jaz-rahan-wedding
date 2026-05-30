@@ -65,7 +65,7 @@ export default function Welcome() {
           <h2 className={`section-heading ${styles.heading}`}>
             Welcome,
             <br />
-            <em className={styles.dear}>dear friends and family</em>
+            <em className={styles.dear}>dear friends<br />and family</em>
           </h2>
           <div className="ornament">✦</div>
 

@@ -90,19 +90,19 @@ export default function Home() {
           <Countdown />
           <div data-edge-flush><FloralDivider /></div>
           <Welcome />
-          <div data-edge-flush><FairyLightsDivider /></div>
+          <div data-edge-flush><FloralDivider /></div>
           <MusicPlayer audioRef={audioRef} />
           <div data-edge-flush><FloralDivider /></div>
           <PhotoCarousel />
-          <div data-edge-flush><FairyLightsDivider /></div>
+          <div data-edge-flush><FloralDivider /></div>
           <Entourage />
           <div data-edge-flush><FloralDivider /></div>
           <Attire />
-          <div data-edge-flush><FairyLightsDivider /></div>
+          <div data-edge-flush><FloralDivider /></div>
           <DateTime />
           <div data-edge-flush><FloralDivider /></div>
           <Venue />
-          <div data-edge-flush><FairyLightsDivider /></div>
+          <div data-edge-flush><FloralDivider /></div>
           <Registry />
           <div data-edge-flush><FloralDivider dark /></div>
           <RSVP />

@@ -38,12 +38,15 @@
 }
 
 .dear {
+  margin-top: 0.5rem;
+  display: inline-block;
   font-style: italic;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 1em;
+  font-size: 0.85em;
   font-weight: 400;
   letter-spacing: 0;
+  line-height: 1.2;
 }
 
 .card {
@@ -72,7 +75,7 @@
 }
 
 .heading {
-  line-height: 1.6;
+  line-height: 1.2;
 }
 
 .text {
