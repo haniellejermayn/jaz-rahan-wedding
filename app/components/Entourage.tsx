@@ -141,9 +141,6 @@ export default function Entourage() {
                         <span className={styles.pairCardName}>{pair.partnerA}</span>
                       </span>
                       <span className={styles.pairConnector} aria-hidden="true">
-                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" width="12" height="12">
-                          <path d="M8,14 C8,14 1.5,9.7 1.5,5.3 C1.5,3.2 3.1,1.8 5,1.8 C6.3,1.8 7.4,2.5 8,3.6 C8.6,2.5 9.7,1.8 11,1.8 C12.9,1.8 14.5,3.2 14.5,5.3 C14.5,9.7 8,14 8,14 Z" fill="#FFD1DC" />
-                        </svg>
                       </span>
                       <span className={styles.pairCard}>
                         <span className={styles.pairCardName}>{pair.partnerB}</span>
