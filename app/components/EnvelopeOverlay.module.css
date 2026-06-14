@@ -27,6 +27,7 @@
   mix-blend-mode: multiply;
   pointer-events: none;
 }
+
 .bgVideo::-webkit-media-controls,
 .bgVideo::-webkit-media-controls-start-playback-button,
 .bgVideo::-webkit-media-controls-panel {
@@ -46,6 +47,55 @@
   pointer-events: none;
 }
 
+.loadingWrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.loadingText {
+  margin: 0;
+  font-family: var(--font-sans), "Jost", sans-serif;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.loadingBar {
+  width: 140px;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(42, 37, 32, 0.16);
+}
+
+.loadingBar span {
+  display: block;
+  width: 42%;
+  height: 100%;
+  background: var(--ink);
+  animation: loadingSlide 1.15s ease-in-out infinite;
+}
+
+@keyframes loadingSlide {
+  0% {
+    transform: translateX(-110%);
+  }
+
+  50% {
+    transform: translateX(80%);
+  }
+
+  100% {
+    transform: translateX(260%);
+  }
+}
+
 .content {
   position: relative;
   z-index: 2;
@@ -62,6 +112,7 @@
     opacity: 0;
     transform: translateY(24px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -83,6 +134,7 @@
     opacity 0.5s ease,
     transform 0.5s ease;
 }
+
 .opening .youAreInvited,
 .exiting .youAreInvited {
   opacity: 0;
@@ -105,6 +157,7 @@
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -127,19 +180,20 @@
   overflow: visible;
 }
 
-/* === Flap: lifts open via scaleY(1) → scaleY(-1) === */
+/* Flap: lifts open via scaleY(1) → scaleY(-1) */
 .envelopeFlap {
   transform-box: fill-box;
   transform-origin: 50% 0%;
   transition: transform 0.95s cubic-bezier(0.65, 0, 0.35, 1) 0.15s;
   will-change: transform;
 }
+
 .opening .envelopeFlap,
 .exiting .envelopeFlap {
   transform: scaleY(-1);
 }
 
-/* === Seal: pulses and dissolves before the flap moves far === */
+/* Seal: pulses and dissolves before the flap moves far */
 .envelopeSeal {
   transform-box: fill-box;
   transform-origin: center center;
@@ -148,13 +202,13 @@
     opacity 0.4s ease-out;
   will-change: transform, opacity;
 }
+
 .opening .envelopeSeal,
 .exiting .envelopeSeal {
   transform: scale(1.18);
   opacity: 0;
 }
 
-/* === Names — upright Caslon, no script === */
 .namesWrap {
   display: flex;
   align-items: center;
@@ -166,6 +220,7 @@
     opacity 0.5s ease,
     transform 0.5s ease;
 }
+
 .opening .namesWrap,
 .exiting .namesWrap {
   opacity: 0;
@@ -182,6 +237,7 @@
     rgba(42, 37, 32, 0.35) 100%
   );
 }
+
 .namesWrap .namesRule:last-child {
   background: linear-gradient(
     90deg,
@@ -190,32 +246,16 @@
   );
 }
 
+.names {
+  margin: 0;
+  line-height: 1;
+}
+
 .namesImg {
   display: block;
-  width: 200px;
+  width: clamp(240px, 34vw, 380px);
   max-width: 100%;
   height: auto;
-}
-
-.names {
-  font-family: var(--font-display), "Libre Caslon Text", Georgia, serif;
-  font-size: clamp(2.2rem, 8vw, 3.4rem);
-  font-weight: 400;
-  font-style: normal;
-  color: var(--ink);
-  line-height: 1.05;
-  letter-spacing: -0.005em;
-  margin: 0;
-}
-
-.ampersand {
-  font-family: var(--font-display), "Libre Caslon Text", Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.85em;
-  vertical-align: 0.02em;
-  color: var(--ink-mid);
-  margin: 0 0.08em;
 }
 
 .date {
@@ -233,6 +273,7 @@
     opacity 0.5s ease,
     transform 0.5s ease;
 }
+
 .opening .date,
 .exiting .date {
   opacity: 0;
@@ -257,6 +298,7 @@
     opacity 0.4s ease,
     transform 0.4s ease;
 }
+
 .opening .tapPrompt,
 .exiting .tapPrompt {
   opacity: 0;
@@ -275,6 +317,7 @@
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -286,6 +329,7 @@
   100% {
     opacity: 0.45;
   }
+
   50% {
     opacity: 1;
   }
@@ -293,10 +337,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   .envelopeWrap,
-  .tapPrompt {
+  .tapPrompt,
+  .loadingBar span {
     animation: none;
+  }
+
+  .envelopeWrap,
+  .tapPrompt {
     opacity: 1;
   }
+
   .envelopeFlap,
   .envelopeSeal {
     transition: none;
@@ -307,8 +357,13 @@
   .content {
     padding: 1.5rem 1rem;
   }
+
   .envelopeSvg {
     width: 200px;
+  }
+
+  .namesImg {
+    width: clamp(250px, 78vw, 420px);
   }
 }
 

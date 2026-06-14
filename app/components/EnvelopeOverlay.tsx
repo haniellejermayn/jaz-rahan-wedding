@@ -10,8 +10,9 @@ interface Props {
 const preloadImage = (src: string) =>
   new Promise<void>((resolve) => {
     const img = new Image();
+
     img.onload = () => resolve();
-    img.onerror = () => resolve(); // still continue if image fails
+    img.onerror = () => resolve(); // continue even if one asset fails
     img.src = src;
   });
 
@@ -21,6 +22,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
   const [exiting, setExiting] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [assetsReady, setAssetsReady] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -72,6 +74,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
 
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -119,6 +122,15 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
         <source src="/videos/floral-frame.mp4" type="video/mp4" />
       </video>
 
+      {!assetsReady && (
+        <div className={styles.loadingWrap} aria-live="polite">
+          <p className={styles.loadingText}>Preparing invitation</p>
+          <div className={styles.loadingBar}>
+            <span />
+          </div>
+        </div>
+      )}
+
       {assetsReady && (
         <div className={styles.content}>
           <p className={styles.youAreInvited}>You are cordially invited to</p>
@@ -158,6 +170,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 </filter>
               </defs>
 
+              {/* Envelope body */}
               <rect
                 x="8"
                 y="24"
@@ -168,6 +181,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 filter="url(#paperShadow)"
               />
 
+              {/* Letterpress inner border */}
               <rect
                 x="14"
                 y="30"
@@ -179,6 +193,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 strokeWidth="0.5"
               />
 
+              {/* Side fold creases converging at center */}
               <path
                 d="M8,30 L120,100 L232,30"
                 stroke="rgba(42,37,32,0.18)"
@@ -193,6 +208,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 fill="none"
               />
 
+              {/* Botanical accents */}
               <g opacity="0.72">
                 <path d="M26,42 Q32,36 38,42 Q32,48 26,42Z" fill="#7DC23D" />
                 <path
@@ -201,6 +217,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                   strokeWidth="0.5"
                   fill="none"
                 />
+
                 <path
                   d="M202,42 Q208,36 214,42 Q208,48 202,42Z"
                   fill="#18C5B4"
@@ -216,6 +233,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               <g>
                 <circle cx="46" cy="62" r="3" fill="#FFDF46" opacity="0.55" />
                 <circle cx="46" cy="62" r="1.3" fill="#FEC135" opacity="0.85" />
+
                 <circle cx="194" cy="62" r="3" fill="#9991E7" opacity="0.55" />
                 <circle
                   cx="194"
@@ -224,6 +242,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                   fill="#A765CC"
                   opacity="0.85"
                 />
+
                 <circle cx="30" cy="148" r="2.5" fill="#5CA9E0" opacity="0.5" />
                 <circle
                   cx="30"
@@ -232,6 +251,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                   fill="#0580E3"
                   opacity="0.85"
                 />
+
                 <circle
                   cx="210"
                   cy="148"
@@ -248,6 +268,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 />
               </g>
 
+              {/* Top flap */}
               <g className={styles.envelopeFlap}>
                 <path
                   d="M8,30 Q8,24 14,24 L226,24 Q232,24 232,30 L120,104 L8,30 Z"
@@ -257,6 +278,7 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
                 />
               </g>
 
+              {/* Wax seal */}
               <g className={styles.envelopeSeal}>
                 <circle cx="120" cy="96" r="22" fill="#b89578" />
                 <circle cx="120" cy="96" r="18" fill="#ead8bf" />
