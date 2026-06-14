@@ -203,28 +203,29 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               />
             </g>
 
-            {/* === WAX SEAL — neutralized to deep ink === */}
+            {/* === WAX SEAL — soft mocha === */}
             <g className={styles.envelopeSeal}>
-              <circle cx="120" cy="96" r="22" fill="#4a4339" />
-              <circle cx="120" cy="96" r="18" fill="#2a2520" />
+              <circle cx="120" cy="96" r="22" fill="#b89578" />
+              <circle cx="120" cy="96" r="18" fill="#9f7358" />
               <circle
                 cx="120"
                 cy="96"
                 r="18"
                 fill="none"
-                stroke="rgba(247,241,230,0.45)"
+                stroke="rgba(247,241,230,0.55)"
                 strokeWidth="0.5"
                 strokeDasharray="1 2"
               />
 
               <g className={styles.sealMonogram}>
                 <image
-                  href="/RJ-seal.png"
+                  href="/RJ.png"
                   x="107"
                   y="85"
                   width="26"
                   height="22"
                   preserveAspectRatio="xMidYMid meet"
+                  opacity="0.9"
                 />
               </g>
             </g>
@@ -234,7 +235,11 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
         <div className={styles.namesWrap}>
           <span className={styles.namesRule} />
           <p className={styles.names}>
-            Rahan <span className={styles.ampersand}>&amp;</span> Jazmine
+            <img
+              src="/Rahan-Jazmine.png"
+              alt="Rahan & Jazmine"
+              className={styles.namesImg}
+            />
           </p>
           <span className={styles.namesRule} />
         </div>
