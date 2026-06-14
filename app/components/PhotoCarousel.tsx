@@ -28,6 +28,15 @@ const PHOTOS: Photo[] = [
   "/gallery/06.jpg",
   "/gallery/07.jpg",
   "/gallery/08.jpg",
+  "/gallery/09.jpg",
+  "/gallery/10.jpg",
+  "/gallery/11.jpg",
+  "/gallery/12.jpg",
+  "/gallery/13.jpg",
+  "/gallery/14.jpg",
+  "/gallery/15.jpg",
+  "/gallery/16.jpg",
+  "/gallery/17.jpg",
 ];
 
 // Paper tints, cycled as a loading colour / mat / fallback behind each photo

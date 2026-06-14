@@ -89,7 +89,7 @@ const groups: Group[] = [
       { name: "Atty. Euna Angelica E. Dolor" },
       { name: "Ms. Mira Althea E. Dolor" },
       { name: "Ms. Julia Chanel A. Chua" },
-      { name: "Ms. Zamantha Mae F. Ballares" },
+      { name: "Mrs. Zamantha Mae F. Ballares" },
       { name: "Ms. Janyx Naomi Uy" },
     ],
   },
