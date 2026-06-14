@@ -154,10 +154,6 @@ function FbIcon() {
 /* ───────────────────────────────────────────────────────────────
    FAQ DATA
    Tone: concise, warm, polite. Edit answers freely below.
-
-   ▸ TO UPDATE THE MENU: see the "food" item — replace the two
-     <span className={styles.placeholder}> markers with the real
-     menu / dietary details.
    ─────────────────────────────────────────────────────────────── */
 type Faq = {
   id: string;
@@ -177,9 +173,9 @@ const FAQS: Faq[] = [
     question: "When should I RSVP by?",
     answer: (
       <p>
-        Kindly send your reply by <strong>June 30, 2026 </strong> (whether or
-        not you&rsquo;re able to join us) using the RSVP form above. An early
-        response helps us finalize seating and meals.
+        Please submit the RSVP form above by <strong>June 30, 2026</strong>.
+        Kindly respond whether or not you&rsquo;re able to join us, as this
+        helps us finalize seating and meals.
       </p>
     ),
   },
@@ -191,7 +187,7 @@ const FAQS: Faq[] = [
     question: "Will the wedding be held indoors?",
     answer: (
       <p>
-        Yes. Both the ceremony and the reception take place indoors, so you can
+        Yes. Both the ceremony and reception will be held indoors, so you can
         come dressed comfortably, rain or shine.
       </p>
     ),
@@ -204,10 +200,10 @@ const FAQS: Faq[] = [
     question: "May I bring a plus-one or extra guests?",
     answer: (
       <p>
-        To keep our celebration intimate, seats are reserved especially for the
-        guests named on your invitation. We&rsquo;re unable to accommodate
-        plus-ones or additional guests, and we kindly ask that invitations not
-        be passed along. Thank you so much for understanding.
+        To keep our celebration intimate, seats are reserved for the{" "}
+        <strong>guests named on your invitation</strong>. We&rsquo;re unable to
+        accommodate plus-ones or additional guests, and kindly ask that
+        invitations not be passed along. Thank you for understanding.
       </p>
     ),
   },
@@ -219,7 +215,7 @@ const FAQS: Faq[] = [
     question: "Are children invited?",
     answer: (
       <p>
-        Ours will be an adults-only celebration, with the exception of the
+        Ours will be an <strong>adults-only celebration</strong>, except for
         children who are part of the entourage. We hope this gives parents a
         lovely evening to relax and enjoy.
       </p>
@@ -233,10 +229,9 @@ const FAQS: Faq[] = [
     question: "How do I get there, and is parking available?",
     answer: (
       <p>
-        Parking at the venue is limited, and transportation isn&rsquo;t
-        provided, so we&rsquo;d gently suggest carpooling where you can and
-        arranging your own ride. Allowing a little extra travel time is the
-        easiest way to settle in without the rush.
+        <strong>Parking at the venue is limited</strong>, and transportation
+        will not be provided. We suggest carpooling where possible, arranging
+        your own ride, and allowing extra travel time.
       </p>
     ),
   },
@@ -249,14 +244,12 @@ const FAQS: Faq[] = [
     answer: (
       <>
         <p>
-          Doors open at <strong>1:30 PM</strong>; please be seated before the
-          ceremony begins at <strong>2:00 PM</strong>. If you&rsquo;re running
-          late, a quick message to Rahan or Jazmine lets us look after your
-          seat.
+          Doors open at <strong>1:30 PM</strong>. Please be seated before the
+          ceremony begins at <strong>2:00 PM</strong>.
         </p>
         <p>
-          We&rsquo;d love for you to stay through the whole celebration. But
-          should you need to leave early, please let the couple know beforehand.
+          We&rsquo;d love for you to stay through the whole celebration. If you
+          need to leave early, please let Rahan or Jazmine know beforehand.
         </p>
       </>
     ),
@@ -269,8 +262,8 @@ const FAQS: Faq[] = [
     question: "Is seating assigned?",
     answer: (
       <p>
-        Yes, seating at the reception is assigned. Our team will be on hand to
-        guide you to your table once you arrive.
+        Yes, <strong>reception seating is assigned</strong>. Our team will guide
+        you to your table once you arrive.
       </p>
     ),
   },
@@ -283,19 +276,12 @@ const FAQS: Faq[] = [
     answer: (
       <>
         <p>
-          A <strong>plated dinner</strong> will be served during the reception.{" "}
-          {/* ▼▼ EDIT: replace with the actual menu / courses ▼▼ */}
-          <span className={styles.placeholder}>
-            menu details to be added
-          </span>{" "}
-          {/* ▲▲ EDIT ▲▲ */}
+          An <strong>assisted buffet</strong> will be served during the
+          reception, with the catering team helping guests at the buffet.
         </p>
         <p>
-          {/* ▼ EDIT: dietary options, if any ▼ */}
-          <span className={styles.placeholder}>
-            dietary options to be added
-          </span>{" "}
-          If you have any food allergies or dietary restrictions, please let
+          If you have any{" "}
+          <strong>food allergies or dietary restrictions</strong>, please let
           Rahan or Jazmine know ahead of time so we can make arrangements for
           you.
         </p>
@@ -311,7 +297,7 @@ const FAQS: Faq[] = [
     answer: (
       <>
         <p>
-          For anything at all, you&rsquo;re warmly welcome to reach the couple
+          For anything at all, you&rsquo;re welcome to reach the couple
           directly:
         </p>
         <div className={styles.contacts}>
