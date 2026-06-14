@@ -473,20 +473,11 @@ export default function Hero() {
 
       <div className={styles.content}>
         <h1 className={styles.names}>
-          <span className={styles.firstName}>Rahan</span>
-          <span className={styles.ampersand} aria-hidden="true">
-            <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
-              <text
-                x="40"
-                y="50"
-                textAnchor="middle"
-                className={styles.ampGlyph}
-              >
-                &amp;
-              </text>
-            </svg>
-          </span>
-          <span className={styles.secondName}>Jazmine</span>
+          <img
+            src="/Rahan-Jazmine.png"
+            alt="Rahan & Jazmine"
+            className={styles.namesImg}
+          />
         </h1>
 
         <p className={styles.invitedLine}>
