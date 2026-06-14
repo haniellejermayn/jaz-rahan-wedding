@@ -218,18 +218,14 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               />
 
               <g className={styles.sealMonogram}>
-                <text
-                  x="120"
-                  y="101"
-                  textAnchor="middle"
-                  fontFamily="Libre Caslon Text, Georgia, serif"
-                  fontStyle="italic"
-                  fontSize="14"
-                  fill="#f7f1e6"
-                  letterSpacing="0.5"
-                >
-                  R&amp;J
-                </text>
+                <image
+                  href="/RJ-seal.png"
+                  x="107"
+                  y="85"
+                  width="26"
+                  height="22"
+                  preserveAspectRatio="xMidYMid meet"
+                />
               </g>
             </g>
           </svg>

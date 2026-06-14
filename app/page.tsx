@@ -120,15 +120,15 @@ export default function Home() {
           <div data-edge-flush>
             <FloralDivider />
           </div>
-          <RSVP />
+          <Registry />
           <div data-edge-flush>
             <FloralDivider dark />
           </div>
+          <RSVP />
           <FAQ />
           <div data-edge-flush>
             <FloralDivider dark />
           </div>
-          <Registry />
         </main>
         <Footer />
       </div>
