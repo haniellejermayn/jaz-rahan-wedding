@@ -23,18 +23,18 @@ import Footer from "./components/Footer";
 
 /* Ambient floating petals — sprinkled across the page */
 const PETALS = [
-  { left: "8%",  size: 7,  color: "#FE569B", duration: 22, delay: 0  },
-  { left: "18%", size: 5,  color: "#9991E7", duration: 28, delay: 4  },
-  { left: "28%", size: 8,  color: "#FE803D", duration: 24, delay: 9  },
-  { left: "38%", size: 4,  color: "#FFDF46", duration: 30, delay: 2  },
-  { left: "48%", size: 6,  color: "#7DC23D", duration: 26, delay: 12 },
-  { left: "58%", size: 5,  color: "#5CA9E0", duration: 25, delay: 6  },
-  { left: "68%", size: 7,  color: "#FE569B", duration: 27, delay: 14 },
-  { left: "78%", size: 4,  color: "#A765CC", duration: 23, delay: 8  },
-  { left: "88%", size: 6,  color: "#FEC135", duration: 29, delay: 11 },
-  { left: "95%", size: 5,  color: "#FE569B", duration: 24, delay: 16 },
-  { left: "13%", size: 4,  color: "#18C5B4", duration: 31, delay: 19 },
-  { left: "53%", size: 5,  color: "#FE803D", duration: 26, delay: 21 },
+  { left: "8%", size: 7, color: "#FE569B", duration: 22, delay: 0 },
+  { left: "18%", size: 5, color: "#9991E7", duration: 28, delay: 4 },
+  { left: "28%", size: 8, color: "#FE803D", duration: 24, delay: 9 },
+  { left: "38%", size: 4, color: "#FFDF46", duration: 30, delay: 2 },
+  { left: "48%", size: 6, color: "#7DC23D", duration: 26, delay: 12 },
+  { left: "58%", size: 5, color: "#5CA9E0", duration: 25, delay: 6 },
+  { left: "68%", size: 7, color: "#FE569B", duration: 27, delay: 14 },
+  { left: "78%", size: 4, color: "#A765CC", duration: 23, delay: 8 },
+  { left: "88%", size: 6, color: "#FEC135", duration: 29, delay: 11 },
+  { left: "95%", size: 5, color: "#FE569B", duration: 24, delay: 16 },
+  { left: "13%", size: 4, color: "#18C5B4", duration: 31, delay: 19 },
+  { left: "53%", size: 5, color: "#FE803D", duration: 26, delay: 21 },
 ];
 
 export default function Home() {
@@ -89,26 +89,46 @@ export default function Home() {
         <main>
           <Hero />
           <Countdown />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <Welcome />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <MusicPlayer audioRef={audioRef} />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <PhotoCarousel />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <Entourage />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <Attire />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <DateTime />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <Venue />
-          <div data-edge-flush><FloralDivider /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <Registry />
-          <div data-edge-flush><FloralDivider /></div>
-          <FAQ />
-          <div data-edge-flush><FloralDivider dark /></div>
+          <div data-edge-flush>
+            <FloralDivider />
+          </div>
           <RSVP />
+          <div data-edge-flush>
+            <FloralDivider dark />
+          </div>
+          <FAQ />
         </main>
         <Footer />
       </div>
