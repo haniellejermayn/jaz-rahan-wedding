@@ -203,16 +203,16 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               />
             </g>
 
-            {/* === WAX SEAL — champagne / antique gold === */}
+            {/* === WAX SEAL — darker outer ring, cream center === */}
             <g className={styles.envelopeSeal}>
-              <circle cx="120" cy="96" r="22" fill="#d8c3a5" />
-              <circle cx="120" cy="96" r="18" fill="#c5a98b" />
+              <circle cx="120" cy="96" r="22" fill="#b89578" />
+              <circle cx="120" cy="96" r="18" fill="#ead8bf" />
               <circle
                 cx="120"
                 cy="96"
                 r="18"
                 fill="none"
-                stroke="rgba(247,241,230,0.65)"
+                stroke="rgba(42,37,32,0.22)"
                 strokeWidth="0.5"
                 strokeDasharray="1 2"
               />
@@ -220,8 +220,8 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
               <g className={styles.sealMonogram}>
                 <image
                   href="/RJ.png"
-                  x="102"
-                  y="82"
+                  x="103"
+                  y="83"
                   width="36"
                   height="28"
                   preserveAspectRatio="xMidYMid meet"
