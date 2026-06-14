@@ -178,8 +178,8 @@ const FAQS: Faq[] = [
     answer: (
       <p>
         Kindly send your reply by <strong>June 30, 2026 </strong> (whether or
-        not you&rsquo;re able to join us) using the RSVP form just below. An
-        early response helps us finalize seating and meals.
+        not you&rsquo;re able to join us) using the RSVP form above. An early
+        response helps us finalize seating and meals.
       </p>
     ),
   },
