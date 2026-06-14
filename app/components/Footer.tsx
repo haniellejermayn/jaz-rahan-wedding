@@ -12,10 +12,18 @@ const flowers = [
   { color: "#FE569B", dark: "#c93d7a", size: 20 },
 ];
 
-function Flower({ color, dark, size }: { color: string; dark: string; size: number }) {
+function Flower({
+  color,
+  dark,
+  size,
+}: {
+  color: string;
+  dark: string;
+  size: number;
+}) {
   const r = size / 2;
-  const pr = r * 0.42;   // petal radius
-  const cr = r * 0.22;   // center dot radius
+  const pr = r * 0.42; // petal radius
+  const cr = r * 0.22; // center dot radius
   const dist = r * 0.44; // petal center offset from origin
 
   // 5 petals at 72° apart, starting from top
@@ -23,7 +31,18 @@ function Flower({ color, dark, size }: { color: string; dark: string; size: numb
     const angle = (i * 72 - 90) * (Math.PI / 180);
     const cx = Math.cos(angle) * dist;
     const cy = Math.sin(angle) * dist;
-    return <ellipse key={i} cx={cx} cy={cy} rx={pr} ry={pr * 1.35} transform={`rotate(${i * 72}, ${cx}, ${cy})`} fill={color} opacity="0.85" />;
+    return (
+      <ellipse
+        key={i}
+        cx={cx}
+        cy={cy}
+        rx={pr}
+        ry={pr * 1.35}
+        transform={`rotate(${i * 72}, ${cx}, ${cy})`}
+        fill={color}
+        opacity="0.85"
+      />
+    );
   });
 
   return (
@@ -47,9 +66,11 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.namesWrap}>
         <span className={styles.namesRule} />
-        <p className={styles.names}>
-          Rahan <span className={styles.ampersand}>&amp;</span> Jazmine
-        </p>
+        <img
+          src="/Rahan-Jazmine.png"
+          alt="Rahan & Jazmine"
+          className={styles.namesImg}
+        />
         <span className={styles.namesRule} />
       </div>
       <div className={styles.divider} aria-hidden="true">

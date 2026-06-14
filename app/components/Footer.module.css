@@ -1,7 +1,7 @@
 .footer {
   background: var(--ivory);
   position: relative;
-  padding: 5rem 1.5rem 5.5rem;
+  padding: 4rem 1.5rem 5.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -17,14 +17,29 @@
   margin-bottom: 0.2rem;
 }
 
+.namesImg {
+  display: block;
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+}
+
 .namesRule {
   display: block;
   width: clamp(28px, 8vw, 56px);
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(42, 37, 32, 0.35) 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(42, 37, 32, 0.35) 100%
+  );
 }
 .namesWrap .namesRule:last-child {
-  background: linear-gradient(90deg, rgba(42, 37, 32, 0.35) 0%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(42, 37, 32, 0.35) 0%,
+    transparent 100%
+  );
 }
 
 .names {
@@ -83,7 +98,9 @@
 }
 .flower {
   opacity: 0.75;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
   flex-shrink: 0;
 }
 .flower:hover {
