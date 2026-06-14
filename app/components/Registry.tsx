@@ -1,13 +1,16 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import styles from "./Registry.module.css";
 
 type Method = {
   id: string;
-  label: string; // e.g. "GCash"
-  holder: string; // account-holder name
-  identifier: string; // mobile number / account number
-  identifierLabel?: string; // e.g. "Mobile" or "Account no."
+  label: string;
+  holder: string;
+  identifier: string;
+  identifierLabel?: string;
+  qrSrc?: string;
+  qrLayout?: "square" | "portrait";
 };
 
 /* Real account details to be added later; the masked placeholders
@@ -19,6 +22,8 @@ const methods: Method[] = [
     holder: "Hezekiah Jazmine Chua",
     identifier: "09190082621",
     identifierLabel: "Mobile",
+    qrSrc: "/qr/gcash.png",
+    qrLayout: "portrait",
   },
   {
     id: "maya",
@@ -26,6 +31,8 @@ const methods: Method[] = [
     holder: "Rahan Dale Dolor",
     identifier: "09189178065",
     identifierLabel: "Mobile",
+    qrSrc: "/qr/maya.jpeg",
+    qrLayout: "square",
   },
   {
     id: "bank",
@@ -39,16 +46,37 @@ const methods: Method[] = [
 export default function Registry() {
   const [copied, setCopied] = useState<string | null>(null);
   const [pending, setPending] = useState<string | null>(null);
+  const [qrOpen, setQrOpen] = useState<string | null>(null);
+
+  const activeQr = methods.find((m) => m.id === qrOpen && m.qrSrc);
+
+  useEffect(() => {
+    if (!qrOpen) return;
+
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setQrOpen(null);
+    };
+
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [qrOpen]);
 
   const handleCopy = async (id: string, value: string) => {
-    // Detect placeholder values (masked bullets) — show "Soon" feedback
-    // instead of writing an empty string to the clipboard.
     const isPlaceholder = /[•]/.test(value);
+
     if (isPlaceholder) {
       setPending(id);
       setTimeout(() => setPending(null), 1800);
       return;
     }
+
     try {
       await navigator.clipboard.writeText(value.replace(/[\s•]/g, ""));
       setCopied(id);
@@ -56,6 +84,14 @@ export default function Registry() {
     } catch {
       /* clipboard may be unavailable; silently no-op */
     }
+  };
+
+  const maskIdentifier = (value: string) => {
+    const clean = value.replace(/\s/g, "");
+
+    if (clean.length <= 4) return clean;
+
+    return `${clean.slice(0, 4)} ••• •${clean.slice(-3)}`;
   };
 
   return (
@@ -66,10 +102,10 @@ export default function Registry() {
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.prose} reveal delay-2`}>
-          <strong>Your company at our wedding is gift enough.</strong> Should
-          you wish to mark our new chapter with something more, we have chosen
-          to forgo a traditional registry &mdash; a monetary gift would be
-          warmly appreciated.
+          Your company at our wedding is gift enough. Should you wish to send a
+          gift as we begin this new chapter, monetary gifts may be sent through
+          the options below. Please know that your love, prayers, and presence
+          are more than enough.
         </p>
 
         <div className={`${styles.methods} reveal delay-3`}>
@@ -77,11 +113,14 @@ export default function Registry() {
             <div key={m.id} className={styles.methodCard}>
               <div className={styles.methodHeader}>
                 <span className={styles.methodLabel}>{m.label}</span>
+
                 <button
                   type="button"
                   className={styles.copyBtn}
                   onClick={() => handleCopy(m.id, m.identifier)}
-                  aria-label={`Copy ${m.label} ${m.identifierLabel ?? "number"}`}
+                  aria-label={`Copy ${m.label} ${
+                    m.identifierLabel ?? "number"
+                  }`}
                 >
                   {copied === m.id ? (
                     <>
@@ -138,7 +177,37 @@ export default function Registry() {
                 </button>
               </div>
 
-              <span className={styles.methodId}>{m.identifier}</span>
+              <div className={styles.methodNumberRow}>
+                <span className={styles.methodId}>
+                  {maskIdentifier(m.identifier)}
+                </span>
+
+                {m.qrSrc && (
+                  <button
+                    type="button"
+                    className={styles.qrBtn}
+                    onClick={() => setQrOpen(m.id)}
+                    aria-label={`Show ${m.label} QR code`}
+                  >
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                      aria-hidden="true"
+                    >
+                      <rect x="1.5" y="1.5" width="3" height="3" />
+                      <rect x="7.5" y="1.5" width="3" height="3" />
+                      <rect x="1.5" y="7.5" width="3" height="3" />
+                      <path d="M7.5,7.5 H10.5 V10.5 H8.8" />
+                    </svg>
+                    Show QR
+                  </button>
+                )}
+              </div>
+
               <span className={styles.methodSub}>
                 {m.identifierLabel && (
                   <>
@@ -160,6 +229,46 @@ export default function Registry() {
           </em>
         </p>
       </div>
+
+      {activeQr && (
+        <div
+          className={styles.qrModal}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeQr.label} QR code`}
+          onClick={() => setQrOpen(null)}
+        >
+          <div
+            className={styles.qrModalCard}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.qrCloseBtn}
+              onClick={() => setQrOpen(null)}
+              aria-label="Close QR code"
+            >
+              <span />
+              <span />
+            </button>
+
+            <p className={styles.qrModalEyebrow}>Scan to Send</p>
+            <h3 className={styles.qrModalTitle}>{activeQr.label}</h3>
+
+            <img
+              src={activeQr.qrSrc}
+              alt={`${activeQr.label} QR code`}
+              className={`${styles.qrModalImg} ${
+                activeQr.qrLayout === "portrait"
+                  ? styles.qrModalImgPortrait
+                  : styles.qrModalImgSquare
+              }`}
+            />
+
+            <p className={styles.qrModalSub}>{activeQr.holder}</p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

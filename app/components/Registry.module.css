@@ -26,6 +26,7 @@
   margin-top: 2.4rem;
   max-width: 460px;
 }
+
 .prose strong {
   color: var(--ink);
   font-weight: 700;
@@ -46,9 +47,11 @@
   border-radius: 2px;
   text-align: left;
   border: 1px solid var(--ink-line-soft);
-  box-shadow:
-    0 4px 14px rgba(42, 37, 32, 0.06);
-  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  box-shadow: 0 4px 14px rgba(42, 37, 32, 0.06);
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s,
+    border-color 0.3s;
 }
 
 /* Letterpress double-border */
@@ -65,9 +68,9 @@
 .methodCard:hover {
   transform: translateY(-2px);
   border-color: var(--ink-line);
-  box-shadow:
-    0 10px 24px rgba(42, 37, 32, 0.10);
+  box-shadow: 0 10px 24px rgba(42, 37, 32, 0.1);
 }
+
 .methodCard:hover::before {
   border-color: var(--ink-line);
 }
@@ -77,7 +80,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.8rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.65rem;
   position: relative;
   z-index: 1;
 }
@@ -91,9 +94,11 @@
   letter-spacing: 0;
 }
 
-.copyBtn {
+.copyBtn,
+.qrBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   padding: 0.4rem 0.7rem;
   font-family: var(--font-sans);
@@ -106,15 +111,33 @@
   border: 1px solid var(--ink-line);
   border-radius: 1px;
   cursor: pointer;
-  transition: background 0.22s, color 0.22s, border-color 0.22s, transform 0.22s;
+  transition:
+    background 0.22s,
+    color 0.22s,
+    border-color 0.22s,
+    transform 0.22s,
+    box-shadow 0.22s;
 }
-.copyBtn:hover {
+
+.copyBtn:hover,
+.qrBtn:hover {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--ivory);
 }
-.copyBtn:active {
+
+.copyBtn:active,
+.qrBtn:active {
   transform: scale(0.97);
+}
+
+.methodNumberRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .methodId {
@@ -126,8 +149,12 @@
   color: var(--ink);
   letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
-  position: relative;
-  z-index: 1;
+  min-width: 0;
+}
+
+.qrBtn {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .methodSub {
@@ -142,6 +169,7 @@
   position: relative;
   z-index: 1;
 }
+
 .subDot {
   margin: 0 0.55rem;
   opacity: 0.6;
@@ -155,4 +183,204 @@
   color: var(--ink-mid);
   margin-top: 2.4rem;
   line-height: 1.75;
+}
+
+/* Full-screen QR modal */
+.qrModal {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(247, 241, 230, 0.94);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+  animation: qrModalFade 0.25s ease both;
+}
+
+.qrModalCard {
+  position: relative;
+  width: min(90vw, 420px);
+  max-height: 88vh;
+  padding: 2.4rem 1.6rem 1.8rem;
+  background: var(--paper-warm);
+  border: 1px solid var(--ink-line-soft);
+  box-shadow: 0 20px 60px rgba(42, 37, 32, 0.16);
+  text-align: center;
+  animation: qrModalCardIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrModalCard::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid var(--ink-line-soft);
+  pointer-events: none;
+}
+
+.qrCloseBtn {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--ink-line-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.22s,
+    border-color 0.22s,
+    transform 0.22s;
+}
+
+.qrCloseBtn:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.qrCloseBtn:active {
+  transform: scale(0.96);
+}
+
+.qrCloseBtn span {
+  position: absolute;
+  width: 16px;
+  height: 1.2px;
+  background: var(--ink);
+  transition: background 0.22s;
+}
+
+.qrCloseBtn:hover span {
+  background: var(--ivory);
+}
+
+.qrCloseBtn span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.qrCloseBtn span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+.qrModalEyebrow {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.qrModalTitle {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.qrModalImg {
+  position: relative;
+  z-index: 1;
+  display: block;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--ink-line-soft);
+  box-shadow: 0 8px 24px rgba(42, 37, 32, 0.1);
+}
+
+.qrModalImgSquare {
+  width: min(68vw, 270px);
+  height: auto;
+  max-height: 62vh;
+  padding: 0.7rem;
+}
+
+.qrModalImgPortrait {
+  width: auto;
+  height: auto;
+  max-width: min(76vw, 320px);
+  max-height: 68vh;
+}
+
+.qrModalSub {
+  position: relative;
+  z-index: 1;
+  margin: 1.2rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+@keyframes qrModalFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes qrModalCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 420px) {
+  .methodCard {
+    padding: 1.55rem 1.35rem 1.4rem;
+  }
+
+  .methodNumberRow {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .qrBtn {
+    align-self: flex-start;
+  }
+
+  .qrModal {
+    padding: 1rem;
+  }
+
+  .qrModalCard {
+    width: min(92vw, 360px);
+    padding: 2.3rem 1.3rem 1.7rem;
+  }
+
+  .qrModalImgSquare {
+    width: min(72vw, 240px);
+  }
+
+  .qrModalImgPortrait {
+    max-width: min(80vw, 300px);
+    max-height: 66vh;
+  }
 }
