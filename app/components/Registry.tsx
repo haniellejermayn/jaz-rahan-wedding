@@ -37,7 +37,7 @@ const methods: Method[] = [
   {
     id: "bank",
     label: "BDO (Bank Transfer)",
-    holder: "Rahan Dale Dolor",
+    holder: "Hezekiah Jazmine Chua",
     identifier: "011950180970",
     identifierLabel: "Account no.",
   },
