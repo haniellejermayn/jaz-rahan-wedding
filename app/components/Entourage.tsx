@@ -12,7 +12,7 @@ type Group = {
 const groups: Group[] = [
   {
     label: "Officiant",
-    people: [{ name: "TBD" }],
+    people: [{ name: "Ptr. Raphael Levi Arnan" }],
   },
   {
     label: "Parents of the Groom",
