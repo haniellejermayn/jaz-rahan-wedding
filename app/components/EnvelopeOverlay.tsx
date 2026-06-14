@@ -7,12 +7,24 @@ interface Props {
   onOpen: () => void;
 }
 
-const preloadImage = (src: string) =>
+const preloadImage = (src: string, timeoutMs = 2500) =>
   new Promise<void>((resolve) => {
     const img = new Image();
 
-    img.onload = () => resolve();
-    img.onerror = () => resolve(); // continue even if one asset fails
+    const done = () => resolve();
+
+    const timer = window.setTimeout(done, timeoutMs);
+
+    img.onload = () => {
+      window.clearTimeout(timer);
+      done();
+    };
+
+    img.onerror = () => {
+      window.clearTimeout(timer);
+      done();
+    };
+
     img.src = src;
   });
 
@@ -31,7 +43,6 @@ export default function EnvelopeOverlay({ onOpen }: Props) {
     Promise.all([
       preloadImage("/RJ.png"),
       preloadImage("/Rahan-Jazmine.png"),
-      preloadImage("/videos/floral-frame-poster.jpg"),
     ]).then(() => {
       if (!cancelled) setAssetsReady(true);
     });
