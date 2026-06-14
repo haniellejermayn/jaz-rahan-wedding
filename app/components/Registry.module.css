@@ -135,13 +135,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem;
   position: relative;
   z-index: 1;
 }
 
 .methodId {
   display: block;
+  flex: 1 1 auto;
+  min-width: 0;
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 5vw, 1.7rem);
   font-style: normal;
@@ -149,11 +151,11 @@
   color: var(--ink);
   letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
-  min-width: 0;
+  white-space: nowrap;
 }
 
 .qrBtn {
-  flex-shrink: 0;
+  flex: 0 0 auto;
   white-space: nowrap;
 }
 
@@ -335,6 +337,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -345,6 +348,7 @@
     opacity: 0;
     transform: translateY(10px) scale(0.98);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -357,13 +361,21 @@
   }
 
   .methodNumberRow {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.55rem;
+  }
+
+  .methodId {
+    font-size: clamp(1.08rem, 5.8vw, 1.32rem);
+    letter-spacing: 0.02em;
   }
 
   .qrBtn {
-    align-self: flex-start;
+    padding: 0.35rem 0.52rem;
+    font-size: 0.48rem;
+    letter-spacing: 0.18em;
   }
 
   .qrModal {
