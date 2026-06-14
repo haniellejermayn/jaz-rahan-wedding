@@ -121,7 +121,12 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--ink-mid), transparent);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--ink-mid),
+    transparent
+  );
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -136,7 +141,7 @@
 
 .personName {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.82rem;
   font-weight: 400;
   font-style: normal;
   color: var(--ink);
