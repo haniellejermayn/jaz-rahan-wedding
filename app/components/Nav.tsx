@@ -88,7 +88,7 @@ export default function Nav() {
     <>
       <nav className={styles.nav}>
         <Link href="/" onClick={scrollTop} className={styles.monogram}>
-          R&amp;J
+          <img src="/RJ.png" alt="R&J" className={styles.monogramImg} />
         </Link>
 
         <ul className={styles.links}>

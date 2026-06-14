@@ -13,18 +13,19 @@
 }
 
 .monogram {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-style: italic;
-  font-weight: 400;
-  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   line-height: 1;
-  letter-spacing: 0;
-  transition: color 0.22s;
 }
 .monogram:hover {
   color: var(--ink-mid);
+}
+
+.monogramImg {
+  display: block;
+  width: clamp(35px, 6vw, 65px);
+  height: auto;
 }
 
 .links {
@@ -105,9 +106,9 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   display: flex;
-  flex-direction: column;        /* ← column instead of row-ish centering */
+  flex-direction: column; /* ← column instead of row-ish centering */
   align-items: center;
-  justify-content: center;       /* centers the links vertically */
+  justify-content: center; /* centers the links vertically */
   padding: 0;
   overflow-y: auto;
   opacity: 0;
@@ -166,7 +167,7 @@
 
 /* X close button inside the drawer */
 .drawerClose {
-  position: fixed;               /* ← fixed so it doesn't affect flex flow */
+  position: fixed; /* ← fixed so it doesn't affect flex flow */
   top: 1.2rem;
   right: 1.4rem;
   width: 36px;
@@ -178,7 +179,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 201;                  /* ← above the drawer */
+  z-index: 201; /* ← above the drawer */
 }
 .drawerClose span {
   position: absolute;
