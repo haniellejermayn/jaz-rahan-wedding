@@ -79,7 +79,7 @@
 
 .track {
   display: flex;
-  align-items: flex-end;
+  align-items: center; /* all cards share one height, so they line up */
   gap: 14px;
   padding: 1rem clamp(1rem, 6vw, 4rem);
   /* No overflow, no scrollLeft — just a wide flex row */
@@ -96,8 +96,16 @@
 }
 
 .card {
-  width: 210px;
-  flex-shrink: 0;
+  /* Constant HEIGHT, variable width: every photo is the same height and
+     its width follows its aspect ratio — landscapes come out wide,
+     portraits narrow, and they all line up to one tidy row height.
+     Change this single value to resize the whole strip. */
+  height: 280px;
+  flex: 0 0 auto; /* width = the image's natural width; never shrink */
+  /* Floor that reserves space before an image loads and keeps an
+     ultra-tall/narrow photo from collapsing to a sliver. Lower or
+     delete it if you want widths to be purely image-driven. */
+  min-width: 120px;
   border-radius: 3px;
   overflow: hidden;
   position: relative;
@@ -125,6 +133,20 @@
   border-radius: 1px;
 }
 
+/* ── The photo ──
+   height:100% fills the card's fixed height; width:auto lets the width
+   follow the aspect ratio — so portrait, landscape, square and panorama
+   all come out the same height with no crop and no distortion. As an
+   in-flow element, the decorative frame + corner tabs sit on top of it. */
+.photo {
+  display: block;
+  height: 100%;
+  width: auto;
+  cursor: zoom-in; /* hints that a click opens the full-screen view */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 @media (hover: hover) {
   .card:hover {
     transform: translateY(-6px) rotate(-0.5deg);
@@ -135,7 +157,7 @@
   }
 }
 
-/* Tone-mapped paper backgrounds */
+/* Tone-mapped paper backgrounds (loading colour / mat / 404 fallback) */
 .rose {
   background: linear-gradient(155deg, #fff0f6 0%, #ffe1ec 100%);
   color: #d2447f;
@@ -178,6 +200,7 @@
   position: relative;
   z-index: 1;
   pointer-events: none;
+  padding: 0 2rem; /* gives the fallback card a little width */
 }
 
 .bloomIcon {
@@ -234,7 +257,7 @@
     opacity 0.25s,
     box-shadow 0.25s;
   box-shadow:
-    0 4px 14px rgba(42, 37, 32, 0.10),
+    0 4px 14px rgba(42, 37, 32, 0.1),
     0 1px 3px rgba(42, 37, 32, 0.06);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -292,6 +315,116 @@
   letter-spacing: 0;
 }
 
+/* ── Full-screen photo viewer (lightbox) ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3.5rem);
+  background: rgba(28, 14, 24, 0.9);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  cursor: zoom-out; /* click the backdrop to close */
+  animation: lbFade 0.25s ease both;
+}
+
+@keyframes lbFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lbImage {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* whole photo always fits, never cropped */
+  border-radius: 2px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+  cursor: default;
+  user-select: none;
+  -webkit-user-drag: none;
+  animation: lbPop 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lbPop {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.lbClose,
+.lbPrev,
+.lbNext {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.lbClose:hover,
+.lbPrev:hover,
+.lbNext:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lbClose {
+  top: clamp(0.75rem, 3vw, 1.5rem);
+  right: clamp(0.75rem, 3vw, 1.5rem);
+  width: 44px;
+  height: 44px;
+}
+
+.lbPrev,
+.lbNext {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+}
+.lbPrev {
+  left: clamp(0.5rem, 2vw, 1.75rem);
+}
+.lbNext {
+  right: clamp(0.5rem, 2vw, 1.75rem);
+}
+.lbPrev:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+.lbNext:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lbClose:focus-visible,
+.lbPrev:focus-visible,
+.lbNext:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .track {
     scroll-behavior: auto;
@@ -300,5 +433,9 @@
   .arrow,
   .bloomIcon {
     transition: none;
+  }
+  .lightbox,
+  .lbImage {
+    animation: none;
   }
 }

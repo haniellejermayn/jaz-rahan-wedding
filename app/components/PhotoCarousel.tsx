@@ -2,16 +2,45 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./PhotoCarousel.module.css";
 
-const CARDS = [
-  { h: 300, tone: "rose" },
-  { h: 240, tone: "violet" },
-  { h: 280, tone: "tangerine" },
-  { h: 260, tone: "sunray" },
-  { h: 320, tone: "leaf" },
-  { h: 250, tone: "sky" },
-  { h: 290, tone: "berry" },
-  { h: 270, tone: "teal" },
+/* ──────────────────────────────────────────────────────────────
+   ADD YOUR PHOTOS HERE  ←  this is the only part you touch
+   ──────────────────────────────────────────────────────────────
+   1. Drop the image files into your /public folder
+        e.g.  public/gallery/01.jpg
+   2. List them below. Each entry can be either:
+        • a plain string:        "/gallery/01.jpg"
+        • or { src, alt }:       { src: "/gallery/02.jpg", alt: "Beach sunset" }
+      (use the object form if you want alt text for accessibility)
+
+   Every card is the SAME HEIGHT; each photo's WIDTH follows its
+   aspect ratio (landscapes wide, portraits narrow). No cropping,
+   no stretching, no dimensions to type in. Click any photo for a
+   full-screen view.
+   ────────────────────────────────────────────────────────────── */
+type Photo = string | { src: string; alt?: string };
+
+const PHOTOS: Photo[] = [
+  "/gallery/01.jpg",
+  "/gallery/02.jpg",
+  "/gallery/03.jpg",
+  "/gallery/04.jpg",
+  "/gallery/05.jpg",
+  "/gallery/06.jpg",
+  "/gallery/07.jpg",
+  "/gallery/08.jpg",
 ];
+
+// Paper tints, cycled as a loading colour / mat / fallback behind each photo
+const TONES = [
+  "rose",
+  "violet",
+  "tangerine",
+  "sunray",
+  "leaf",
+  "sky",
+  "berry",
+  "teal",
+] as const;
 
 const AUTO_SPEED = 40; // px/s
 const RESUME_DELAY_MS = 1200;
@@ -21,7 +50,8 @@ export default function PhotoCarousel() {
   const viewportRef = useRef<HTMLDivElement>(null); // the clipping window
   const trackRef = useRef<HTMLDivElement>(null); // the moving strip
 
-  const cards = [...CARDS, ...CARDS];
+  // Duplicate the set so the infinite loop is seamless
+  const slides = [...PHOTOS, ...PHOTOS];
 
   // ── Animation state (all refs — no re-renders in the loop) ──
   const offsetRef = useRef(0); // current translateX (negative = scrolled right)
@@ -44,8 +74,17 @@ export default function PhotoCarousel() {
 
   const [reduced, setReduced] = useState(false);
 
+  // ── Lightbox (full-screen viewer) state ──
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const lightboxOpenRef = useRef(false); // mirror of the above for the rAF loop
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const isOpen = lightboxIndex !== null;
+
   const isPaused = () =>
-    hoveredRef.current || touchingRef.current || draggingRef.current;
+    hoveredRef.current ||
+    touchingRef.current ||
+    draggingRef.current ||
+    lightboxOpenRef.current;
 
   // ── Apply transform ──
   const applyOffset = (x: number) => {
@@ -64,6 +103,8 @@ export default function PhotoCarousel() {
   };
 
   // ── Measure one full set width ──
+  // Widths are image-driven now, so this re-measures whenever the track
+  // changes size (e.g. as photos finish loading) via the ResizeObserver.
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
@@ -217,12 +258,48 @@ export default function PhotoCarousel() {
     // Momentum will coast in rAF loop; auto-scroll resumes when mouse leaves
   };
 
-  const onCardClick = (e: React.MouseEvent) => {
-    if (moved.current) {
-      e.preventDefault();
-      moved.current = false;
-    }
+  // ── Lightbox handlers ──
+  const openLightbox = (photoIndex: number) => {
+    lightboxOpenRef.current = true;
+    setLightboxIndex(photoIndex);
   };
+  const closeLightbox = () => {
+    lightboxOpenRef.current = false;
+    setLightboxIndex(null);
+  };
+  const showPrev = () =>
+    setLightboxIndex((idx) =>
+      idx === null ? idx : (idx - 1 + PHOTOS.length) % PHOTOS.length,
+    );
+  const showNext = () =>
+    setLightboxIndex((idx) => (idx === null ? idx : (idx + 1) % PHOTOS.length));
+
+  // Click vs. drag: if the pointer moved, it was a drag — ignore the click.
+  const onCardClick = (photoIndex: number, src: string) => {
+    if (moved.current) {
+      moved.current = false;
+      return;
+    }
+    if (src) openLightbox(photoIndex);
+  };
+
+  // ── Keyboard (Esc / ← / →) + body scroll lock while the viewer is open ──
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      else if (e.key === "ArrowLeft") showPrev();
+      else if (e.key === "ArrowRight") showNext();
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeBtnRef.current?.focus();
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
 
   // ── Arrow hops ──
   const scrollByAmount = (dir: 1 | -1) => {
@@ -245,152 +322,284 @@ export default function PhotoCarousel() {
     requestAnimationFrame(animHop);
   };
 
+  // ── Current photo shown in the viewer ──
+  const lbPhoto = lightboxIndex !== null ? PHOTOS[lightboxIndex] : null;
+  const lbSrc = lbPhoto
+    ? typeof lbPhoto === "string"
+      ? lbPhoto
+      : lbPhoto.src
+    : "";
+  const lbAlt = lbPhoto
+    ? typeof lbPhoto === "string"
+      ? ""
+      : (lbPhoto.alt ?? "")
+    : "";
+
   return (
-    <section
-      id="photos"
-      className={styles.section}
-      onMouseEnter={onSectionEnter}
-      onMouseLeave={onSectionLeave}
-    >
-      <div className={styles.header}>
-        <p className="section-eyebrow">Our Moments</p>
-        <h2 className="section-heading">Gallery</h2>
-        <div className="ornament">✦</div>
-        <p className={styles.note}>Pressed memories, coming soon</p>
-      </div>
-
-      <div className={styles.carouselWrap}>
-        <button
-          type="button"
-          className={`${styles.arrow} ${styles.arrowPrev}`}
-          onClick={() => scrollByAmount(-1)}
-          aria-label="Previous photos"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M9,1 L3,7 L9,13"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-
-        {/* viewportRef clips overflow; trackRef moves via transform */}
-        <div
-          ref={viewportRef}
-          className={styles.viewport}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEnd}
-          onTouchCancel={onTouchEnd}
-          role="region"
-          aria-label="Photo gallery — auto-scrolling, swipe or drag to take control"
-          tabIndex={0}
-        >
-          <div ref={trackRef} className={styles.track}>
-            {cards.map((c, i) => (
-              <div
-                key={i}
-                className={`${styles.card} ${styles[c.tone]}`}
-                style={{ height: c.h }}
-                onClick={onCardClick}
-                aria-hidden={i >= CARDS.length}
-              >
-                <div className={styles.placeholder}>
-                  <svg
-                    width="48"
-                    height="48"
-                    viewBox="0 0 48 48"
-                    fill="none"
-                    aria-hidden="true"
-                    className={styles.bloomIcon}
-                  >
-                    <path
-                      d="M24,44 Q23,32 24,20"
-                      stroke="currentColor"
-                      strokeWidth="1.2"
-                      fill="none"
-                      opacity="0.55"
-                    />
-                    <path
-                      d="M24,32 Q16,28 12,22 Q18,26 24,32Z"
-                      fill="currentColor"
-                      opacity="0.35"
-                    />
-                    <path
-                      d="M24,32 Q32,28 36,22 Q30,26 24,32Z"
-                      fill="currentColor"
-                      opacity="0.35"
-                    />
-                    <ellipse
-                      cx="24"
-                      cy="18"
-                      rx="9"
-                      ry="8"
-                      fill="currentColor"
-                      opacity="0.25"
-                    />
-                    <ellipse
-                      cx="24"
-                      cy="18"
-                      rx="6"
-                      ry="5.5"
-                      fill="currentColor"
-                      opacity="0.4"
-                    />
-                    <circle
-                      cx="24"
-                      cy="18"
-                      r="2.5"
-                      fill="currentColor"
-                      opacity="0.85"
-                    />
-                  </svg>
-                </div>
-                <span className={styles.tabTopLeft} aria-hidden="true" />
-                <span className={styles.tabBottomRight} aria-hidden="true" />
-              </div>
-            ))}
-          </div>
+    <>
+      <section
+        id="photos"
+        className={styles.section}
+        onMouseEnter={onSectionEnter}
+        onMouseLeave={onSectionLeave}
+      >
+        <div className={styles.header}>
+          <p className="section-eyebrow">Our Moments</p>
+          <h2 className="section-heading">Gallery</h2>
+          <div className="ornament">✦</div>
+          <p className={styles.note}>Pressed memories</p>
         </div>
 
-        <button
-          type="button"
-          className={`${styles.arrow} ${styles.arrowNext}`}
-          onClick={() => scrollByAmount(1)}
-          aria-label="Next photos"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            aria-hidden="true"
+        <div className={styles.carouselWrap}>
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.arrowPrev}`}
+            onClick={() => scrollByAmount(-1)}
+            aria-label="Previous photos"
           >
-            <path
-              d="M5,1 L11,7 L5,13"
-              stroke="currentColor"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M9,1 L3,7 L9,13"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
 
-      <p className={styles.hint}>Swipe or drag to explore</p>
-    </section>
+          {/* viewportRef clips overflow; trackRef moves via transform */}
+          <div
+            ref={viewportRef}
+            className={styles.viewport}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            onTouchCancel={onTouchEnd}
+            role="region"
+            aria-label="Photo gallery — auto-scrolling, swipe or drag to take control"
+            tabIndex={0}
+          >
+            <div ref={trackRef} className={styles.track}>
+              {slides.map((p, i) => {
+                const src = typeof p === "string" ? p : p.src;
+                const alt = typeof p === "string" ? "" : (p.alt ?? "");
+                const tone = TONES[i % TONES.length];
+                const isClone = i >= PHOTOS.length;
+
+                return (
+                  <div
+                    key={i}
+                    className={`${styles.card} ${styles[tone]}`}
+                    onClick={() => onCardClick(i % PHOTOS.length, src)}
+                    aria-hidden={isClone}
+                  >
+                    {src ? (
+                      <img
+                        src={src}
+                        alt={alt}
+                        className={styles.photo}
+                        draggable={false}
+                      />
+                    ) : (
+                      // Fallback shown for any entry left without a src
+                      <div className={styles.placeholder}>
+                        <svg
+                          width="48"
+                          height="48"
+                          viewBox="0 0 48 48"
+                          fill="none"
+                          aria-hidden="true"
+                          className={styles.bloomIcon}
+                        >
+                          <path
+                            d="M24,44 Q23,32 24,20"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                            fill="none"
+                            opacity="0.55"
+                          />
+                          <path
+                            d="M24,32 Q16,28 12,22 Q18,26 24,32Z"
+                            fill="currentColor"
+                            opacity="0.35"
+                          />
+                          <path
+                            d="M24,32 Q32,28 36,22 Q30,26 24,32Z"
+                            fill="currentColor"
+                            opacity="0.35"
+                          />
+                          <ellipse
+                            cx="24"
+                            cy="18"
+                            rx="9"
+                            ry="8"
+                            fill="currentColor"
+                            opacity="0.25"
+                          />
+                          <ellipse
+                            cx="24"
+                            cy="18"
+                            rx="6"
+                            ry="5.5"
+                            fill="currentColor"
+                            opacity="0.4"
+                          />
+                          <circle
+                            cx="24"
+                            cy="18"
+                            r="2.5"
+                            fill="currentColor"
+                            opacity="0.85"
+                          />
+                        </svg>
+                      </div>
+                    )}
+                    <span className={styles.tabTopLeft} aria-hidden="true" />
+                    <span
+                      className={styles.tabBottomRight}
+                      aria-hidden="true"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.arrowNext}`}
+            onClick={() => scrollByAmount(1)}
+            aria-label="Next photos"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M5,1 L11,7 L5,13"
+                stroke="currentColor"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <p className={styles.hint}>Swipe or drag to explore · tap to enlarge</p>
+      </section>
+
+      {/* ── Full-screen photo viewer ── */}
+      {lightboxIndex !== null && (
+        <div
+          className={styles.lightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Photo viewer"
+          onClick={closeLightbox}
+        >
+          <button
+            ref={closeBtnRef}
+            type="button"
+            className={styles.lbClose}
+            onClick={closeLightbox}
+            aria-label="Close"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M5,5 L15,15 M15,5 L5,15"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+
+          {PHOTOS.length > 1 && (
+            <button
+              type="button"
+              className={styles.lbPrev}
+              onClick={(e) => {
+                e.stopPropagation();
+                showPrev();
+              }}
+              aria-label="Previous photo"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M9,1 L3,7 L9,13"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+
+          <img
+            className={styles.lbImage}
+            src={lbSrc}
+            alt={lbAlt}
+            draggable={false}
+            onClick={(e) => e.stopPropagation()}
+          />
+
+          {PHOTOS.length > 1 && (
+            <button
+              type="button"
+              className={styles.lbNext}
+              onClick={(e) => {
+                e.stopPropagation();
+                showNext();
+              }}
+              aria-label="Next photo"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5,1 L11,7 L5,13"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
+      )}
+    </>
   );
 }
