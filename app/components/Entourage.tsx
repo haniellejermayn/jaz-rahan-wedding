@@ -18,61 +18,79 @@ const groups: Group[] = [
     label: "Parents of the Groom",
     variant: "pairs",
     pairs: [
-      { partnerA: "Engr. Rolando M. Dolor", partnerB: "Amie E. Dolor" },
+      { partnerA: "Engr. Rolando M. Dolor", partnerB: "Mrs. Amie E. Dolor" },
     ],
   },
   {
     label: "Parents of the Bride",
     variant: "pairs",
     pairs: [
-      { partnerA: "Jeffry C. Chua", partnerB: "Hazel Gay E. Chua" },
+      { partnerA: "Mr. Jeffry C. Chua", partnerB: "Mrs. Hazel Gay E. Chua" },
     ],
   },
   {
     label: "Principal Sponsors",
     variant: "pairs",
     pairs: [
-      { partnerA: "Cong. Gil Acosta Jr.", partnerB: "Former V. Mayor Maria Nancy M. Socrates" },
-      { partnerA: 'Councilor Jonjie V. Rodriguez', partnerB: "Dra. Leah M. Dolor" },
-      { partnerA: "Jerickson C. Chua", partnerB: "Sheryl Jean A. Chua" },
-      { partnerA: "Hon. Miguel Aaron D. Palayon", partnerB: "Helen C. Bundal" },
-      { partnerA: 'Former V. Mayor Willy A. Dimatatac', partnerB: "Alma A. Chua" },
-      { partnerA: "Engr. Josue S. Estiandan", partnerB: "Mary Grace B. Chua" },
-      { partnerA: "Rogel R. Austria", partnerB: "Joy E. Austria" },
+      {
+        partnerA: "Cong. Gil Acosta Jr.",
+        partnerB: "Former V. Mayor Maria Nancy M. Socrates",
+      },
+      {
+        partnerA: "Councilor Jonjie V. Rodriguez",
+        partnerB: "Dra. Leah M. Dolor",
+      },
+      {
+        partnerA: "Mr. Jerickson C. Chua",
+        partnerB: "Mrs. Sheryl Jean A. Chua",
+      },
+      {
+        partnerA: "Hon. Miguel Aaron D. Palayon",
+        partnerB: "Mrs. Helen C. Bundal",
+      },
+      {
+        partnerA: "Former V. Mayor Willy A. Dimatatac",
+        partnerB: "Mrs. Alma A. Chua",
+      },
+      {
+        partnerA: "Engr. Josue S. Estiandan",
+        partnerB: "Mrs. Mary Grace B. Chua",
+      },
+      { partnerA: "Mr. Rogel R. Austria", partnerB: "Mrs. Joy E. Austria" },
     ],
   },
   {
     label: "Best Men",
     people: [
-      { name: "Brian John Ocampo" },
+      { name: "Mr. Brian John Ocampo" },
       { name: "Engr. Ralph Julius Santos" },
     ],
   },
   {
     label: "Maids of Honor",
     people: [
-      { name: "Hosannah Jemimah E. Chua" },
-      { name: "Hanielle Jermayn E. Chua" },
+      { name: "Ms. Hosannah Jemimah E. Chua" },
+      { name: "Ms. Hanielle Jermayn E. Chua" },
     ],
   },
   {
     label: "Groomsmen",
     people: [
-      { name: "Ralph Ajlen E. Dolor" },
+      { name: "Mr. Ralph Ajlen E. Dolor" },
       { name: "Engr. Patrick Jolo E. Dolor" },
-      { name: "Hosea Jeffrey E. Chua" },
-      { name: "Jozef Gabriel E. Chua" },
-      { name: "Carlos Chester Esquivias" },
+      { name: "Mr. Hosea Jeffrey E. Chua" },
+      { name: "Mr. Jozef Gabriel E. Chua" },
+      { name: "Mr. Carlos Chester Esquivias" },
     ],
   },
   {
     label: "Bridesmaids",
     people: [
       { name: "Atty. Euna Angelica E. Dolor" },
-      { name: "Mira Althea E. Dolor" },
-      { name: "Julia Chanel A. Chua" },
-      { name: "Zamantha Mae F. Ballares" },
-      { name: "Janyx Naomi Uy" },
+      { name: "Ms. Mira Althea E. Dolor" },
+      { name: "Ms. Julia Chanel A. Chua" },
+      { name: "Ms. Zamantha Mae F. Ballares" },
+      { name: "Ms. Janyx Naomi Uy" },
     ],
   },
   {
@@ -138,12 +156,18 @@ export default function Entourage() {
                   {g.pairs!.map((pair, i) => (
                     <li key={i} className={styles.pairRow}>
                       <span className={styles.pairCard}>
-                        <span className={styles.pairCardName}>{pair.partnerA}</span>
+                        <span className={styles.pairCardName}>
+                          {pair.partnerA}
+                        </span>
                       </span>
-                      <span className={styles.pairConnector} aria-hidden="true">
-                      </span>
+                      <span
+                        className={styles.pairConnector}
+                        aria-hidden="true"
+                      ></span>
                       <span className={styles.pairCard}>
-                        <span className={styles.pairCardName}>{pair.partnerB}</span>
+                        <span className={styles.pairCardName}>
+                          {pair.partnerB}
+                        </span>
                       </span>
                     </li>
                   ))}
