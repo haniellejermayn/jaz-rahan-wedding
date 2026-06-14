@@ -6,6 +6,7 @@ import styles from "./Nav.module.css";
 
 const links = [
   { href: "#welcome", label: "Welcome" },
+  { href: "#photos", label: "Gallery" },
   { href: "#entourage", label: "Entourage" },
   { href: "#attire", label: "Attire" },
   { href: "#venue", label: "Venue" },
