@@ -97,8 +97,8 @@ export default function Registry() {
   return (
     <section id="registry" className={styles.section}>
       <div className={styles.inner}>
-        <p className="section-eyebrow reveal">A Note on Gifts</p>
-        <h2 className="section-heading reveal delay-1">With Love</h2>
+        <p className="section-eyebrow reveal">Your Presence Is Enough</p>
+        <h2 className="section-heading reveal delay-1">Gifts Note</h2>
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.prose} reveal delay-2`}>
