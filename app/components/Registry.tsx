@@ -102,10 +102,9 @@ export default function Registry() {
         <div className="ornament reveal delay-2">✦</div>
 
         <p className={`${styles.prose} reveal delay-2`}>
-          Your company at our wedding is gift enough. Should you wish to send a
-          gift as we begin this new chapter, monetary gifts may be sent through
-          the options below. Please know that your love, prayers, and presence
-          are more than enough.
+          Please know that your love, prayers, and presence are more than
+          enough. Should you wish to send a gift as we begin this new chapter,
+          monetary gifts may be sent through the options below.
         </p>
 
         <div className={`${styles.methods} reveal delay-3`}>
