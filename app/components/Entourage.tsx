@@ -54,7 +54,7 @@ const groups: Group[] = [
       },
       {
         partnerA: "Engr. Josue S. Estiandan",
-        partnerB: "Mrs. Mary Grace B. Chua",
+        partnerB: "Ms. Mary Grace B. Chua",
       },
       { partnerA: "Mr. Rogel R. Austria", partnerB: "Mrs. Joy E. Austria" },
     ],
