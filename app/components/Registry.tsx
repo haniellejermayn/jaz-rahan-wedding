@@ -222,12 +222,6 @@ export default function Registry() {
             </div>
           ))}
         </div>
-
-        <p className={`${styles.note} reveal delay-3`}>
-          <em>
-            A heartfelt card and your company on the day are always enough.
-          </em>
-        </p>
       </div>
 
       {activeQr && (
