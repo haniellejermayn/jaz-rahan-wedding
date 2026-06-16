@@ -97,7 +97,7 @@ const groups: Group[] = [
     label: "Bearers",
     people: [
       { name: "Carmelo Zion A. Veloria", role: "Ring" },
-      { name: "Andreo Miguel Villanueva", role: "Bible" },
+      { name: "Andreo Miguel A. Villanueva", role: "Bible" },
       { name: "Leonne Sebastien P. Ocampo", role: "Coin" },
     ],
   },
