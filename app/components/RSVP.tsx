@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useMemo, useCallback } from "react";
 import styles from "./RSVP.module.css";
 
@@ -9,7 +10,8 @@ import styles from "./RSVP.module.css";
 /* Paste your deployed Google Apps Script Web App URL here.
    See RSVP_SETUP.md for the 5-minute setup. Leave as "" to run the
    form in preview mode (nothing is saved). */
-const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbyaGFN1WXcS2TtRQAcZ7oVqGrqqRtWn-R6NNPLDNmzTvKZ8F9p1kY6QQuJPP-EDlXXa/exec";
+const RSVP_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbyaGFN1WXcS2TtRQAcZ7oVqGrqqRtWn-R6NNPLDNmzTvKZ8F9p1kY6QQuJPP-EDlXXa/exec";
 
 /* The couple's real contact details, shown on the form (for trouble or
    changes) and in the confirmation. */
@@ -33,14 +35,60 @@ const telHref = (phone: string) => `tel:${phone.replace(/\D/g, "")}`;
 const MAX_PARTY_GUESTS = 20; // additional guests, excluding the respondent
 
 type Guest = { firstName: string; lastName: string };
-type Status = "idle" | "checking" | "confirmDuplicate" | "submitting" | "success" | "error";
 
-type ServerName = { first: string; last: string };
+type Status =
+  | "idle"
+  | "checking"
+  | "confirmDuplicate"
+  | "submitting"
+  | "success"
+  | "error";
 
-const normalize = (s: string) =>
-  s.trim().toLowerCase().replace(/\s+/g, " ");
-const fullKey = (first: string, last: string) =>
+/*
+  Data returned by Google Apps Script is external runtime data, so do not
+  assume every value is a string. The script may return either:
+
+  { first: "Juan", last: "Dela Cruz" }
+  { firstName: "Juan", lastName: "Dela Cruz" }
+  ["Juan", "Dela Cruz"]
+
+  This flexible type and the helpers below prevent a malformed sheet row
+  from crashing the RSVP page.
+*/
+type ServerName = {
+  first?: unknown;
+  last?: unknown;
+  firstName?: unknown;
+  lastName?: unknown;
+  first_name?: unknown;
+  last_name?: unknown;
+};
+
+const normalize = (value: unknown) =>
+  String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, " ");
+
+const fullKey = (first: unknown, last: unknown) =>
   `${normalize(first)} ${normalize(last)}`.trim();
+
+const getServerNameKey = (value: unknown) => {
+  if (Array.isArray(value)) {
+    return fullKey(value[0], value[1]);
+  }
+
+  if (!value || typeof value !== "object") {
+    return "";
+  }
+
+  const name = value as ServerName;
+
+  return fullKey(
+    name.first ?? name.firstName ?? name.first_name,
+    name.last ?? name.lastName ?? name.last_name,
+  );
+};
 
 export default function RSVP() {
   /* ── Core fields ── */
@@ -61,20 +109,27 @@ export default function RSVP() {
   const [dupMatches, setDupMatches] = useState<string[]>([]);
 
   /* ── Existing names (for the friendly real-time duplicate check) ── */
-  const [existing, setExisting] = useState<ServerName[]>([]);
+  const [existing, setExisting] = useState<unknown[]>([]);
 
   /* Fetch the list of names already in the sheet on mount, so we can
      gently flag possible duplicates while the guest fills the form.
      Only names are returned by the script — never contact details. */
   useEffect(() => {
     if (!RSVP_ENDPOINT) return;
+
     let cancelled = false;
+
     fetch(`${RSVP_ENDPOINT}?action=names`)
       .then((r) => r.json())
       .then((data) => {
-        if (!cancelled && Array.isArray(data?.names)) setExisting(data.names);
+        if (!cancelled && Array.isArray(data?.names)) {
+          setExisting(data.names);
+        }
       })
-      .catch(() => {/* offline / not reachable — server still re-checks on submit */});
+      .catch(() => {
+        /* offline / not reachable — server still re-checks on submit */
+      });
+
     return () => {
       cancelled = true;
     };
@@ -83,12 +138,16 @@ export default function RSVP() {
   /* Lock body scroll + allow Escape to dismiss while the success modal is open */
   useEffect(() => {
     if (!(status === "success" && modalOpen)) return;
+
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setModalOpen(false);
     };
+
     window.addEventListener("keydown", onKey);
+
     return () => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener("keydown", onKey);
@@ -96,16 +155,25 @@ export default function RSVP() {
   }, [status, modalOpen]);
 
   const existingKeys = useMemo(
-    () => new Set(existing.map((n) => fullKey(n.first, n.last))),
+    () =>
+      new Set(existing.map(getServerNameKey).filter((key) => key.length > 0)),
     [existing],
   );
 
   /* Keep the guests array length in sync with the chosen party size */
   useEffect(() => {
-    const n = Math.min(Math.max(parseInt(groupCount || "0", 10) || 0, 0), MAX_PARTY_GUESTS);
+    const n = Math.min(
+      Math.max(parseInt(groupCount || "0", 10) || 0, 0),
+      MAX_PARTY_GUESTS,
+    );
+
     setGuests((prev) => {
       const next = prev.slice(0, n);
-      while (next.length < n) next.push({ firstName: "", lastName: "" });
+
+      while (next.length < n) {
+        next.push({ firstName: "", lastName: "" });
+      }
+
       return next;
     });
   }, [groupCount]);
@@ -126,40 +194,66 @@ export default function RSVP() {
   );
 
   const setGuest = (i: number, field: keyof Guest, value: string) =>
-    setGuests((prev) => prev.map((g, idx) => (idx === i ? { ...g, [field]: value } : g)));
+    setGuests((prev) =>
+      prev.map((g, idx) => (idx === i ? { ...g, [field]: value } : g)),
+    );
 
   /* Clear a single field's error the moment the guest starts fixing it,
      so the inline message and the summary stay accurate. */
   const clearError = (key: string) =>
     setErrors((prev) => {
       if (!prev[key]) return prev;
+
       const next = { ...prev };
       delete next[key];
+
       return next;
     });
 
   /* ── Validation — returns the error map so the caller can react ── */
   const validate = () => {
     const e: Record<string, string> = {};
-    if (!firstName.trim()) e.firstName = "Please enter your first name.";
-    if (!lastName.trim()) e.lastName = "Please enter your last name.";
-    if (!/^09\d{9}$/.test(contact.trim()))
+
+    if (!firstName.trim()) {
+      e.firstName = "Please enter your first name.";
+    }
+
+    if (!lastName.trim()) {
+      e.lastName = "Please enter your last name.";
+    }
+
+    if (!/^09\d{9}$/.test(contact.trim())) {
       e.contact = "Please use an 11-digit number, e.g. 09123456789.";
-    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+    }
+
+    if (email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       e.email = "That email doesn't look quite right.";
-    if (!attending) e.attending = "Please let us know if you can make it.";
+    }
+
+    if (!attending) {
+      e.attending = "Please let us know if you can make it.";
+    }
 
     if (attending === "yes") {
-      if (!isGroup) e.isGroup = "Please choose one.";
+      if (!isGroup) {
+        e.isGroup = "Please choose one.";
+      }
+
       if (isGroup === "yes" && !respondentAlready) {
         const n = parseInt(groupCount || "0", 10);
-        if (!n || n < 1) e.groupCount = "How many guests are joining you?";
+
+        if (!n || n < 1) {
+          e.groupCount = "How many guests are joining you?";
+        }
+
         guests.forEach((g, i) => {
-          if (!g.firstName.trim() || !g.lastName.trim())
+          if (!g.firstName.trim() || !g.lastName.trim()) {
             e[`guest-${i}`] = "Please enter both names.";
+          }
         });
       }
     }
+
     setErrors(e);
     return e;
   };
@@ -167,17 +261,36 @@ export default function RSVP() {
   /* Scroll to and focus the first field that has an error. */
   const focusFirstError = (errs: Record<string, string>) => {
     if (typeof document === "undefined") return;
-    const order = ["firstName", "lastName", "contact", "email", "attending", "isGroup", "groupCount"];
+
+    const order = [
+      "firstName",
+      "lastName",
+      "contact",
+      "email",
+      "attending",
+      "isGroup",
+      "groupCount",
+    ];
+
     guests.forEach((_, i) => order.push(`guest-${i}`));
+
     const firstKey = order.find((k) => errs[k]);
+
     if (!firstKey) return;
+
     const el = document.getElementById(`rsvp-field-${firstKey}`);
+
     if (!el) return;
+
     el.scrollIntoView({ behavior: "smooth", block: "center" });
+
     const focusable = el.matches("input, textarea, select, button")
       ? (el as HTMLElement)
       : el.querySelector<HTMLElement>("input, textarea, select, button");
-    if (focusable) window.setTimeout(() => focusable.focus({ preventScroll: true }), 60);
+
+    if (focusable) {
+      window.setTimeout(() => focusable.focus({ preventScroll: true }), 60);
+    }
   };
 
   /* ── Build the payload sent to the Apps Script ──
@@ -189,10 +302,16 @@ export default function RSVP() {
     contact: contact.trim(),
     email: email.trim(),
     attending: attending === "yes" ? "Yes" : "No",
-    isGroup: attending === "yes" && isGroup === "yes" && !respondentAlready ? "Yes" : "No",
+    isGroup:
+      attending === "yes" && isGroup === "yes" && !respondentAlready
+        ? "Yes"
+        : "No",
     guests:
       attending === "yes" && isGroup === "yes" && !respondentAlready
-        ? guests.map((g) => ({ firstName: g.firstName.trim(), lastName: g.lastName.trim() }))
+        ? guests.map((g) => ({
+            firstName: g.firstName.trim(),
+            lastName: g.lastName.trim(),
+          }))
         : [],
   });
 
@@ -216,6 +335,7 @@ export default function RSVP() {
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(buildPayload(confirmDuplicate)),
       });
+
       const data = await res.json();
 
       if (data.result === "duplicate") {
@@ -223,11 +343,13 @@ export default function RSVP() {
         setStatus("confirmDuplicate");
         return;
       }
+
       if (data.result === "success") {
         setStatus("success");
         setModalOpen(true);
         return;
       }
+
       throw new Error(data.message || "Unexpected response");
     } catch {
       setServerMsg(
@@ -239,11 +361,14 @@ export default function RSVP() {
 
   const handleSubmit = (ev: React.FormEvent) => {
     ev.preventDefault();
+
     const e = validate();
+
     if (Object.keys(e).length > 0) {
       focusFirstError(e);
       return;
     }
+
     send(false);
   };
 
@@ -266,64 +391,106 @@ export default function RSVP() {
           ) : (
             <>
               <p className={`${styles.prose} reveal delay-2`}>
-                To help us prepare with care, please let us know if you will be joining us.
+                To help us prepare with care, please let us know if you will be
+                joining us.
               </p>
 
               {/* Deadline — the focal piece, kept from the original design */}
               <div className={`${styles.deadlineBlock} reveal delay-3`}>
                 <span className={styles.deadlineEyebrow}>Please Reply By</span>
                 <span className={styles.deadlineDate}>June 30, 2026</span>
-                <span className={styles.deadlineNote}>Three weeks before the wedding</span>
+                <span className={styles.deadlineNote}>
+                  Three weeks before the wedding
+                </span>
               </div>
 
               {/* ── The form ── (no .reveal on dynamic fields: the reveal
                   observer only runs once on mount, so fields added later
                   would never become visible). */}
-              <form className={`${styles.form} reveal delay-3`} onSubmit={handleSubmit} noValidate>
+              <form
+                className={`${styles.form} reveal delay-3`}
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 {/* Names — one field per row */}
-                <Field id="rsvp-field-firstName" label="First Name" error={errors.firstName}>
+                <Field
+                  id="rsvp-field-firstName"
+                  label="First Name"
+                  error={errors.firstName}
+                >
                   <input
                     className={styles.input}
                     value={firstName}
-                    onChange={(e) => { setFirstName(e.target.value); clearError("firstName"); }}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                      clearError("firstName");
+                    }}
                     autoComplete="given-name"
                   />
                 </Field>
-                <Field id="rsvp-field-lastName" label="Last Name" error={errors.lastName}>
+
+                <Field
+                  id="rsvp-field-lastName"
+                  label="Last Name"
+                  error={errors.lastName}
+                >
                   <input
                     className={styles.input}
                     value={lastName}
-                    onChange={(e) => { setLastName(e.target.value); clearError("lastName"); }}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                      clearError("lastName");
+                    }}
                     autoComplete="family-name"
                   />
                 </Field>
 
                 {/* Contact + email */}
-                <Field id="rsvp-field-contact" label="Contact Number" hint="Main point of contact · 11 digits" error={errors.contact}>
+                <Field
+                  id="rsvp-field-contact"
+                  label="Contact Number"
+                  hint="Main point of contact · 11 digits"
+                  error={errors.contact}
+                >
                   <input
                     className={styles.input}
                     value={contact}
                     inputMode="numeric"
                     placeholder="09123456789"
                     maxLength={11}
-                    onChange={(e) => { setContact(e.target.value.replace(/[^\d]/g, "")); clearError("contact"); }}
+                    onChange={(e) => {
+                      setContact(e.target.value.replace(/[^\d]/g, ""));
+                      clearError("contact");
+                    }}
                     autoComplete="tel"
                   />
                 </Field>
 
-                <Field id="rsvp-field-email" label="Email" hint="Optional" error={errors.email}>
+                <Field
+                  id="rsvp-field-email"
+                  label="Email"
+                  hint="Optional"
+                  error={errors.email}
+                >
                   <input
                     className={styles.input}
                     type="email"
                     value={email}
                     placeholder="you@email.com"
-                    onChange={(e) => { setEmail(e.target.value); clearError("email"); }}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      clearError("email");
+                    }}
                     autoComplete="email"
                   />
                 </Field>
 
                 {/* Attending? */}
-                <Field id="rsvp-field-attending" label="Will you attend?" error={errors.attending}>
+                <Field
+                  id="rsvp-field-attending"
+                  label="Will you attend?"
+                  error={errors.attending}
+                >
                   <Choice
                     name="attending"
                     value={attending}
@@ -343,21 +510,32 @@ export default function RSVP() {
                 {/* If respondent's name already appears in the sheet */}
                 {attending && respondentAlready && (
                   <Note tone="warn">
-                    We found a response already saved under <strong>{firstName} {lastName}</strong>.
-                    If someone in your party replied for you, you may not need to submit again —
-                    please check with them first. If this is a different person with the same name,
-                    go right ahead.
+                    We found a response already saved under{" "}
+                    <strong>
+                      {firstName} {lastName}
+                    </strong>
+                    . If someone in your party replied for you, you may not need
+                    to submit again — please check with them first. If this is a
+                    different person with the same name, go right ahead.
                   </Note>
                 )}
 
                 {/* ── Attending = YES ── */}
                 {attending === "yes" && (
                   <div className={styles.revealBlock}>
-                    <Field id="rsvp-field-isGroup" label="Are you replying for a group or party?" hint="A couple, family, or friends replying together" error={errors.isGroup}>
+                    <Field
+                      id="rsvp-field-isGroup"
+                      label="Are you replying for a group or party?"
+                      hint="A couple, family, or friends replying together"
+                      error={errors.isGroup}
+                    >
                       <Choice
                         name="isGroup"
                         value={isGroup}
-                        onChange={(v) => { setIsGroup(v as "yes" | "no"); clearError("isGroup"); }}
+                        onChange={(v) => {
+                          setIsGroup(v as "yes" | "no");
+                          clearError("isGroup");
+                        }}
                         options={[
                           { value: "yes", label: "Yes, for a group" },
                           { value: "no", label: "Just myself" },
@@ -369,13 +547,19 @@ export default function RSVP() {
                     {isGroup === "yes" && !respondentAlready && (
                       <div className={styles.revealBlock}>
                         <Note tone="info">
-                          A gentle note: our venue can only welcome the guests named on your
-                          invitation. Please add only those who were invited — and kindly note
-                          that we&apos;re unable to accommodate children apart from those in the
+                          A gentle note: our venue can only welcome the guests
+                          named on your invitation. Please add only those who
+                          were invited — and kindly note that we&apos;re unable
+                          to accommodate children apart from those in the
                           entourage. Thank you so much for understanding.
                         </Note>
 
-                        <Field id="rsvp-field-groupCount" label="How many guests are joining you?" hint="Not counting yourself" error={errors.groupCount}>
+                        <Field
+                          id="rsvp-field-groupCount"
+                          label="How many guests are joining you?"
+                          hint="Not counting yourself"
+                          error={errors.groupCount}
+                        >
                           <input
                             className={`${styles.input} ${styles.inputNarrow}`}
                             value={groupCount}
@@ -383,7 +567,11 @@ export default function RSVP() {
                             placeholder="e.g. 2"
                             onChange={(e) => {
                               const raw = e.target.value.replace(/[^\d]/g, "");
-                              const n = Math.min(parseInt(raw || "0", 10) || 0, MAX_PARTY_GUESTS);
+                              const n = Math.min(
+                                parseInt(raw || "0", 10) || 0,
+                                MAX_PARTY_GUESTS,
+                              );
+
                               setGroupCount(raw === "" ? "" : String(n));
                               clearError("groupCount");
                             }}
@@ -391,29 +579,50 @@ export default function RSVP() {
                         </Field>
 
                         {guests.map((g, i) => (
-                          <div key={i} id={`rsvp-field-guest-${i}`} className={styles.guestCard}>
-                            <span className={styles.guestTag}>Guest {i + 1}</span>
+                          <div
+                            key={i}
+                            id={`rsvp-field-guest-${i}`}
+                            className={styles.guestCard}
+                          >
+                            <span className={styles.guestTag}>
+                              Guest {i + 1}
+                            </span>
+
                             <div className={styles.row}>
                               <Field label="First Name" error={undefined}>
                                 <input
                                   className={styles.input}
                                   value={g.firstName}
-                                  onChange={(e) => { setGuest(i, "firstName", e.target.value); clearError(`guest-${i}`); }}
+                                  onChange={(e) => {
+                                    setGuest(i, "firstName", e.target.value);
+                                    clearError(`guest-${i}`);
+                                  }}
                                 />
                               </Field>
-                              <Field label="Last Name" error={errors[`guest-${i}`]}>
+
+                              <Field
+                                label="Last Name"
+                                error={errors[`guest-${i}`]}
+                              >
                                 <input
                                   className={styles.input}
                                   value={g.lastName}
-                                  onChange={(e) => { setGuest(i, "lastName", e.target.value); clearError(`guest-${i}`); }}
+                                  onChange={(e) => {
+                                    setGuest(i, "lastName", e.target.value);
+                                    clearError(`guest-${i}`);
+                                  }}
                                 />
                               </Field>
                             </div>
+
                             {guestAlready(g) && (
                               <Note tone="warn" tight>
-                                It looks like <strong>{g.firstName} {g.lastName}</strong> may have
-                                already RSVP&apos;d. Please check with them before adding, to avoid
-                                a double entry.
+                                It looks like{" "}
+                                <strong>
+                                  {g.firstName} {g.lastName}
+                                </strong>{" "}
+                                may have already RSVP&apos;d. Please check with
+                                them before adding, to avoid a double entry.
                               </Note>
                             )}
                           </div>
@@ -424,10 +633,12 @@ export default function RSVP() {
                     {/* Group, but respondent already appears in the sheet */}
                     {isGroup === "yes" && respondentAlready && (
                       <Note tone="warn">
-                        Because a response already exists under your name, we haven&apos;t opened the
-                        guest fields. If you still need to add people, please confirm with whoever
-                        replied first, or message {COUPLE.groom.name} or {COUPLE.bride.name} (contacts
-                        below) so we can update your party without duplicating it.
+                        Because a response already exists under your name, we
+                        haven&apos;t opened the guest fields. If you still need
+                        to add people, please confirm with whoever replied
+                        first, or message {COUPLE.groom.name} or{" "}
+                        {COUPLE.bride.name} (contacts below) so we can update
+                        your party without duplicating it.
                       </Note>
                     )}
                   </div>
@@ -438,20 +649,26 @@ export default function RSVP() {
                   <Note tone="warn">
                     Our list shows a possible match already:
                     {dupMatches.length > 0 && (
-                      <span className={styles.dupList}>{dupMatches.join(" · ")}</span>
+                      <span className={styles.dupList}>
+                        {dupMatches.join(" · ")}
+                      </span>
                     )}
-                    If that was you (or someone replying for you), you may be all set. To add this
-                    response anyway, tap <em>Submit anyway</em> below and we&apos;ll flag it so we can
-                    double-check.
+                    If that was you (or someone replying for you), you may be
+                    all set. To add this response anyway, tap{" "}
+                    <em>Submit anyway</em> below and we&apos;ll flag it so we
+                    can double-check.
                   </Note>
                 )}
 
-                {status === "error" && serverMsg && <Note tone="warn">{serverMsg}</Note>}
+                {status === "error" && serverMsg && (
+                  <Note tone="warn">{serverMsg}</Note>
+                )}
 
                 {/* Summary nudge if any fields need attention */}
                 {hasErrors && (
                   <Note tone="warn" tight>
-                    Please double-check the highlighted fields above, then try again.
+                    Please double-check the highlighted fields above, then try
+                    again.
                   </Note>
                 )}
 
@@ -466,6 +683,7 @@ export default function RSVP() {
                       >
                         Submit anyway
                       </button>
+
                       <button
                         type="button"
                         className={`btn-elegant btn-outline-light ${styles.cancel}`}
@@ -478,11 +696,24 @@ export default function RSVP() {
                     <button
                       type="submit"
                       className={`btn-elegant btn-gold ${styles.submit}`}
-                      disabled={status === "checking" || status === "submitting"}
+                      disabled={
+                        status === "checking" || status === "submitting"
+                      }
                     >
-                      {status === "checking" || status === "submitting" ? "Sending…" : "Send RSVP"}
+                      {status === "checking" || status === "submitting"
+                        ? "Sending…"
+                        : "Send RSVP"}
+
                       {status === "idle" && (
-                        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 11 11"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          aria-hidden="true"
+                        >
                           <path d="M1.5,5.5h8M6,2l3.5,3.5L6,9" />
                         </svg>
                       )}
@@ -539,8 +770,12 @@ function ContactPerson({
         <span className={styles.contactRole}>{role}</span>
         <span className={styles.contactName}>{name}</span>
       </div>
+
       <div className={styles.contactReach}>
-        <a className={styles.contactPhone} href={telHref(phone)}>{phone}</a>
+        <a className={styles.contactPhone} href={telHref(phone)}>
+          {phone}
+        </a>
+
         <a
           className={styles.fbBtn}
           href={facebook}
@@ -572,6 +807,7 @@ function CoupleHelp() {
         Trouble with the form, or need to change something? Reach us anytime —
         by call, text, or a message on Facebook.
       </p>
+
       <CoupleContacts />
     </div>
   );
@@ -587,19 +823,26 @@ function ConfirmedPanel({
   return (
     <div className={styles.confirmedPanel}>
       <SprigMark />
+
       <p className={styles.confirmedLead}>
         Your RSVP is in{firstName ? `, ${firstName}` : ""}.
       </p>
+
       <p className={styles.confirmedProse}>
-        {attending === "yes"
-          ? "We can't wait to celebrate with you."
-          : <>
-              Thank you for letting us know,<br />
-              you'll be dearly missed.
-            </>} 
+        {attending === "yes" ? (
+          "We can't wait to celebrate with you."
+        ) : (
+          <>
+            Thank you for letting us know,
+            <br />
+            you&apos;ll be dearly missed.
+          </>
+        )}
       </p>
+
       <div className={styles.confirmedContacts}>
         <p className={styles.reachLabel}>Need to change anything? Reach us:</p>
+
         <CoupleContacts />
       </div>
     </div>
@@ -630,15 +873,25 @@ function SuccessModal({
           onClick={onClose}
           aria-label="Close"
         >
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.4"
+            aria-hidden="true"
+          >
             <path d="M1,1 L12,12 M12,1 L1,12" strokeLinecap="round" />
           </svg>
         </button>
 
         <SprigMark />
+
         <h3 id="rsvp-modal-title" className={styles.modalLead}>
           Thank You{firstName ? `, ${firstName}` : ""}
         </h3>
+
         <p className={styles.modalProse}>
           {attending === "yes"
             ? "We've received your response and can't wait to celebrate with you. Watch your messages for final details closer to the day."
@@ -646,7 +899,10 @@ function SuccessModal({
         </p>
 
         <div className={styles.modalContacts}>
-          <p className={styles.reachLabel}>Need to change anything? Reach us anytime:</p>
+          <p className={styles.reachLabel}>
+            Need to change anything? Reach us anytime:
+          </p>
+
           <CoupleContacts />
         </div>
 
@@ -681,7 +937,9 @@ function Field({
         {label}
         {hint && <span className={styles.hint}>{hint}</span>}
       </span>
+
       {children}
+
       {error && <span className={styles.error}>{error}</span>}
     </label>
   );
@@ -706,7 +964,9 @@ function Choice({
           key={o.value}
           role="radio"
           aria-checked={value === o.value}
-          className={`${styles.choice} ${value === o.value ? styles.choiceActive : ""}`}
+          className={`${styles.choice} ${
+            value === o.value ? styles.choiceActive : ""
+          }`}
           onClick={() => onChange(o.value)}
           data-name={name}
         >
@@ -728,15 +988,44 @@ function Note({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${styles.note} ${tone === "warn" ? styles.noteWarn : styles.noteInfo} ${tight ? styles.noteTight : ""}`}>
+    <div
+      className={`${styles.note} ${
+        tone === "warn" ? styles.noteWarn : styles.noteInfo
+      } ${tight ? styles.noteTight : ""}`}
+    >
       <span className={styles.noteSprig} aria-hidden="true">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7,12 Q6,8 7,3" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" opacity="0.7" />
-          <path d="M7,7 Q4,5.5 2,4" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.55" />
-          <path d="M7,7 Q10,5.5 12,4" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" opacity="0.55" />
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M7,12 Q6,8 7,3"
+            stroke="currentColor"
+            strokeWidth="0.9"
+            strokeLinecap="round"
+            opacity="0.7"
+          />
+          <path
+            d="M7,7 Q4,5.5 2,4"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            opacity="0.55"
+          />
+          <path
+            d="M7,7 Q10,5.5 12,4"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            opacity="0.55"
+          />
           <circle cx="7" cy="2.5" r="1.2" fill="currentColor" opacity="0.75" />
         </svg>
       </span>
+
       <p>{children}</p>
     </div>
   );
@@ -744,10 +1033,38 @@ function Note({
 
 function SprigMark() {
   return (
-    <svg className={styles.successSprig} width="46" height="46" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M30,54 Q28,34 30,10" stroke="#5BA02F" strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.7" />
-      <path d="M30,30 Q18,24 8,18" stroke="#7DC23D" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.6" />
-      <path d="M30,30 Q42,24 52,18" stroke="#7DC23D" strokeWidth="1" fill="none" strokeLinecap="round" opacity="0.6" />
+    <svg
+      className={styles.successSprig}
+      width="46"
+      height="46"
+      viewBox="0 0 60 60"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M30,54 Q28,34 30,10"
+        stroke="#5BA02F"
+        strokeWidth="1.2"
+        fill="none"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+      <path
+        d="M30,30 Q18,24 8,18"
+        stroke="#7DC23D"
+        strokeWidth="1"
+        fill="none"
+        strokeLinecap="round"
+        opacity="0.6"
+      />
+      <path
+        d="M30,30 Q42,24 52,18"
+        stroke="#7DC23D"
+        strokeWidth="1"
+        fill="none"
+        strokeLinecap="round"
+        opacity="0.6"
+      />
       <g transform="translate(30,9)">
         <circle r="6" fill="#FE569B" opacity="0.25" />
         <circle r="3.5" fill="#FE569B" opacity="0.55" />
